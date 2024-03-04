@@ -16,5 +16,10 @@ namespace BOTVaticano
         {
             InitializeComponent();
         }
+
+        private void btnOi_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
