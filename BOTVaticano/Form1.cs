@@ -26,5 +26,17 @@ namespace BOTVaticano
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+      
+        }
+
+        private void btnPartidas_MouseClick(object sender, MouseEventArgs e)
+        {
+            menuPartidas menuPartidas = new menuPartidas();
+            menuPartidas.Show();
+            this.Hide();
+        }
     }
 }
