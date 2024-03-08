@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MagicTrickServer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace BOTVaticano
         public Menu()
         {
             InitializeComponent();
+            lblVersao.Text = "Versão DLL: " + Jogo.Versao;
         }
 
         private void btnCriar_Click(object sender, EventArgs e)

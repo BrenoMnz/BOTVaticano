@@ -32,6 +32,8 @@
             this.btnCriar = new System.Windows.Forms.Button();
             this.btnLista = new System.Windows.Forms.Button();
             this.btnSair = new System.Windows.Forms.Button();
+            this.lblVersao = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -46,6 +48,7 @@
             // 
             // btnCriar
             // 
+            this.btnCriar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCriar.Location = new System.Drawing.Point(240, 234);
             this.btnCriar.Name = "btnCriar";
             this.btnCriar.Size = new System.Drawing.Size(160, 49);
@@ -73,15 +76,36 @@
             this.btnSair.UseVisualStyleBackColor = true;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
+            // lblVersao
+            // 
+            this.lblVersao.AutoSize = true;
+            this.lblVersao.Location = new System.Drawing.Point(12, 9);
+            this.lblVersao.Name = "lblVersao";
+            this.lblVersao.Size = new System.Drawing.Size(35, 13);
+            this.lblVersao.TabIndex = 4;
+            this.lblVersao.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(263, 170);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "por Cidade do Vaticano";
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 601);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblVersao);
             this.Controls.Add(this.btnSair);
             this.Controls.Add(this.btnLista);
             this.Controls.Add(this.btnCriar);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Menu";
@@ -97,6 +121,8 @@
         private System.Windows.Forms.Button btnCriar;
         private System.Windows.Forms.Button btnLista;
         private System.Windows.Forms.Button btnSair;
+        private System.Windows.Forms.Label lblVersao;
+        private System.Windows.Forms.Label label3;
     }
 }
 
