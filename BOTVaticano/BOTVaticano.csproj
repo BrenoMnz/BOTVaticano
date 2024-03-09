@@ -61,6 +61,12 @@
     <Compile Include="MenuPopupCriar.Designer.cs">
       <DependentUpon>MenuPopupCriar.cs</DependentUpon>
     </Compile>
+    <Compile Include="menuPartidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menuPartidas.Designer.cs">
+      <DependentUpon>menuPartidas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Menu.resx">
@@ -68,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPopupCriar.resx">
       <DependentUpon>MenuPopupCriar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menuPartidas.resx">
+      <DependentUpon>menuPartidas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
