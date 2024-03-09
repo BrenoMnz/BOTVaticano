@@ -29,6 +29,7 @@ namespace BOTVaticano
         private void btnSair_Click(object sender, EventArgs e)
         {
             Close();
+            Application.Exit();
         }
 
         private void btnLista_Click(object sender, EventArgs e)

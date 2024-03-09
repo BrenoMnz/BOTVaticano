@@ -140,7 +140,7 @@ namespace BOTVaticano
             Menu menu = new Menu();
             menu.StartPosition = FormStartPosition.CenterParent;
             menu.Show();
-            this.Hide();
+            Close();
         }
     }
 
