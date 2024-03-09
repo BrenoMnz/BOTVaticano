@@ -45,14 +45,18 @@ namespace BOTVaticano
                 case "Todas":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("T");
+                    retorno += Jogo.ListarPartidas("E");
                     retorno = retorno.Replace("\r", "");
                     retorno = retorno.Substring(0, retorno.Length);
                     partidas = retorno.Split('\n');
-                   
 
-                    foreach(var partida in partidas)
+
+
+
+                    foreach (var partida in partidas)
                     {
                         lstPartidas.Items.Add(partida);
+
                     }
                     break;
 
@@ -107,14 +111,23 @@ namespace BOTVaticano
 
         private void lstPartidas_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+           
             string partidaSelecionada = lstPartidas.SelectedItem.ToString();
+            partidaSelecionada = lstPartidas.SelectedItem.ToString();
             string[] dadosPartida = partidaSelecionada.Split(',');
 
             int idPartida = Convert.ToInt32(dadosPartida[0]);
             string nomePartida = dadosPartida[1];
-            string data = dadosPartida[3];
+            string data = dadosPartida[2];
+            string status = dadosPartida[3];
+            status = status.Replace("A", "Aberta");
+            status = status.Replace("J", "Jogando");
+            status = status.Replace("F", "Finalizada");
+            status = status.Replace("E", "Empate");
 
             txtIdpartida.Text = idPartida.ToString();
+            txtStatus.Text = status.ToString();
 
 
             string retorno = Jogo.ListarJogadores(idPartida);
@@ -133,7 +146,7 @@ namespace BOTVaticano
 
         }
 
-        
+      
     }
 
 
