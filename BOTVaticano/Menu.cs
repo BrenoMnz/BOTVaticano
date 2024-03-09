@@ -30,5 +30,13 @@ namespace BOTVaticano
         {
             Close();
         }
+
+        private void btnLista_Click(object sender, EventArgs e)
+        {
+            MenuPartidas menuPartidas = new MenuPartidas();
+            menuPartidas.StartPosition = FormStartPosition.CenterParent;
+            menuPartidas.Show();
+            this.Hide();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BOTVaticano
 {
-    partial class menuPartidas
+    partial class MenuPartidas
     {
         /// <summary>
         /// Required designer variable.
@@ -37,13 +37,15 @@
             this.lblPartidas = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
+            this.btnEntrar = new System.Windows.Forms.Button();
+            this.btnVoltar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstPartidas
             // 
             this.lstPartidas.FormattingEnabled = true;
             this.lstPartidas.Location = new System.Drawing.Point(9, 100);
-            this.lstPartidas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstPartidas.Margin = new System.Windows.Forms.Padding(2);
             this.lstPartidas.Name = "lstPartidas";
             this.lstPartidas.Size = new System.Drawing.Size(438, 186);
             this.lstPartidas.TabIndex = 2;
@@ -51,13 +53,14 @@
             // 
             // cboTipoPartida
             // 
+            this.cboTipoPartida.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipoPartida.FormattingEnabled = true;
             this.cboTipoPartida.Location = new System.Drawing.Point(9, 10);
-            this.cboTipoPartida.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cboTipoPartida.Margin = new System.Windows.Forms.Padding(2);
             this.cboTipoPartida.Name = "cboTipoPartida";
             this.cboTipoPartida.Size = new System.Drawing.Size(92, 21);
             this.cboTipoPartida.TabIndex = 6;
-            this.cboTipoPartida.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cboTipoPartida.SelectedIndexChanged += new System.EventHandler(this.cboTipoPartida_SelectedIndexChanged);
             // 
             // lblIdpartida
             // 
@@ -83,7 +86,7 @@
             // 
             this.lstJogadores.FormattingEnabled = true;
             this.lstJogadores.Location = new System.Drawing.Point(451, 100);
-            this.lstJogadores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lstJogadores.Margin = new System.Windows.Forms.Padding(2);
             this.lstJogadores.Name = "lstJogadores";
             this.lstJogadores.Size = new System.Drawing.Size(122, 186);
             this.lstJogadores.TabIndex = 9;
@@ -91,7 +94,7 @@
             // txtIdpartida
             // 
             this.txtIdpartida.Location = new System.Drawing.Point(9, 64);
-            this.txtIdpartida.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIdpartida.Margin = new System.Windows.Forms.Padding(2);
             this.txtIdpartida.Name = "txtIdpartida";
             this.txtIdpartida.Size = new System.Drawing.Size(76, 20);
             this.txtIdpartida.TabIndex = 10;
@@ -119,16 +122,37 @@
             // txtStatus
             // 
             this.txtStatus.Location = new System.Drawing.Point(100, 64);
-            this.txtStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtStatus.Margin = new System.Windows.Forms.Padding(2);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(76, 20);
             this.txtStatus.TabIndex = 13;
             // 
-            // menuPartidas
+            // btnEntrar
+            // 
+            this.btnEntrar.Location = new System.Drawing.Point(464, 294);
+            this.btnEntrar.Name = "btnEntrar";
+            this.btnEntrar.Size = new System.Drawing.Size(94, 41);
+            this.btnEntrar.TabIndex = 15;
+            this.btnEntrar.Text = "Entrar";
+            this.btnEntrar.UseVisualStyleBackColor = true;
+            // 
+            // btnVoltar
+            // 
+            this.btnVoltar.Location = new System.Drawing.Point(479, 346);
+            this.btnVoltar.Name = "btnVoltar";
+            this.btnVoltar.Size = new System.Drawing.Size(63, 23);
+            this.btnVoltar.TabIndex = 16;
+            this.btnVoltar.Text = "Voltar";
+            this.btnVoltar.UseVisualStyleBackColor = true;
+            this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
+            // 
+            // MenuPartidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 381);
+            this.Controls.Add(this.btnVoltar);
+            this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblPartidas);
@@ -138,10 +162,9 @@
             this.Controls.Add(this.lblIdpartida);
             this.Controls.Add(this.cboTipoPartida);
             this.Controls.Add(this.lstPartidas);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "menuPartidas";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "MenuPartidas";
             this.Text = "Form2";
-            this.Load += new System.EventHandler(this.menuPartidas_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +180,7 @@
         private System.Windows.Forms.Label lblPartidas;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.Button btnEntrar;
+        private System.Windows.Forms.Button btnVoltar;
     }
 }

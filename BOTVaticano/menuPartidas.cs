@@ -11,9 +11,9 @@ using MagicTrickServer;
 
 namespace BOTVaticano
 {
-    public partial class menuPartidas : Form
+    public partial class MenuPartidas : Form
     {
-        public menuPartidas()
+        public MenuPartidas()
         {
             InitializeComponent();
 
@@ -21,6 +21,8 @@ namespace BOTVaticano
             cboTipoPartida.Items.Add("Finalizadas");
             cboTipoPartida.Items.Add("Jogando");
             cboTipoPartida.Items.Add("Todas");
+            cboTipoPartida.SelectedIndex = 0;
+            lstPartidas.SelectedIndex = 0;
       
            
             this.Controls.Add(cboTipoPartida);
@@ -32,7 +34,7 @@ namespace BOTVaticano
 
        
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboTipoPartida_SelectedIndexChanged(object sender, EventArgs e)
         {
             string tipoPartida = cboTipoPartida.SelectedItem.ToString();
             string retorno;
@@ -45,9 +47,8 @@ namespace BOTVaticano
                 case "Todas":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("T");
-                    retorno += Jogo.ListarPartidas("E");
                     retorno = retorno.Replace("\r", "");
-                    retorno = retorno.Substring(0, retorno.Length);
+                    retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
 
 
@@ -65,7 +66,7 @@ namespace BOTVaticano
                     retorno = Jogo.ListarPartidas("A");
 
                     retorno = retorno.Replace("\r", "");
-                    retorno = retorno.Substring(0, retorno.Length);
+                    retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
                     foreach (var partida in partidas)
                     {
@@ -79,7 +80,7 @@ namespace BOTVaticano
                     retorno = Jogo.ListarPartidas("J");
 
                     retorno = retorno.Replace("\r", "");
-                    retorno = retorno.Substring(0, retorno.Length);
+                    retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
                     foreach (var partida in partidas)
                     {
@@ -90,9 +91,10 @@ namespace BOTVaticano
                 case "Finalizadas":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("F");
+                    retorno += Jogo.ListarPartidas("E");
 
                     retorno = retorno.Replace("\r", "");
-                    retorno = retorno.Substring(0, retorno.Length);
+                    retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
                     foreach (var partida in partidas)
                     {
@@ -101,19 +103,12 @@ namespace BOTVaticano
                     break;
 
             }
-
-        }
-
-        private void menuPartidas_Load(object sender, EventArgs e)
-        {
-
+            lstPartidas.SelectedIndex = 0;
         }
 
         private void lstPartidas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-           
-            string partidaSelecionada = lstPartidas.SelectedItem.ToString();
+            string partidaSelecionada;
             partidaSelecionada = lstPartidas.SelectedItem.ToString();
             string[] dadosPartida = partidaSelecionada.Split(',');
 
@@ -138,15 +133,15 @@ namespace BOTVaticano
                 lstJogadores.Items.Add(jogadores[i]);
             }
 
-
-
-
-            
-
-
         }
 
-      
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            Menu menu = new Menu();
+            menu.StartPosition = FormStartPosition.CenterParent;
+            menu.Show();
+            this.Hide();
+        }
     }
 
 

@@ -65,6 +65,8 @@ namespace BOTVaticano
                 MessageBox.Show("Insira um grupo com 50 caracteres ou menos!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            MessageBox.Show("Partida criada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
             //ENTRAR NA PARTIDA??
 
@@ -73,6 +75,7 @@ namespace BOTVaticano
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
+            Application.Exit();
         }
     }
 }

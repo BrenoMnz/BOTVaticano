@@ -65,6 +65,7 @@
             this.btnLista.TabIndex = 2;
             this.btnLista.Text = "Lista de Partidas";
             this.btnLista.UseVisualStyleBackColor = true;
+            this.btnLista.Click += new System.EventHandler(this.btnLista_Click);
             // 
             // btnSair
             // 
