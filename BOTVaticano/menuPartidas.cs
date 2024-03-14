@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace BOTVaticano
 {
     public partial class MenuPartidas : Form
     {
+       
         public MenuPartidas()
         {
             InitializeComponent();
@@ -106,6 +108,7 @@ namespace BOTVaticano
             lstPartidas.SelectedIndex = 0;
         }
 
+      
         private void lstPartidas_SelectedIndexChanged(object sender, EventArgs e)
         {
             string partidaSelecionada;
@@ -113,6 +116,7 @@ namespace BOTVaticano
             string[] dadosPartida = partidaSelecionada.Split(',');
 
             int idPartida = Convert.ToInt32(dadosPartida[0]);
+
             string nomePartida = dadosPartida[1];
             string data = dadosPartida[2];
             string status = dadosPartida[3];
@@ -141,6 +145,16 @@ namespace BOTVaticano
             menu.StartPosition = FormStartPosition.CenterParent;
             menu.Show();
             Close();
+        }
+
+        private void btnEntrar_Click(object sender, EventArgs e)
+        {
+
+            MenuPopupEntrar menu = new MenuPopupEntrar();
+            menu.idPartida = txtIdpartida.Text;
+
+            menu.StartPosition = FormStartPosition.CenterParent;
+            menu.Show();
         }
     }
 
