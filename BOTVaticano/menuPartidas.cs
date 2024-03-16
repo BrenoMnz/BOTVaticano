@@ -150,11 +150,12 @@ namespace BOTVaticano
         private void btnEntrar_Click(object sender, EventArgs e)
         {
 
-            MenuPopupEntrar menu = new MenuPopupEntrar();
-            menu.idPartida = txtIdpartida.Text;
+            MenuPopupEntrar menuPopupEntrar = new MenuPopupEntrar();
+            menuPopupEntrar.idPartida = txtIdpartida.Text;
 
-            menu.StartPosition = FormStartPosition.CenterParent;
-            menu.Show();
+            menuPopupEntrar.StartPosition = FormStartPosition.CenterParent;
+            menuPopupEntrar.Show();
+            Hide();
         }
     }
 
