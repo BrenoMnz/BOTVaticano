@@ -17,58 +17,24 @@ namespace BOTVaticano
         public MenuPopupCriar()
         {
             InitializeComponent();
-            cboGrupo.Items.Add("Andorra");
-            cboGrupo.Items.Add("Amsterdã");
-            cboGrupo.Items.Add("Atenas");
-            cboGrupo.Items.Add("Berlim");
-            cboGrupo.Items.Add("Berna");
-            cboGrupo.Items.Add("Bratislava");
-            cboGrupo.Items.Add("Bruxelas");
-            cboGrupo.Items.Add("Budapeste");
-            cboGrupo.Items.Add("Copenhage");
-            cboGrupo.Items.Add("Helsinque");
-            cboGrupo.Items.Add("Lisboa");
-            cboGrupo.Items.Add("Luxemburgo");
-            cboGrupo.Items.Add("Madri");
-            cboGrupo.Items.Add("Praga");
-            cboGrupo.Items.Add("Riga");
-            cboGrupo.Items.Add("Tirana");
-            cboGrupo.Items.Add("Varsóvia");
-            cboGrupo.Items.Add("Vaticano");
-            cboGrupo.Items.Add("Yerevan");
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             string nome = (txtNome.Text).Trim();
             string senha = (txtSenha.Text).Trim();
-            string grupo = cboGrupo.SelectedItem.ToString();
-            string resposta = Jogo.CriarPartida(nome, senha, grupo);
+            string resposta = Jogo.CriarPartida(nome, senha, "Vaticano");
 
-            if (resposta == "ERRO:Nome da partida está vazio")
+            if (resposta.Substring(0, 1) == "E")
             {
-                MessageBox.Show("Insira um nome!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (resposta == "ERRO:Nome da partida com mais que 20 caracteres")
-            {
-                MessageBox.Show("Insira um nome com 20 caracteres ou menos!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (resposta == "ERRO:Senha com mais de 10 caracteres")
-            {
-                MessageBox.Show("Insira uma senha com 10 caracteres ou menos!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (resposta == "ERRO:Grupo com mais de 50 caracteres")
-            {
-                MessageBox.Show("Insira um grupo com 50 caracteres ou menos!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(resposta, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             MessageBox.Show("Partida criada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
-            //ENTRAR NA PARTIDA??
+
+            Menu menu = new Menu();
 
         }
 

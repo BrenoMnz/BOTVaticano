@@ -17,14 +17,14 @@ namespace BOTVaticano
         {
             InitializeComponent();
 
-            cboTipoPartida.Items.Add("Abertas");
-            cboTipoPartida.Items.Add("Finalizadas");
-            cboTipoPartida.Items.Add("Jogando");
             cboTipoPartida.Items.Add("Todas");
+            cboTipoPartida.Items.Add("Abertas");
+            cboTipoPartida.Items.Add("Jogando");
+            cboTipoPartida.Items.Add("Finalizadas");
             cboTipoPartida.SelectedIndex = 0;
             lstPartidas.SelectedIndex = 0;
-      
-           
+
+
             this.Controls.Add(cboTipoPartida);
 
 
@@ -32,14 +32,11 @@ namespace BOTVaticano
 
         }
 
-       
-
         private void cboTipoPartida_SelectedIndexChanged(object sender, EventArgs e)
         {
             string tipoPartida = cboTipoPartida.SelectedItem.ToString();
             string retorno;
             string[] partidas;
-
 
             switch (tipoPartida)
 
@@ -47,6 +44,11 @@ namespace BOTVaticano
                 case "Todas":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("T");
+                    if (retorno.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     retorno = retorno.Replace("\r", "");
                     retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
@@ -64,7 +66,11 @@ namespace BOTVaticano
                 case "Abertas":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("A");
-
+                    if (retorno.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     retorno = retorno.Replace("\r", "");
                     retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
@@ -78,7 +84,11 @@ namespace BOTVaticano
                 case "Jogando":
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("J");
-
+                    if (retorno.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     retorno = retorno.Replace("\r", "");
                     retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
@@ -92,7 +102,11 @@ namespace BOTVaticano
                     lstPartidas.Items.Clear();
                     retorno = Jogo.ListarPartidas("F");
                     retorno += Jogo.ListarPartidas("E");
-
+                    if (retorno.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     retorno = retorno.Replace("\r", "");
                     retorno = retorno.Substring(0, retorno.Length-1);
                     partidas = retorno.Split('\n');
@@ -126,6 +140,11 @@ namespace BOTVaticano
 
 
             string retorno = Jogo.ListarJogadores(idPartida);
+            if (retorno.Substring(0, 1) == "E")
+            {
+                MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             retorno = retorno.Replace("\r", "");
             string[] jogadores = retorno.Split('\n');
             lstJogadores.Items.Clear();
