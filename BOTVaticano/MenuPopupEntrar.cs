@@ -16,6 +16,8 @@ namespace BOTVaticano
     public partial class MenuPopupEntrar : Form
     {
         public string idPartida {set; get;}
+        public string tipoPartida { get; set;}
+
         public MenuPopupEntrar()
         {
             InitializeComponent();
@@ -23,33 +25,54 @@ namespace BOTVaticano
         
         private void btnEntrarPartida_Click(object sender, EventArgs e)
         {
-            int id;
-            id = Int32.Parse(lblIdpartida.Text);
+            int id = Int32.Parse(lblIdpartida.Text);
+                       
             string nome = (txtNomeJogador.Text).Trim();
             nome = txtNomeJogador.Text;
-            Console.WriteLine(nome);    
+            txtNomeJogador.Clear();
+
             string senha = (txtSenhaPartida.Text).Trim();
             senha = txtSenhaPartida.Text;
-            Console.WriteLine(senha);
-            id = Int32.Parse(lblIdpartida.Text);
+            txtSenhaPartida.Clear();
+
             string retorno = Jogo.EntrarPartida(id, nome, senha);
+            
+
+
 
             if (retorno.Substring(0, 4)=="ERRO"){
                 MessageBox.Show(retorno, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            // Jogo.IniciarPartida(nome, senha);
+
+            string[] jogador = retorno.Split(',');
+            int idJogador = Int32.Parse(jogador[0]);
+            string senhaJogador = jogador[1];
+
 
             MesaDePartida mesaPartida = new MesaDePartida();
             mesaPartida.StartPosition = FormStartPosition.CenterParent;
+            mesaPartida.idJogador = idJogador; 
+            mesaPartida.senhaJogador = senhaJogador;
             mesaPartida.idPartida = this.idPartida;
             mesaPartida.Show();
+            Close();
             
+
         }
 
         private void MenuPopupEntrar_Load(object sender, EventArgs e)
         {
-    
+           
             lblIdpartida.Text = idPartida;
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MenuPartidas menupartidas = new MenuPartidas();
+            menupartidas.Show();
+            Close();
         }
     }
 }

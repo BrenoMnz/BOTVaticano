@@ -30,11 +30,14 @@
         {
             this.lblNomeJogador = new System.Windows.Forms.Label();
             this.lblSenhaPartida = new System.Windows.Forms.Label();
-            this.btnEntrarPartida = new System.Windows.Forms.Button();
             this.txtNomeJogador = new System.Windows.Forms.TextBox();
             this.txtSenhaPartida = new System.Windows.Forms.TextBox();
             this.lblIdpartida = new System.Windows.Forms.Label();
             this.lblTagIdPartida = new System.Windows.Forms.Label();
+            this.btbVoltarMenuPartidas = new System.Windows.Forms.Button();
+            this.btnEntrarPartida = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNomeJogador
@@ -54,17 +57,6 @@
             this.lblSenhaPartida.Size = new System.Drawing.Size(93, 16);
             this.lblSenhaPartida.TabIndex = 1;
             this.lblSenhaPartida.Text = "Digite a senha";
-            // 
-            // btnEntrarPartida
-            // 
-            this.btnEntrarPartida.Location = new System.Drawing.Point(211, 167);
-            this.btnEntrarPartida.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnEntrarPartida.Name = "btnEntrarPartida";
-            this.btnEntrarPartida.Size = new System.Drawing.Size(75, 23);
-            this.btnEntrarPartida.TabIndex = 2;
-            this.btnEntrarPartida.Text = "Entrar";
-            this.btnEntrarPartida.UseVisualStyleBackColor = true;
-            this.btnEntrarPartida.Click += new System.EventHandler(this.btnEntrarPartida_Click);
             // 
             // txtNomeJogador
             // 
@@ -101,22 +93,55 @@
             this.lblTagIdPartida.TabIndex = 7;
             this.lblTagIdPartida.Text = "Id da partida:";
             // 
+            // btbVoltarMenuPartidas
+            // 
+            this.btbVoltarMenuPartidas.Location = new System.Drawing.Point(157, 18);
+            this.btbVoltarMenuPartidas.Name = "btbVoltarMenuPartidas";
+            this.btbVoltarMenuPartidas.Size = new System.Drawing.Size(100, 28);
+            this.btbVoltarMenuPartidas.TabIndex = 8;
+            this.btbVoltarMenuPartidas.Text = "Voltar";
+            this.btbVoltarMenuPartidas.UseVisualStyleBackColor = true;
+            this.btbVoltarMenuPartidas.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnEntrarPartida
+            // 
+            this.btnEntrarPartida.Location = new System.Drawing.Point(37, 18);
+            this.btnEntrarPartida.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnEntrarPartida.Name = "btnEntrarPartida";
+            this.btnEntrarPartida.Size = new System.Drawing.Size(100, 28);
+            this.btnEntrarPartida.TabIndex = 2;
+            this.btnEntrarPartida.Text = "Entrar";
+            this.btnEntrarPartida.UseVisualStyleBackColor = true;
+            this.btnEntrarPartida.Click += new System.EventHandler(this.btnEntrarPartida_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel1.Controls.Add(this.btbVoltarMenuPartidas);
+            this.panel1.Controls.Add(this.btnEntrarPartida);
+            this.panel1.Location = new System.Drawing.Point(-4, 169);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(300, 63);
+            this.panel1.TabIndex = 9;
+            // 
             // MenuPopupEntrar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 203);
+            this.ClientSize = new System.Drawing.Size(292, 230);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblTagIdPartida);
             this.Controls.Add(this.lblIdpartida);
             this.Controls.Add(this.txtSenhaPartida);
             this.Controls.Add(this.txtNomeJogador);
-            this.Controls.Add(this.btnEntrarPartida);
             this.Controls.Add(this.lblSenhaPartida);
             this.Controls.Add(this.lblNomeJogador);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MenuPopupEntrar";
             this.Text = "MenuPopupEntrar";
             this.Load += new System.EventHandler(this.MenuPopupEntrar_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,10 +151,12 @@
 
         private System.Windows.Forms.Label lblNomeJogador;
         private System.Windows.Forms.Label lblSenhaPartida;
-        private System.Windows.Forms.Button btnEntrarPartida;
         private System.Windows.Forms.TextBox txtNomeJogador;
         private System.Windows.Forms.TextBox txtSenhaPartida;
         private System.Windows.Forms.Label lblIdpartida;
         private System.Windows.Forms.Label lblTagIdPartida;
+        private System.Windows.Forms.Button btbVoltarMenuPartidas;
+        private System.Windows.Forms.Button btnEntrarPartida;
+        private System.Windows.Forms.Panel panel1;
     }
 }
