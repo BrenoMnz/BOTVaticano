@@ -17,7 +17,6 @@ namespace BOTVaticano
     {
         public string idPartida { set; get; }
         public int idJogador { set; get; }
-
         public string senhaJogador {set; get;}
         public MesaDePartida()
         {
@@ -73,6 +72,7 @@ namespace BOTVaticano
             if (inicarPartida.Substring(0, erro.Length) == "ERRO")
             {
                 MessageBox.Show(inicarPartida, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             else
             {
@@ -83,7 +83,7 @@ namespace BOTVaticano
 
             string vez = Jogo.VerificarVez(Int32.Parse(idPartida));
             string[] informacaoJogador =  vez.Split(',');
-            int enderecoJogador =Int32.Parse( informacaoJogador[1]);
+            int enderecoJogador =Int32.Parse(informacaoJogador[1]);
 
 
 

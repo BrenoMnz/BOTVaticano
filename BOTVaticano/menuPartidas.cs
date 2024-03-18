@@ -144,7 +144,8 @@ namespace BOTVaticano
 
 
             string retorno = Jogo.ListarJogadores(idPartida);
-            if (retorno.Substring(0, 1) == "E")
+            Console.WriteLine(Jogo.ListarJogadores(idPartida));
+            if (retorno.Length > 0 && retorno.Substring(0, 1) == "E")
             {
                 MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
