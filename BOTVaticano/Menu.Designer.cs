@@ -40,18 +40,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Book Antiqua", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(180, 104);
+            this.label1.Location = new System.Drawing.Point(240, 128);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(290, 57);
+            this.label1.Size = new System.Drawing.Size(364, 73);
             this.label1.TabIndex = 0;
             this.label1.Text = "Magic Trick";
             // 
             // btnCriar
             // 
             this.btnCriar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCriar.Location = new System.Drawing.Point(240, 234);
+            this.btnCriar.Location = new System.Drawing.Point(320, 288);
+            this.btnCriar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCriar.Name = "btnCriar";
-            this.btnCriar.Size = new System.Drawing.Size(160, 49);
+            this.btnCriar.Size = new System.Drawing.Size(213, 60);
             this.btnCriar.TabIndex = 1;
             this.btnCriar.Text = "Criar Partida";
             this.btnCriar.UseVisualStyleBackColor = true;
@@ -59,9 +61,10 @@
             // 
             // btnLista
             // 
-            this.btnLista.Location = new System.Drawing.Point(240, 320);
+            this.btnLista.Location = new System.Drawing.Point(320, 394);
+            this.btnLista.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLista.Name = "btnLista";
-            this.btnLista.Size = new System.Drawing.Size(160, 49);
+            this.btnLista.Size = new System.Drawing.Size(213, 60);
             this.btnLista.TabIndex = 2;
             this.btnLista.Text = "Lista de Partidas";
             this.btnLista.UseVisualStyleBackColor = true;
@@ -69,9 +72,10 @@
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(240, 406);
+            this.btnSair.Location = new System.Drawing.Point(320, 500);
+            this.btnSair.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(160, 49);
+            this.btnSair.Size = new System.Drawing.Size(213, 60);
             this.btnSair.TabIndex = 3;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -80,26 +84,28 @@
             // lblVersao
             // 
             this.lblVersao.AutoSize = true;
-            this.lblVersao.Location = new System.Drawing.Point(12, 9);
+            this.lblVersao.Location = new System.Drawing.Point(16, 11);
+            this.lblVersao.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVersao.Name = "lblVersao";
-            this.lblVersao.Size = new System.Drawing.Size(35, 13);
+            this.lblVersao.Size = new System.Drawing.Size(44, 16);
             this.lblVersao.TabIndex = 4;
             this.lblVersao.Text = "label2";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(263, 170);
+            this.label3.Location = new System.Drawing.Point(351, 209);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
+            this.label3.Size = new System.Drawing.Size(149, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "por Cidade do Vaticano";
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 601);
+            this.ClientSize = new System.Drawing.Size(832, 740);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblVersao);
             this.Controls.Add(this.btnSair);
@@ -107,7 +113,7 @@
             this.Controls.Add(this.btnCriar);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Menu";
             this.Text = "Menu";

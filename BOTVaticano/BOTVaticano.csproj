@@ -67,6 +67,18 @@
     <Compile Include="MenuPartidas.Designer.cs">
       <DependentUpon>MenuPartidas.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuPopupEntrar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuPopupEntrar.Designer.cs">
+      <DependentUpon>MenuPopupEntrar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MesaDePartida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MesaDePartida.Designer.cs">
+      <DependentUpon>MesaDePartida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Menu.resx">
@@ -77,6 +89,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPartidas.resx">
       <DependentUpon>MenuPartidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuPopupEntrar.resx">
+      <DependentUpon>MenuPopupEntrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MesaDePartida.resx">
+      <DependentUpon>MesaDePartida.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
