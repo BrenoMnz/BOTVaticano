@@ -10,7 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+
+
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace BOTVaticano
 {
@@ -30,6 +33,7 @@ namespace BOTVaticano
         public string[,] cartasJogador3 = new string[14, 3];
         public string[,] cartasJogador4 = new string[14, 3];
 
+        
         private string[] SepararJogadores()
         {
             int id = Int32.Parse(idPartida);
@@ -204,7 +208,8 @@ namespace BOTVaticano
                 btn.Text = cartasJogador[i, 2];
                 btn.Size = new Size(sizeX, sizeY);
                 btn.Location = new Point(startX, startY);
-
+                btn.Click += new EventHandler(this.FazerUmaJogada);
+                
                 Console.WriteLine("Jogador: " + numJogador);
                 Console.WriteLine("Carta: " + cartasJogador[i, 1]);
                 Console.WriteLine("startX: " + startX);
@@ -239,6 +244,7 @@ namespace BOTVaticano
                 btn.Text = cartasJogador[i, 2];
                 btn.Size = new Size(sizeX, sizeY);
                 btn.Location = new Point(startX, startY);
+                btn.Click += new EventHandler(this.FazerUmaJogada);
 
                 Console.WriteLine("Jogador: " + numJogador);
                 Console.WriteLine("Carta: " + cartasJogador[i, 1]);
@@ -295,7 +301,7 @@ namespace BOTVaticano
             }
 
         }
-
+        
         public MesaDePartida()
         {
 
@@ -357,5 +363,53 @@ namespace BOTVaticano
             lblRodadas.Visible = true;
             lstRodadas.Visible = true;
         }
+
+
+        private void FazerUmaJogada(object sender, EventArgs e) 
+        {
+
+            Button btn = sender as Button;
+            Panel parentPanel = btn.Parent as Panel;
+            string nomeLista = parentPanel.Name;
+
+            switch (nomeLista) {
+
+                case "pnlJogador1":
+                    int cartaEscolhida = parentPanel.Controls.IndexOf(btn)+1;
+                    Console.WriteLine(cartaEscolhida);
+                   string retornoJogar =  Jogo.Jogar(idJogador, senhaJogador, cartaEscolhida);
+                    if (retornoJogar.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retornoJogar, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(retornoJogar);
+                        btn.Visible = false;
+  
+                    }
+
+                    break;
+
+                case "pnlJogador2":
+                    break;
+
+                case "pnlJogador3":
+                    break;
+
+                case "pnlJogador4":
+                        break;
+
+
+            }
+
+        }
+
+        private void btnApostar_Click(object sender, EventArgs e)
+        {
+            Jogo.Apostar(idJogador, senhaJogador, 0);
+        }
     }
+
 }
