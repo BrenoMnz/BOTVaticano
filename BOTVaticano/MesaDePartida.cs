@@ -32,8 +32,8 @@ namespace BOTVaticano
         public string[,] cartasJogador2 = new string[14, 3];
         public string[,] cartasJogador3 = new string[14, 3];
         public string[,] cartasJogador4 = new string[14, 3];
-
         
+
         private string[] SepararJogadores()
         {
             int id = Int32.Parse(idPartida);
@@ -86,6 +86,20 @@ namespace BOTVaticano
                     lblVezJogador.Text = jogador[1];
                 }
             }
+        }
+
+        private void AtualizarJogadas()
+        {
+            string listaJogadas = Jogo.ExibirJogadas(Int32.Parse(idPartida));
+            listaJogadas = listaJogadas.Replace("\r", "");
+            string[] jogadas = listaJogadas.Split('\n');
+
+            lstJogadas.Items.Clear();
+
+            foreach (string jogada in jogadas)
+            {
+                lstJogadas.Items.Add(jogada);
+            } 
         }
 
         private void SepararCartas(int numJogador)
@@ -301,7 +315,44 @@ namespace BOTVaticano
             }
 
         }
-        
+
+        private void FazerUmaJogada(object sender, EventArgs e)
+        {
+
+            Button btn = sender as Button;
+            Panel parentPanel = btn.Parent as Panel;
+            string nomeLista = parentPanel.Name;
+
+            switch (nomeLista)
+            {
+
+                case "pnlJogador1":
+                    int cartaEscolhida = parentPanel.Controls.IndexOf(btn) + 1;
+                    Console.WriteLine(cartaEscolhida);
+                    string retornoJogar = Jogo.Jogar(idJogador, senhaJogador, cartaEscolhida);
+                    if (retornoJogar.Substring(0, 1) == "E")
+                    {
+                        MessageBox.Show(retornoJogar, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show(retornoJogar);
+                        btn.Visible = false;
+
+                    }
+
+                    break;
+
+                default:
+                    break;
+
+
+            }
+            AtualizarJogadas();
+
+        }
+
         public MesaDePartida()
         {
 
@@ -313,6 +364,7 @@ namespace BOTVaticano
         {
 
             AtualizarJogadores();
+            lblIDPartida.Text = idPartida;
 
         }
 
@@ -360,55 +412,15 @@ namespace BOTVaticano
 
             btnIniciarPartida.Visible = false;
 
-            lblRodadas.Visible = true;
-            lstRodadas.Visible = true;
-        }
-
-
-        private void FazerUmaJogada(object sender, EventArgs e) 
-        {
-
-            Button btn = sender as Button;
-            Panel parentPanel = btn.Parent as Panel;
-            string nomeLista = parentPanel.Name;
-
-            switch (nomeLista) {
-
-                case "pnlJogador1":
-                    int cartaEscolhida = parentPanel.Controls.IndexOf(btn)+1;
-                    Console.WriteLine(cartaEscolhida);
-                   string retornoJogar =  Jogo.Jogar(idJogador, senhaJogador, cartaEscolhida);
-                    if (retornoJogar.Substring(0, 1) == "E")
-                    {
-                        MessageBox.Show(retornoJogar, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show(retornoJogar);
-                        btn.Visible = false;
-  
-                    }
-
-                    break;
-
-                case "pnlJogador2":
-                    break;
-
-                case "pnlJogador3":
-                    break;
-
-                case "pnlJogador4":
-                        break;
-
-
-            }
-
+            lblJogadas.Visible = true;
+            lstJogadas.Visible = true;
         }
 
         private void btnApostar_Click(object sender, EventArgs e)
         {
             Jogo.Apostar(idJogador, senhaJogador, 0);
+            MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AtualizarJogadas();
         }
     }
 
