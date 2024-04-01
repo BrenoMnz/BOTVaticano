@@ -28,11 +28,16 @@ namespace BOTVaticano
         private IDictionary<int, Button> btnsJogador3 = new Dictionary<int, Button>();
         private IDictionary<int, Button> btnsJogador4 = new Dictionary<int, Button>();
 
+        /* Matriz bidimensional 14x3.
+         * Cada linha representa uma carta do baralho
+         * Cada coluna representa, respectivamente:
+         * id do jogador, id da carta (sua posição), naipe
+         */
         public string[,] cartasJogador1 = new string[14, 3];
         public string[,] cartasJogador2 = new string[14, 3];
         public string[,] cartasJogador3 = new string[14, 3];
         public string[,] cartasJogador4 = new string[14, 3];
-        
+
 
         private string[] SepararJogadores()
         {
@@ -99,7 +104,7 @@ namespace BOTVaticano
             foreach (string jogada in jogadas)
             {
                 lstJogadas.Items.Add(jogada);
-            } 
+            }
         }
 
         private void SepararCartas(int numJogador)
@@ -218,16 +223,74 @@ namespace BOTVaticano
 
             for (int i = 0; i < (qtdCartas / 2); i++)
             {
+
                 Button btn = new Button();
-                btn.Text = cartasJogador[i, 2];
+                btn.Text = "";
                 btn.Size = new Size(sizeX, sizeY);
                 btn.Location = new Point(startX, startY);
+
+                Image imagem = null;
+                string caminho = null;
+
+                if (cartasJogador[i, 2] == "C")
+                {
+                    caminho = "Cartas/Copas1.png";
+                }
+                if (cartasJogador[i, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros1.png";
+                }
+                if (cartasJogador[i, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela1.png";
+                }
+                if (cartasJogador[i, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas1.png";
+                }
+                if (cartasJogador[i, 2] == "L")
+                {
+                    caminho = "Cartas/Lua1.png";
+                }
+                if (cartasJogador[i, 2] == "P")
+                {
+                    caminho = "Cartas/Paus1.png";
+                }
+                if (cartasJogador[i, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo1.png";
+                }
+
+                if (numJogador == 1)
+                {
+                    imagem = Image.FromFile(caminho);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+                }
+                if (numJogador == 2)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 3)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 4)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+
                 btn.Click += new EventHandler(this.FazerUmaJogada);
-                
-                Console.WriteLine("Jogador: " + numJogador);
-                Console.WriteLine("Carta: " + cartasJogador[i, 1]);
-                Console.WriteLine("startX: " + startX);
-                Console.WriteLine("startY: " + startY);
 
                 btns.Add(Int32.Parse(cartasJogador[i, 1]), btn);
 
@@ -255,15 +318,72 @@ namespace BOTVaticano
             for (int i = (qtdCartas / 2); i < qtdCartas; i++)
             {
                 Button btn = new Button();
-                btn.Text = cartasJogador[i, 2];
+                btn.Text = "";
                 btn.Size = new Size(sizeX, sizeY);
                 btn.Location = new Point(startX, startY);
-                btn.Click += new EventHandler(this.FazerUmaJogada);
 
-                Console.WriteLine("Jogador: " + numJogador);
-                Console.WriteLine("Carta: " + cartasJogador[i, 1]);
-                Console.WriteLine("startX: " + startX);
-                Console.WriteLine("startY: " + startY);
+                Image imagem = null;
+                string caminho = null;
+
+                if (cartasJogador[i, 2] == "C")
+                {
+                    caminho = "Cartas/Copas1.png";
+                }
+                if (cartasJogador[i, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros1.png";
+                }
+                if (cartasJogador[i, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela1.png";
+                }
+                if (cartasJogador[i, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas1.png";
+                }
+                if (cartasJogador[i, 2] == "L")
+                {
+                    caminho = "Cartas/Lua1.png";
+                }
+                if (cartasJogador[i, 2] == "P")
+                {
+                    caminho = "Cartas/Paus1.png";
+                }
+                if (cartasJogador[i, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo1.png";
+                }
+
+                if (numJogador == 1)
+                {
+                    imagem = Image.FromFile(caminho);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+                }
+                if (numJogador == 2)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 3)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 4)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+
+                btn.Click += new EventHandler(this.FazerUmaJogada);
 
                 btns.Add(Int32.Parse(cartasJogador[i, 1]), btn);
 
@@ -388,7 +508,7 @@ namespace BOTVaticano
             AtualizarVez();
 
             int qtdJogadores = SepararJogadores().Length;
-            
+
             if (qtdJogadores == 2)
             {
                 SepararCartas(1);
