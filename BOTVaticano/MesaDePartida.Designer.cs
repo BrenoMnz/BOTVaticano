@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -68,6 +69,7 @@
             this.pnlJogador2 = new System.Windows.Forms.Panel();
             this.pnlJogador3 = new System.Windows.Forms.Panel();
             this.btnApostar = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -105,10 +107,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 128);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
@@ -382,6 +384,11 @@
             this.btnApostar.UseVisualStyleBackColor = true;
             this.btnApostar.Click += new System.EventHandler(this.btnApostar_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MesaDePartida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -445,5 +452,6 @@
         private System.Windows.Forms.Panel pnlJogador2;
         private System.Windows.Forms.Panel pnlJogador3;
         private System.Windows.Forms.Button btnApostar;
+        private System.Windows.Forms.Timer timer1;
     }
 }

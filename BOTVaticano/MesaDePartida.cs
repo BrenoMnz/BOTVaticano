@@ -19,6 +19,7 @@ namespace BOTVaticano
 {
     public partial class MesaDePartida : Form
     {
+        int tempo;
         public string idPartida { set; get; }
         public int idJogador { set; get; }
         public string senhaJogador { set; get; }
@@ -109,18 +110,6 @@ namespace BOTVaticano
 
         private void SepararCartas(int numJogador)
         {
-            int qtdJogadores = SepararJogadores().Length;
-
-            int qtdCartas = 0;
-
-            if (qtdJogadores == 2)
-            {
-                qtdCartas = 12;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas = 14;
-            }
 
             string[] jogadores = SepararJogadores();
             string idJogador = jogadores[numJogador - 1].Split(',')[0];
@@ -128,6 +117,22 @@ namespace BOTVaticano
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n');
+            Console.WriteLine(cartas.Length);
+
+            int qtdJogadores = SepararJogadores().Length;
+
+            int qtdCartas = 0;
+
+            if (qtdJogadores == 2)
+            {
+                qtdCartas = (cartas.Length-1)/2;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas = 14;
+            }
+
+            
 
 
             for (int i = 0; i < qtdCartas * qtdJogadores; i++)
@@ -475,16 +480,18 @@ namespace BOTVaticano
 
         public MesaDePartida()
         {
-
+          
             InitializeComponent();
+            
 
         }
 
         private void MesaDePartida_Load(object sender, EventArgs e)
         {
-
+            
             AtualizarJogadores();
             lblIDPartida.Text = idPartida;
+            tempo = 30;
 
         }
 
@@ -534,6 +541,8 @@ namespace BOTVaticano
 
             lblJogadas.Visible = true;
             lstJogadas.Visible = true;
+
+            timer1.Start();
         }
 
         private void btnApostar_Click(object sender, EventArgs e)
@@ -541,6 +550,48 @@ namespace BOTVaticano
             Jogo.Apostar(idJogador, senhaJogador, 0);
             MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AtualizarJogadas();
+        }
+
+        private void AtualizarCartas() { 
+        
+        
+        
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lblTimer.Text = tempo.ToString();
+            tempo--;
+
+            if (Int32.Parse(lblTimer.Text) == 0)
+            {
+
+                tempo = 30;
+                AtualizarVez();
+                AtualizarJogadores();
+                int qtdJogadores = SepararJogadores().Length;
+
+                if (qtdJogadores == 2)
+                {
+                    SepararCartas(1);
+                    SepararCartas(2);
+
+                    DesenharCartas(1);
+                    DesenharCartas(2);
+                }
+                if (qtdJogadores == 4)
+                {
+                    SepararCartas(1);
+                    SepararCartas(2);
+                    SepararCartas(3);
+                    SepararCartas(4);
+
+                    DesenharCartas(1);
+                    DesenharCartas(2);
+                    DesenharCartas(3);
+                    DesenharCartas(4);
+                }
+            }
+
         }
     }
 
