@@ -233,7 +233,7 @@ namespace BOTVaticano
 
                 Image imagem = null;
                 string caminho = null;
-
+                Console.WriteLine(cartasJogador);
                 if (cartasJogador[i, 2] == "C")
                 {
                     caminho = "Cartas/Copas1.png";
@@ -387,6 +387,7 @@ namespace BOTVaticano
                 }
 
                 btn.Click += new EventHandler(this.FazerUmaJogada);
+             
                
                 btns.Add(Int32.Parse(cartasJogador[i, 1]), btn);
                 
@@ -452,7 +453,6 @@ namespace BOTVaticano
 
                 case "pnlJogador1":
                     int cartaEscolhida = parentPanel.Controls.IndexOf(btn) + 1;
-                    Console.WriteLine(cartaEscolhida);
                     string retornoJogar = Jogo.Jogar(idJogador, senhaJogador, cartaEscolhida);
                     if (retornoJogar.Substring(0, 1) == "E")
                     {
@@ -550,8 +550,80 @@ namespace BOTVaticano
             MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AtualizarJogadas();
         }
+        private void AtualizarCartas(int numJogador)
+        {
 
-        
+            int qtdJogadores = SepararJogadores().Length;
+
+            int qtdCartas1 = 0;
+            int qtdCartas2 = 0;
+            int qtdCartas3 = 0;
+            int qtdCartas4 = 0;
+            if (qtdJogadores == 2)
+            {
+                qtdCartas1 = btnsJogador1.Count;
+                qtdCartas2 = btnsJogador2.Count;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas1 = btnsJogador1.Count;
+                qtdCartas2 = btnsJogador2.Count;
+                qtdCartas3 = btnsJogador3.Count;
+                qtdCartas4 = btnsJogador4.Count;
+            }
+            btnsJogador1.Clear();
+            btnsJogador2.Clear();
+            pnlJogador1.Controls.Clear();
+            pnlJogador2.Controls.Clear();
+            Console.WriteLine(cartasJogador1);
+            
+            string[] jogadores = SepararJogadores();
+            string idJogador = jogadores[numJogador - 1].Split(',')[0];
+
+            string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
+            listaCartas = listaCartas.Replace("\r", "");
+            string[] cartas = listaCartas.Split('\n');
+
+
+
+            for (int i = 0; i < qtdCartas1; i++)
+            {
+                string[] carta = cartas[i].Split(',');
+
+                if (carta[0] == idJogador)
+                {
+                    switch (numJogador)
+                    {
+                        case 1:
+                            cartasJogador1[i % qtdCartas1, 0] = carta[0];
+                            cartasJogador1[i % qtdCartas1, 1] = carta[1];
+                            cartasJogador1[i % qtdCartas2, 2] = carta[2];
+                            break;
+                    }
+                }
+
+            }
+            for (int i = 0; i < qtdCartas1; i++)
+            {
+                string[] carta = cartas[i].Split(',');
+
+                if (carta[0] == idJogador)
+                {
+                    switch (numJogador)
+                    {
+                        case 2:
+                            cartasJogador2[i % qtdCartas2, 0] = carta[0];
+                            cartasJogador2[i % qtdCartas2, 1] = carta[1];
+                            cartasJogador2[i % qtdCartas2, 2] = carta[2];
+                            break;
+
+                    }
+                }
+
+            }
+
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblTimer.Text = tempo.ToString();
@@ -595,85 +667,7 @@ namespace BOTVaticano
 
 
 
-        private void AtualizarCartas(int numJogador)
-        {   
-          
-            int qtdJogadores = SepararJogadores().Length;
-
-            int qtdCartas1 = 0;
-            int qtdCartas2 = 0;
-            int qtdCartas3 = 0;
-            int qtdCartas4 = 0;
-            Console.WriteLine(btnsJogador1.Count);
-            Console.WriteLine(btnsJogador2.Count);
-
-            if (qtdJogadores == 2)
-            {
-                qtdCartas1 = btnsJogador1.Count;
-                qtdCartas2 = btnsJogador2.Count;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas1 = btnsJogador1.Count;
-                qtdCartas2 = btnsJogador2.Count;
-                qtdCartas3 = btnsJogador3.Count;
-                qtdCartas4 = btnsJogador4.Count;
-            }
-            btnsJogador1.Clear();
-            btnsJogador2.Clear();
-            pnlJogador1.Controls.Clear();
-            pnlJogador2.Controls.Clear();
-            Array.Clear(cartasJogador1, 0, cartasJogador1.Length);
-            Array.Clear(cartasJogador2, 0, cartasJogador1.Length);
-            Array.Clear(cartasJogador3, 0, cartasJogador1.Length);
-            Array.Clear(cartasJogador4, 0, cartasJogador1.Length);
-
-            string[] jogadores = SepararJogadores();
-            string idJogador = jogadores[numJogador - 1].Split(',')[0];
-
-            string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
-            listaCartas = listaCartas.Replace("\r", "");
-            string[] cartas = listaCartas.Split('\n');
-
-
-
-            for (int i = 0; i < qtdCartas1; i++)
-            {
-                string[] carta = cartas[i].Split(',');
-
-                if (carta[0] == idJogador)
-                {
-                    switch (numJogador)
-                    {
-                        case 1:
-                            cartasJogador1[i % qtdCartas1, 0] = carta[0];
-                            cartasJogador1[i % qtdCartas1, 1] = carta[1];
-                            cartasJogador1[i % qtdCartas2, 2] = carta[2];
-                            break;
-                    }
-                }
-
-            }
-            for (int i = 0; i < qtdCartas1; i++)
-            {
-                string[] carta = cartas[i].Split(',');
-
-                if (carta[0] == idJogador)
-                {
-                    switch (numJogador)
-                    {
-                        case 2:
-                            cartasJogador2[i % qtdCartas2, 0] = carta[0];
-                            cartasJogador2[i % qtdCartas2, 1] = carta[1];
-                            cartasJogador2[i % qtdCartas2, 2] = carta[2];
-                            break;
-     
-                    }
-                }
-
-            }
-
-        }
+      
     }
 
 }
