@@ -110,6 +110,18 @@ namespace BOTVaticano
 
         private void SepararCartas(int numJogador)
         {
+            int qtdJogadores = SepararJogadores().Length;
+
+            int qtdCartas = 0;
+
+            if (qtdJogadores == 2)
+            {
+                qtdCartas = 12;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas = 14;
+            }
 
             string[] jogadores = SepararJogadores();
             string idJogador = jogadores[numJogador - 1].Split(',')[0];
@@ -117,22 +129,7 @@ namespace BOTVaticano
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n');
-            Console.WriteLine(cartas.Length);
-
-            int qtdJogadores = SepararJogadores().Length;
-
-            int qtdCartas = 0;
-
-            if (qtdJogadores == 2)
-            {
-                qtdCartas = (cartas.Length-1)/2;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas = 14;
-            }
-
-            
+        
 
 
             for (int i = 0; i < qtdCartas * qtdJogadores; i++)
@@ -268,6 +265,7 @@ namespace BOTVaticano
 
                 if (numJogador == 1)
                 {
+                    Console.WriteLine(caminho);
                     imagem = Image.FromFile(caminho);
                     btn.BackgroundImage = imagem;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
@@ -389,8 +387,9 @@ namespace BOTVaticano
                 }
 
                 btn.Click += new EventHandler(this.FazerUmaJogada);
-
+               
                 btns.Add(Int32.Parse(cartasJogador[i, 1]), btn);
+                
 
                 painelJogador.Controls.Add(btn);
 
@@ -552,11 +551,7 @@ namespace BOTVaticano
             AtualizarJogadas();
         }
 
-        private void AtualizarCartas() { 
         
-        
-        
-        }
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblTimer.Text = tempo.ToString();
@@ -568,28 +563,114 @@ namespace BOTVaticano
                 tempo = 30;
                 AtualizarVez();
                 AtualizarJogadores();
+              
                 int qtdJogadores = SepararJogadores().Length;
 
                 if (qtdJogadores == 2)
-                {
-                    SepararCartas(1);
-                    SepararCartas(2);
+                {   
+                    
+                    AtualizarCartas(1);
+                    AtualizarCartas(2);
 
                     DesenharCartas(1);
                     DesenharCartas(2);
                 }
                 if (qtdJogadores == 4)
                 {
-                    SepararCartas(1);
-                    SepararCartas(2);
-                    SepararCartas(3);
-                    SepararCartas(4);
+                    AtualizarCartas(1);
+                    AtualizarCartas(2);
+                    AtualizarCartas(3);
+                    AtualizarCartas(4);
 
                     DesenharCartas(1);
                     DesenharCartas(2);
                     DesenharCartas(3);
                     DesenharCartas(4);
                 }
+
+            }
+
+        }
+
+
+
+
+        private void AtualizarCartas(int numJogador)
+        {   
+          
+            int qtdJogadores = SepararJogadores().Length;
+
+            int qtdCartas1 = 0;
+            int qtdCartas2 = 0;
+            int qtdCartas3 = 0;
+            int qtdCartas4 = 0;
+            Console.WriteLine(btnsJogador1.Count);
+            Console.WriteLine(btnsJogador2.Count);
+
+            if (qtdJogadores == 2)
+            {
+                qtdCartas1 = btnsJogador1.Count;
+                qtdCartas2 = btnsJogador2.Count;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas1 = btnsJogador1.Count;
+                qtdCartas2 = btnsJogador2.Count;
+                qtdCartas3 = btnsJogador3.Count;
+                qtdCartas4 = btnsJogador4.Count;
+            }
+            btnsJogador1.Clear();
+            btnsJogador2.Clear();
+            pnlJogador1.Controls.Clear();
+            pnlJogador2.Controls.Clear();
+            Array.Clear(cartasJogador1, 0, cartasJogador1.Length);
+            Array.Clear(cartasJogador2, 0, cartasJogador1.Length);
+            Array.Clear(cartasJogador3, 0, cartasJogador1.Length);
+            Array.Clear(cartasJogador4, 0, cartasJogador1.Length);
+
+            string[] jogadores = SepararJogadores();
+            string idJogador = jogadores[numJogador - 1].Split(',')[0];
+
+            string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
+            listaCartas = listaCartas.Replace("\r", "");
+            string[] cartas = listaCartas.Split('\n');
+
+
+
+            for (int i = 0; i < qtdCartas1; i++)
+            {
+                string[] carta = cartas[i].Split(',');
+
+                if (carta[0] == idJogador)
+                {
+                    switch (numJogador)
+                    {
+                        case 1:
+                            cartasJogador1[i % qtdCartas1, 0] = carta[0];
+                            cartasJogador1[i % qtdCartas1, 1] = carta[1];
+                            cartasJogador1[i % qtdCartas2, 2] = carta[2];
+                            break;
+                    }
+                }
+
+            }
+            for (int i = 0; i < qtdCartas1; i++)
+            {
+                string[] carta = cartas[i].Split(',');
+
+                if (carta[0] == idJogador)
+                {
+                    switch (numJogador)
+                    {
+                        case 2:
+                            cartasJogador2[i % qtdCartas2, 0] = carta[0];
+                            cartasJogador2[i % qtdCartas2, 1] = carta[1];
+                            cartasJogador2[i % qtdCartas2, 2] = carta[2];
+                            break;
+     
+                    }
+                }
+
             }
 
         }
