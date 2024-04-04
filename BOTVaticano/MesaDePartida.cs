@@ -233,7 +233,7 @@ namespace BOTVaticano
 
                 Image imagem = null;
                 string caminho = null;
-                Console.WriteLine(cartasJogador);
+                Console.WriteLine(cartasJogador[i,0]+ cartasJogador[i, 1]+cartasJogador[i, 2]);
                 if (cartasJogador[i, 2] == "C")
                 {
                     caminho = "Cartas/Copas1.png";
@@ -265,7 +265,6 @@ namespace BOTVaticano
 
                 if (numJogador == 1)
                 {
-                    Console.WriteLine(caminho);
                     imagem = Image.FromFile(caminho);
                     btn.BackgroundImage = imagem;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
@@ -571,12 +570,26 @@ namespace BOTVaticano
                 qtdCartas3 = btnsJogador3.Count;
                 qtdCartas4 = btnsJogador4.Count;
             }
+
             btnsJogador1.Clear();
             btnsJogador2.Clear();
             pnlJogador1.Controls.Clear();
             pnlJogador2.Controls.Clear();
-            Console.WriteLine(cartasJogador1);
-            
+            int posicao = 1;
+
+            for (int i = 0; i < 15;i++) {
+                Array.Clear(cartasJogador1, posicao, 1);
+                posicao = +3;
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                Array.Clear(cartasJogador2, posicao, 1);
+                posicao = +3;
+            }
+
+
+
+
             string[] jogadores = SepararJogadores();
             string idJogador = jogadores[numJogador - 1].Split(',')[0];
 
