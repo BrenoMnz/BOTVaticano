@@ -23,6 +23,8 @@ namespace BOTVaticano
         public string idPartida { set; get; }
         public int idJogador { set; get; }
         public string senhaJogador { set; get; }
+        public int qtdCartas1;
+        public int qtdCartas2;
 
         private IDictionary<int, Button> btnsJogador1 = new Dictionary<int, Button>();
         private IDictionary<int, Button> btnsJogador2 = new Dictionary<int, Button>();
@@ -233,7 +235,7 @@ namespace BOTVaticano
 
                 Image imagem = null;
                 string caminho = null;
-                Console.WriteLine(cartasJogador[i,0]+ cartasJogador[i, 1]+cartasJogador[i, 2]);
+                Console.WriteLine("caminho"+cartasJogador[i,0]+"," +cartasJogador[i, 1] + "," + cartasJogador[i, 2]);
                 if (cartasJogador[i, 2] == "C")
                 {
                     caminho = "Cartas/Copas1.png";
@@ -407,6 +409,7 @@ namespace BOTVaticano
 
         private void DesenharCartas(int numJogador)
         {
+            Console.WriteLine("numero desenhado"+numJogador);
             int startX = 0, startY = 0;
             int sizeX = 60, sizeY = 80;
 
@@ -551,57 +554,56 @@ namespace BOTVaticano
         }
         private void AtualizarCartas(int numJogador)
         {
+            Console.WriteLine("numero" + numJogador);
 
             int qtdJogadores = SepararJogadores().Length;
-
-            int qtdCartas1 = 0;
-            int qtdCartas2 = 0;
-            int qtdCartas3 = 0;
-            int qtdCartas4 = 0;
-            if (qtdJogadores == 2)
-            {
-                qtdCartas1 = btnsJogador1.Count;
-                qtdCartas2 = btnsJogador2.Count;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas1 = btnsJogador1.Count;
-                qtdCartas2 = btnsJogador2.Count;
-                qtdCartas3 = btnsJogador3.Count;
-                qtdCartas4 = btnsJogador4.Count;
-            }
-
-            btnsJogador1.Clear();
-            btnsJogador2.Clear();
-            pnlJogador1.Controls.Clear();
-            pnlJogador2.Controls.Clear();
             int posicao = 1;
-
-            for (int i = 0; i < 15;i++) {
-                Array.Clear(cartasJogador1, posicao, 1);
-                posicao = +3;
-            }
-            for (int i = 0; i < 15; i++)
-            {
-                Array.Clear(cartasJogador2, posicao, 1);
-                posicao = +3;
-            }
-
-
-
-
             string[] jogadores = SepararJogadores();
             string idJogador = jogadores[numJogador - 1].Split(',')[0];
-
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n');
 
+            switch (numJogador)
+            {
+                case 1:
+                    qtdCartas1 = btnsJogador1.Count;
+                    btnsJogador1.Clear();
+                    pnlJogador1.Controls.Clear();
+                        Array.Clear(cartasJogador1, 0, 42);
+
+                    
+                    foreach (var i in cartasJogador1) {
+                        Console.WriteLine(i);
+                    }
+                    Console.WriteLine("limpo 1");                    
+
+                    break;
+
+                case 2:
+
+                    qtdCartas2 = btnsJogador2.Count;
+                    btnsJogador2.Clear();
+                    pnlJogador2.Controls.Clear();
+
+                        Array.Clear(cartasJogador2, 0, 42);
+
+                    foreach (var i in cartasJogador2)
+                    {
+                        Console.WriteLine(i);
+                    }
+                    Console.WriteLine("limpo 2");
+
+                    break;
+
+            }
 
 
-            for (int i = 0; i < qtdCartas1; i++)
+
+            for (int i = 0; i <= cartas.Length-1 ; i++)
             {
                 string[] carta = cartas[i].Split(',');
+
 
                 if (carta[0] == idJogador)
                 {
@@ -609,31 +611,29 @@ namespace BOTVaticano
                     {
                         case 1:
                             cartasJogador1[i % qtdCartas1, 0] = carta[0];
+                            Console.WriteLine(cartasJogador1[i % qtdCartas1, 0] = carta[0]);
                             cartasJogador1[i % qtdCartas1, 1] = carta[1];
-                            cartasJogador1[i % qtdCartas2, 2] = carta[2];
+                            Console.WriteLine(cartasJogador1[i % qtdCartas1, 1] = carta[1]);
+                            cartasJogador1[i % qtdCartas1, 2] = carta[2];
+                            Console.WriteLine(cartasJogador1[i % qtdCartas1, 2] = carta[2]);
+                            Console.WriteLine("cartas 1");
                             break;
-                    }
-                }
-
-            }
-            for (int i = 0; i < qtdCartas1; i++)
-            {
-                string[] carta = cartas[i].Split(',');
-
-                if (carta[0] == idJogador)
-                {
-                    switch (numJogador)
-                    {
                         case 2:
                             cartasJogador2[i % qtdCartas2, 0] = carta[0];
+                            Console.WriteLine(cartasJogador2[i % qtdCartas2, 0] = carta[0]);
                             cartasJogador2[i % qtdCartas2, 1] = carta[1];
+                            Console.WriteLine(cartasJogador2[i % qtdCartas2, 1] = carta[1]);
                             cartasJogador2[i % qtdCartas2, 2] = carta[2];
+                            Console.WriteLine(cartasJogador2[i % qtdCartas2, 2] = carta[2]);
+                            Console.WriteLine("cartas 2");
                             break;
 
                     }
                 }
 
             }
+
+
 
         }
 
@@ -642,7 +642,7 @@ namespace BOTVaticano
             lblTimer.Text = tempo.ToString();
             tempo--;
 
-            if (Int32.Parse(lblTimer.Text) == 0)
+            if (Int32.Parse(lblTimer.Text) == 25)
             {
 
                 tempo = 30;
@@ -657,8 +657,12 @@ namespace BOTVaticano
                     AtualizarCartas(1);
                     AtualizarCartas(2);
 
+
                     DesenharCartas(1);
                     DesenharCartas(2);
+
+
+
                 }
                 if (qtdJogadores == 4)
                 {
