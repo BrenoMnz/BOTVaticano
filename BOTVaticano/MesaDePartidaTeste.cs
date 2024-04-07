@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace BOTVaticano
 {
-    public partial class MesaDePartida : Form
+    public partial class MesaDePartidaTeste : Form
     {
         int tempo;
         public string idPartida { set; get; }
@@ -122,7 +122,7 @@ namespace BOTVaticano
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n');
-        
+
 
 
             for (int i = 0; i < qtdCartas * qtdJogadores; i++)
@@ -378,10 +378,10 @@ namespace BOTVaticano
                 }
 
                 btn.Click += new EventHandler(this.FazerUmaJogada);
-             
-               
+
+
                 btns.Add(Int32.Parse(cartasJogador[i, 1]), btn);
-                
+
 
                 painelJogador.Controls.Add(btn);
 
@@ -399,7 +399,7 @@ namespace BOTVaticano
 
         private void DesenharCartas(int numJogador)
         {
-            
+
             int startX = 0, startY = 0;
             int sizeX = 60, sizeY = 80;
 
@@ -469,17 +469,17 @@ namespace BOTVaticano
 
         }
 
-        public MesaDePartida()
+        public MesaDePartidaTeste()
         {
-          
+
             InitializeComponent();
-            
+
 
         }
 
         private void MesaDePartida_Load(object sender, EventArgs e)
         {
-            
+
             AtualizarJogadores();
             lblIDPartida.Text = idPartida;
             tempo = 30;
@@ -544,36 +544,37 @@ namespace BOTVaticano
             string[] cartas = retormoConsultarmao.Split('\n');
             List<string> cartasJogador = new List<string>();
 
-             
-                for (int i = 0; i < cartas.Length - 1; i++)
-                {
 
-                    string[] carta = cartas[i].Split(',');
-                    string id = carta[0].Trim();
-                    if (id == idJogador) 
-                    {
-                        string idCarta = carta[1].Trim();
-                        cartasJogador.Add(idCarta);
-                    }
-
-
-                }
-
-            foreach (var i in btnsJogador2.Keys)
+            for (int i = 0; i < cartas.Length - 1; i++)
             {
-               
-                if (!cartasJogador.Contains(i.ToString())) {
 
-                    
-                    panel.Controls.RemoveAt(i-1);
-                    
-                   
+                string[] carta = cartas[i].Split(',');
+                string id = carta[0].Trim();
+                if (id == idJogador)
+                {
+                    string idCarta = carta[1].Trim();
+                    cartasJogador.Add(idCarta);
                 }
-                
+
 
             }
 
-                
+            foreach (var i in btnsJogador2.Keys)
+            {
+
+                if (!cartasJogador.Contains(i.ToString()))
+                {
+
+
+                    panel.Controls.RemoveAt(i - 1);
+
+
+                }
+
+
+            }
+
+
         }
 
         private void btnApostar_Click(object sender, EventArgs e)
@@ -595,8 +596,8 @@ namespace BOTVaticano
                 tempo = 30;
                 AtualizarVez();
                 AtualizarJogadores();
-              
-                
+
+
 
             }
 

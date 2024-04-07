@@ -23,7 +23,10 @@ namespace BOTVaticano
         {
             MenuPopupCriar menuPopupCriar = new MenuPopupCriar();
             menuPopupCriar.StartPosition = FormStartPosition.CenterParent;
-            menuPopupCriar.ShowDialog();
+            if (menuPopupCriar.ShowDialog() == DialogResult.No)
+            {
+                Hide();
+            }
         }
 
         private void btnSair_Click(object sender, EventArgs e)
