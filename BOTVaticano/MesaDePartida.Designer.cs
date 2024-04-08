@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -73,11 +73,15 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.btnJogar = new System.Windows.Forms.Button();
             this.btnPular = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblDll = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblDll);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnIniciarPartida);
             this.panel1.Controls.Add(this.lvwJogadores);
             this.panel1.Controls.Add(this.lstJogadas);
@@ -110,10 +114,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem9,
-            listViewItem10,
-            listViewItem11,
-            listViewItem12});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 128);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
@@ -412,6 +416,27 @@
             this.btnPular.UseVisualStyleBackColor = true;
             this.btnPular.Click += new System.EventHandler(this.btnPular_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(86, 642);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Cidade do Vaticano";
+            // 
+            // lblDll
+            // 
+            this.lblDll.AutoSize = true;
+            this.lblDll.Location = new System.Drawing.Point(84, 663);
+            this.lblDll.MaximumSize = new System.Drawing.Size(100, 13);
+            this.lblDll.MinimumSize = new System.Drawing.Size(100, 13);
+            this.lblDll.Name = "lblDll";
+            this.lblDll.Size = new System.Drawing.Size(100, 13);
+            this.lblDll.TabIndex = 11;
+            this.lblDll.Text = "DLL";
+            this.lblDll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MesaDePartida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -481,5 +506,7 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button btnJogar;
         private System.Windows.Forms.Button btnPular;
+        private System.Windows.Forms.Label lblDll;
+        private System.Windows.Forms.Label label1;
     }
 }

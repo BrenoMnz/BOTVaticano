@@ -153,20 +153,6 @@ namespace BOTVaticano
             }
         }
 
-        private void AtualizarJogadas()
-        {
-            string listaJogadas = Jogo.ExibirJogadas(Int32.Parse(idPartida));
-            listaJogadas = listaJogadas.Replace("\r", "");
-            string[] jogadas = listaJogadas.Split('\n');
-
-            lstJogadas.Items.Clear();
-
-            foreach (string jogada in jogadas)
-            {
-                lstJogadas.Items.Add(jogada);
-            }
-        }
-
         private void SepararCartas(int idJogador)
         {
             int qtdJogadores = SepararJogadores().Length;
@@ -691,6 +677,7 @@ namespace BOTVaticano
             DefinirJogadores(idJogador1);
             AtualizarJogadores();
             lblIDPartida.Text = idPartida;
+            lblDll.Text = "DLL: " + Jogo.Versao;
             tempo = 30;
 
         }
@@ -747,7 +734,6 @@ namespace BOTVaticano
 
         private void btnJogar_Click(object sender, EventArgs e)
         {
-            //AtualizarJogadas();
             AtualizarVez();
             if (controleMarcado == null)
             {
@@ -776,13 +762,11 @@ namespace BOTVaticano
 
             }
 
-            //AtualizarJogadas();
             AtualizarVez();
         }
 
         private void btnApostar_Click(object sender, EventArgs e)
         {
-            //AtualizarJogadas();
             AtualizarVez();
             if (controleMarcado == null)
             {
@@ -811,7 +795,6 @@ namespace BOTVaticano
 
             }
 
-            //AtualizarJogadas();
             AtualizarVez();
         }
 
@@ -825,7 +808,6 @@ namespace BOTVaticano
             }
             Jogo.Apostar(idJogador1, senhaJogador, 0);
             MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //AtualizarJogadas();
             AtualizarVez();
         }
 
@@ -843,7 +825,6 @@ namespace BOTVaticano
                 AtualizarCartaDaMao(idJogador3);
                 AtualizarCartaDaMao(idJogador4);
                 AtualizarVez();
-                //AtualizarJogadas();
 
             }
             if (Int32.Parse(lblTimer.Text) == 20)
