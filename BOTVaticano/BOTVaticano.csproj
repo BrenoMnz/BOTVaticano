@@ -79,12 +79,6 @@
     <Compile Include="MesaDePartida.Designer.cs">
       <DependentUpon>MesaDePartida.cs</DependentUpon>
     </Compile>
-    <Compile Include="MesaDePartidaTeste.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MesaDePartidaTeste.Designer.cs">
-      <DependentUpon>MesaDePartidaTeste.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Menu.resx">
@@ -101,9 +95,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MesaDePartida.resx">
       <DependentUpon>MesaDePartida.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MesaDePartidaTeste.resx">
-      <DependentUpon>MesaDePartidaTeste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
