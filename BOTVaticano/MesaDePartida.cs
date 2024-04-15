@@ -135,11 +135,21 @@ namespace BOTVaticano
             string checarVez = Jogo.VerificarVez(Int32.Parse(idPartida));
             checarVez = checarVez.Replace("\r", "");
             string[] informacaoVez = checarVez.Split('\n');
+            informacaoVez = informacaoVez[0].Split(',');
+
+            if (informacaoVez[3] == "C")
+            {
+                lblStatus.Text = "Jogar";
+            }
+            if (informacaoVez[3] == "A")
+            {
+                lblStatus.Text = "Apostar";
+            }
 
             for (int i = 0; i < jogadores.Length; i++)
             {
                 string[] jogador = jogadores[i].Split(',');
-                if (jogador[0] == informacaoVez[0].Split(',')[1])
+                if (jogador[0] == informacaoVez[1])
                 {
                     lblVezJogador.Text = jogador[1];
                 }

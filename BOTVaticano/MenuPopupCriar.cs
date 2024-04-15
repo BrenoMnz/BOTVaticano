@@ -17,18 +17,18 @@ namespace BOTVaticano
             string nome = (txtNome.Text).Trim();
             string senha = (txtSenha.Text).Trim();
             string resposta = "E";
-            int cont = 1;
 
             //REMOVER IF INTEIRO E O CONTEÚDO INTEIRO DO ELSE AO FAZER MERGE PRA UMA BRANCH NÃO TESTE
             if (nome == "whatsapp")
             {
+                Random r = new Random();
+
                 while (resposta.Substring(0, 1) == "E")
                 {
-                    resposta = Jogo.CriarPartida(nome + cont, senha, "Vaticano");
-                    if (resposta.Substring(0, 1) == "E")
-                    {
-                        cont += 1;
-                    }
+                    int numeroPartida;
+                    numeroPartida = r.Next(0, 1000);
+
+                    resposta = Jogo.CriarPartida(nome + numeroPartida, senha, "Vaticano");
 
                 }
 

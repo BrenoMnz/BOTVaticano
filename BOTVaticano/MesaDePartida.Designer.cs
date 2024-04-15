@@ -29,19 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDll = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnIniciarPartida = new System.Windows.Forms.Button();
             this.lvwJogadores = new System.Windows.Forms.ListView();
             this.clhJogador = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -73,13 +75,13 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.btnJogar = new System.Windows.Forms.Button();
             this.btnPular = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblDll = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblStatus);
             this.panel1.Controls.Add(this.lblDll);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnIniciarPartida);
@@ -95,6 +97,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(265, 686);
             this.panel1.TabIndex = 0;
+            // 
+            // lblDll
+            // 
+            this.lblDll.AutoSize = true;
+            this.lblDll.Location = new System.Drawing.Point(84, 663);
+            this.lblDll.MaximumSize = new System.Drawing.Size(100, 13);
+            this.lblDll.MinimumSize = new System.Drawing.Size(100, 13);
+            this.lblDll.Name = "lblDll";
+            this.lblDll.Size = new System.Drawing.Size(100, 13);
+            this.lblDll.TabIndex = 11;
+            this.lblDll.Text = "DLL";
+            this.lblDll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(86, 642);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Cidade do Vaticano";
             // 
             // btnIniciarPartida
             // 
@@ -114,10 +137,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 128);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
@@ -173,17 +196,20 @@
             this.lblTimer.AutoSize = true;
             this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimer.ForeColor = System.Drawing.Color.Red;
-            this.lblTimer.Location = new System.Drawing.Point(179, 60);
+            this.lblTimer.Location = new System.Drawing.Point(58, 54);
+            this.lblTimer.MaximumSize = new System.Drawing.Size(0, 20);
+            this.lblTimer.MinimumSize = new System.Drawing.Size(0, 20);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(21, 16);
+            this.lblTimer.Size = new System.Drawing.Size(21, 20);
             this.lblTimer.TabIndex = 3;
             this.lblTimer.Text = "30";
+            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(166, 13);
+            this.label13.Location = new System.Drawing.Point(44, 13);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 20);
             this.label13.TabIndex = 2;
@@ -193,11 +219,11 @@
             // 
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(20, 43);
-            this.lblVezJogador.MaximumSize = new System.Drawing.Size(100, 50);
-            this.lblVezJogador.MinimumSize = new System.Drawing.Size(100, 50);
+            this.lblVezJogador.Location = new System.Drawing.Point(142, 41);
+            this.lblVezJogador.MaximumSize = new System.Drawing.Size(100, 20);
+            this.lblVezJogador.MinimumSize = new System.Drawing.Size(100, 20);
             this.lblVezJogador.Name = "lblVezJogador";
-            this.lblVezJogador.Size = new System.Drawing.Size(100, 50);
+            this.lblVezJogador.Size = new System.Drawing.Size(100, 20);
             this.lblVezJogador.TabIndex = 1;
             this.lblVezJogador.Text = "Jogador";
             this.lblVezJogador.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -206,7 +232,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(13, 13);
+            this.label11.Location = new System.Drawing.Point(135, 13);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(116, 20);
             this.label11.TabIndex = 0;
@@ -416,26 +442,18 @@
             this.btnPular.UseVisualStyleBackColor = true;
             this.btnPular.Click += new System.EventHandler(this.btnPular_Click);
             // 
-            // label1
+            // lblStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 642);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Cidade do Vaticano";
-            // 
-            // lblDll
-            // 
-            this.lblDll.AutoSize = true;
-            this.lblDll.Location = new System.Drawing.Point(84, 663);
-            this.lblDll.MaximumSize = new System.Drawing.Size(100, 13);
-            this.lblDll.MinimumSize = new System.Drawing.Size(100, 13);
-            this.lblDll.Name = "lblDll";
-            this.lblDll.Size = new System.Drawing.Size(100, 13);
-            this.lblDll.TabIndex = 11;
-            this.lblDll.Text = "DLL";
-            this.lblDll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(141, 68);
+            this.lblStatus.MaximumSize = new System.Drawing.Size(100, 20);
+            this.lblStatus.MinimumSize = new System.Drawing.Size(100, 20);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(100, 20);
+            this.lblStatus.TabIndex = 12;
+            this.lblStatus.Text = "Status";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MesaDePartida
             // 
@@ -508,5 +526,6 @@
         private System.Windows.Forms.Button btnPular;
         private System.Windows.Forms.Label lblDll;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
