@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BOTVaticano
@@ -10,13 +11,23 @@ namespace BOTVaticano
     public partial class MesaDePartida : Form
     {
         private int tempo;
+        private int tempoSecreto;
         public string idPartida { set; get; }
         public int idJogador1 { set; get; }
         public string senhaJogador { set; get; }
 
         private int idJogador2, idJogador3, idJogador4;
 
+        private int qtdJogadores = 0;
+
         private Control controleMarcado;
+        private bool isCliqueProgramado = false;
+
+        private string naipeDaJogada = "";
+        private bool ehPrimeiroJogador = false;
+        private bool ehVezJogador1 = false;
+        private bool temNaipe = false;
+        private int cartaJogada = -1;
 
         private IDictionary<int, Button> btnsJogador1 = new Dictionary<int, Button>();
         private IDictionary<int, Button> btnsJogador2 = new Dictionary<int, Button>();
@@ -49,8 +60,8 @@ namespace BOTVaticano
 
         private void DefinirJogadores(int jogador1Id)
         {
+            qtdJogadores = SepararJogadores().Length;
             string[] jogadores = SepararJogadores();
-            List<int> ordemJogadores = new List<int>();
 
             List<int> ids = new List<int>();
             for (int i = 0; i < jogadores.Length; i++)
@@ -135,13 +146,14 @@ namespace BOTVaticano
             string checarVez = Jogo.VerificarVez(Int32.Parse(idPartida));
             checarVez = checarVez.Replace("\r", "");
             string[] informacaoVez = checarVez.Split('\n');
-            informacaoVez = informacaoVez[0].Split(',');
+            informacaoVez = informacaoVez.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+            string[] jogadorAtual = informacaoVez[0].Split(',');
 
-            if (informacaoVez[3] == "C")
+            if (jogadorAtual[3] == "C")
             {
                 lblStatus.Text = "Jogar";
             }
-            if (informacaoVez[3] == "A")
+            if (jogadorAtual[3] == "A")
             {
                 lblStatus.Text = "Apostar";
             }
@@ -149,23 +161,42 @@ namespace BOTVaticano
             for (int i = 0; i < jogadores.Length; i++)
             {
                 string[] jogador = jogadores[i].Split(',');
-                if (jogador[0] == informacaoVez[1])
+                if (jogador[0] == jogadorAtual[1])
                 {
                     lblVezJogador.Text = jogador[1];
+                }
+                if (Int32.Parse(jogadorAtual[1]) == idJogador1)
+                {
+                    ehVezJogador1 = true;
                 }
             }
 
             lstJogadas.Items.Clear();
 
+            int jogadas = 0;
+
             foreach (string info in informacaoVez)
             {
                 lstJogadas.Items.Add(info);
+                if (info[0] == 'C')
+                {
+                    jogadas += 1;
+                }
+                if (jogadas == 1)
+                {
+                    naipeDaJogada = info.Split(',')[1];
+                    jogadas += 1;
+                }
+            }
+
+            if (jogadas == 0 && ehVezJogador1 == true)
+            {
+                ehPrimeiroJogador = true;
             }
         }
 
         private void SepararCartas(int idJogador)
         {
-            int qtdJogadores = SepararJogadores().Length;
 
             int qtdCartas = 0;
 
@@ -277,8 +308,6 @@ namespace BOTVaticano
             }
 
             painelJogador.Visible = true;
-
-            int qtdJogadores = SepararJogadores().Length;
 
             int qtdCartas = 0;
 
@@ -534,89 +563,105 @@ namespace BOTVaticano
 
         private void BotaoSelecionado(object sender, EventArgs e)
         {
-            controleMarcado = (Control)sender;
+            if (isCliqueProgramado)
+            {
+                controleMarcado = (Control)sender;
+            }
+        }
+
+        private void SimularClique(Button btn)
+        {
+            isCliqueProgramado = true;
+            btn.PerformClick();
+            btn.Focus();
         }
 
         private void MarcarImagem(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            Panel parentPanel = btn.Parent as Panel;
-            int cartaEscolhida = parentPanel.Controls.IndexOf(btn);
+            if (isCliqueProgramado)
+            {
+                Button btn = sender as Button;
+                Panel parentPanel = btn.Parent as Panel;
+                int cartaEscolhida = parentPanel.Controls.IndexOf(btn);
 
-            string caminho = null;
+                string caminho = null;
 
-            if (cartasJogador1[cartaEscolhida, 2] == "C")
-            {
-                caminho = "Cartas/Copas2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "O")
-            {
-                caminho = "Cartas/Ouros2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "S")
-            {
-                caminho = "Cartas/Estrela2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "E")
-            {
-                caminho = "Cartas/Espadas2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "L")
-            {
-                caminho = "Cartas/Lua2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "P")
-            {
-                caminho = "Cartas/Paus2.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "T")
-            {
-                caminho = "Cartas/Triangulo2.png";
-            }
+                if (cartasJogador1[cartaEscolhida, 2] == "C")
+                {
+                    caminho = "Cartas/Copas2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "L")
+                {
+                    caminho = "Cartas/Lua2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "P")
+                {
+                    caminho = "Cartas/Paus2.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo2.png";
+                }
 
-            btn.BackgroundImage = Image.FromFile(caminho);
-            btn.BackgroundImageLayout = ImageLayout.Stretch;
+                btn.BackgroundImage = Image.FromFile(caminho);
+                btn.BackgroundImageLayout = ImageLayout.Stretch;
+            }
         }
 
         private void DesmarcarImagem(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            Panel parentPanel = btn.Parent as Panel;
-            int cartaEscolhida = parentPanel.Controls.IndexOf(btn);
+            if (isCliqueProgramado)
+            {
+                Button btn = sender as Button;
+                Panel parentPanel = btn.Parent as Panel;
+                int cartaEscolhida = parentPanel.Controls.IndexOf(btn);
 
-            string caminho = null;
+                string caminho = null;
 
-            if (cartasJogador1[cartaEscolhida, 2] == "C")
-            {
-                caminho = "Cartas/Copas1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "O")
-            {
-                caminho = "Cartas/Ouros1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "S")
-            {
-                caminho = "Cartas/Estrela1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "E")
-            {
-                caminho = "Cartas/Espadas1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "L")
-            {
-                caminho = "Cartas/Lua1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "P")
-            {
-                caminho = "Cartas/Paus1.png";
-            }
-            if (cartasJogador1[cartaEscolhida, 2] == "T")
-            {
-                caminho = "Cartas/Triangulo1.png";
-            }
+                if (cartasJogador1[cartaEscolhida, 2] == "C")
+                {
+                    caminho = "Cartas/Copas1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "L")
+                {
+                    caminho = "Cartas/Lua1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "P")
+                {
+                    caminho = "Cartas/Paus1.png";
+                }
+                if (cartasJogador1[cartaEscolhida, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo1.png";
+                }
 
-            btn.BackgroundImage = Image.FromFile(caminho);
-            btn.BackgroundImageLayout = ImageLayout.Stretch;
+                btn.BackgroundImage = Image.FromFile(caminho);
+                btn.BackgroundImageLayout = ImageLayout.Stretch;
+            }
         }
 
         private void AtualizarCartaDaMao(int idJogador)
@@ -688,7 +733,8 @@ namespace BOTVaticano
             AtualizarJogadores();
             lblIDPartida.Text = idPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
-            tempo = 30;
+            tempo = 10;
+            tempoSecreto = 3600;
 
         }
 
@@ -710,8 +756,6 @@ namespace BOTVaticano
             }
 
             AtualizarVez();
-
-            int qtdJogadores = SepararJogadores().Length;
 
             if (qtdJogadores == 2)
             {
@@ -817,31 +861,104 @@ namespace BOTVaticano
                 return;
             }
             Jogo.Apostar(idJogador1, senhaJogador, 0);
-            MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AtualizarVez();
         }
 
-
-        private void timer1_Tick(object sender, EventArgs e)
+        private async void timer1_Tick(object sender, EventArgs e)
         {
+            tempoSecreto--;
 
-            lblTimer.Text = tempo.ToString();
-            tempo--;
+            if (ehVezJogador1)
+            {
+                lblTimer.Text = tempo.ToString();
+                tempo--;
+            }
 
-            if (Int32.Parse(lblTimer.Text) % 3 == 0)
+            if (tempoSecreto % 3 == 0)
             {
                 AtualizarCartaDaMao(idJogador1);
                 AtualizarCartaDaMao(idJogador2);
                 AtualizarCartaDaMao(idJogador3);
                 AtualizarCartaDaMao(idJogador4);
                 AtualizarVez();
-
             }
-            if (Int32.Parse(lblTimer.Text) == 20)
+
+            if (Int32.Parse(lblTimer.Text) % 3 == 0)
             {
-                tempo = 30;
+                int qtdCartas = 0;
+                Random rand = new Random();
+
+                if (ehVezJogador1)
+                {
+                    if (qtdJogadores == 2)
+                    {
+                        qtdCartas = 12;
+                    }
+                    if (qtdJogadores == 4)
+                    {
+                        qtdCartas = 14;
+                    }
+
+                    if (ehPrimeiroJogador)
+                    {
+                        do
+                        {
+                            cartaJogada = rand.Next(0, qtdCartas);
+                        } while (cartasJogadas1[cartaJogada] == true);
+                    }
+                    
+                    if (!ehPrimeiroJogador)
+                    {
+
+                        for (int i = 0; i < qtdCartas; i++)
+                        {
+                            if (cartasJogador1[i, 2] == naipeDaJogada)
+                            {
+                                temNaipe = true;
+                                cartaJogada = i;
+                                break;
+                            }
+                        }
+
+                        if (!temNaipe)
+                        {
+                            do
+                            {
+                                cartaJogada = rand.Next(0, qtdCartas);
+                            } while (cartasJogadas1[cartaJogada] == true);
+                        }
+                    }
+                    Button btnClicado = (Button)pnlJogador1.Controls[cartaJogada];
+                    SimularClique(btnClicado);
+                }
             }
 
+            if (Int32.Parse(lblTimer.Text) == 0)
+            {
+                if (ehVezJogador1)
+                {
+                    btnJogar.PerformClick();
+                    btnPular.PerformClick();
+
+                    await Task.Delay(3000);
+
+                    SendKeys.Send("{ENTER}");
+
+                    isCliqueProgramado = false;
+
+                    temNaipe = false;
+                    ehPrimeiroJogador = false;
+                    ehVezJogador1 = false;
+                }
+                tempo = 10;
+                lblTimer.Text = tempo.ToString();
+            }
+
+            if (tempoSecreto == 0)
+            {
+                tempoSecreto = 3600;
+            }
         }
 
     }
