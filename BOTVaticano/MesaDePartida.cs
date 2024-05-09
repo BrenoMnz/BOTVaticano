@@ -12,6 +12,7 @@ namespace BOTVaticano
     {
         private int tempo;
         private int tempoSecreto;
+        
         public string idPartida { set; get; }
         public int idJogador1 { set; get; }
         public string senhaJogador { set; get; }
