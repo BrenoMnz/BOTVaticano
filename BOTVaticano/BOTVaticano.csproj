@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Carta.cs" />
+    <Compile Include="Controllers\Partida.cs" />
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
