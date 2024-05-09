@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card\Card.cs" />
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +80,7 @@
     <Compile Include="MesaDePartida.Designer.cs">
       <DependentUpon>MesaDePartida.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player\Jogador.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Menu.resx">

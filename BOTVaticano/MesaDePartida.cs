@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -48,8 +49,13 @@ namespace BOTVaticano
         public bool[] cartasJogadas2 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
         public bool[] cartasJogadas3 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
         public bool[] cartasJogadas4 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+
+        private List<Jogador> players = new List<Jogador>();
+
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private string[] SepararJogadores()
         {
+            // retorna um array com dados dos jogadores
             int id = Int32.Parse(idPartida);
             string listaJogadores = Jogo.ListarJogadores(id);
             listaJogadores = listaJogadores.Replace("\r", "");
@@ -58,6 +64,7 @@ namespace BOTVaticano
             return jogadores;
         }
 
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private void DefinirJogadores(int jogador1Id)
         {
             qtdJogadores = SepararJogadores().Length;
@@ -66,7 +73,19 @@ namespace BOTVaticano
             List<int> ids = new List<int>();
             for (int i = 0; i < jogadores.Length; i++)
             {
-                ids.Add(Int32.Parse(jogadores[i].Split(',')[0]));
+                int id = Int32.Parse(jogadores[i].Split(',')[0]);
+                string nome = jogadores[i].Split(',')[1];
+                Console.WriteLine(id);
+                Console.WriteLine(nome);
+                Console.WriteLine(senhaJogador);
+                players.Add(new Jogador(id, nome, senhaJogador));
+
+                ids.Add(id);
+            }
+
+            foreach (Jogador player in players)
+            {
+                Console.WriteLine(player.NomeJogador);
             }
 
             int indexJogador1 = ids.IndexOf(jogador1Id);
@@ -79,69 +98,51 @@ namespace BOTVaticano
                 {
                     case 1:
                         idJogador2 = ids[index];
+                        players[i].PosicaoJogador = ids[index];
                         break;
                     case 2:
                         idJogador3 = ids[index];
+                        players[i].PosicaoJogador = ids[index];
                         break;
                     case 3:
                         idJogador4 = ids[index];
+                        players[i].PosicaoJogador = ids[index];
                         break;
                 }
             }
 
         }
 
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private void AtualizarJogadores()
         {
-            string[] jogadores = SepararJogadores();
-            List<Label> labelsJogadores = new List<Label> { lblJogador1, lblJogador2, lblJogador3, lblJogador4 };
             List<Label> labelsIDJogadores = new List<Label> { lblIDJogador1, lblIDJogador2, lblIDJogador3, lblIDJogador4 };
+            List<Label> labelsJogadores = new List<Label> { lblJogador1, lblJogador2, lblJogador3, lblJogador4 };
 
             lvwJogadores.Items.Clear();
 
             for (int i = 0; i < labelsJogadores.Count(); i++)
             {
-                if (i < jogadores.Length)
+                if (i < players.Count())
                 {
-                    int idJogador = Int32.Parse(jogadores[i].Split(',')[0]);
-                    int numJogador = -1;
-                    string[] jogador;
+                    labelsIDJogadores[i].Text = $"{players[i].IDjogador}";
+                    labelsIDJogadores[i].Visible = true;
 
-                    if (idJogador == idJogador1)
-                    {
-                        numJogador = 1;
-                    }
-                    if (idJogador == idJogador2)
-                    {
-                        numJogador = 2;
-                    }
-                    if (idJogador == idJogador3)
-                    {
-                        numJogador = 3;
-                    }
-                    if (idJogador == idJogador4)
-                    {
-                        numJogador = 4;
-                    }
+                    labelsJogadores[i].Text = players[i].NomeJogador;
+                    labelsJogadores[i].Visible = true;
 
-                    jogador = jogadores[i].Split(',');
+                    ListViewItem itemJogador = new ListViewItem(players[i].NomeJogador);
+                    itemJogador.SubItems.Add(players[i].PontosJogador);
 
-                    labelsIDJogadores[numJogador-1].Text = jogador[0];
-                    labelsIDJogadores[numJogador - 1].Visible = true;
-                    labelsJogadores[numJogador - 1].Text = jogador[1];
-                    labelsJogadores[numJogador - 1].Visible = true;
-
-                    ListViewItem itemJogador = new ListViewItem(jogador[1]);
-                    itemJogador.SubItems.Add(jogador[2]);
                     lvwJogadores.Items.Add(itemJogador);
                 }
             }
-
         }
 
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private void AtualizarVez()
         {
-            string[] jogadores = SepararJogadores();
+            //string[] jogadores = SepararJogadores();
 
             string checarVez = Jogo.VerificarVez(Int32.Parse(idPartida));
             checarVez = checarVez.Replace("\r", "");
@@ -158,12 +159,12 @@ namespace BOTVaticano
                 lblStatus.Text = "Apostar";
             }
 
-            for (int i = 0; i < jogadores.Length; i++)
+            for (int i = 0; i < players.Count(); i++)
             {
-                string[] jogador = jogadores[i].Split(',');
-                if (jogador[0] == jogadorAtual[1])
+                Jogador jogador = players[i];
+                if (Convert.ToString(jogador.IDjogador) == jogadorAtual[1])
                 {
-                    lblVezJogador.Text = jogador[1];
+                    lblVezJogador.Text = jogador.NomeJogador;
                 }
                 if (Int32.Parse(jogadorAtual[1]) == idJogador1)
                 {
@@ -211,6 +212,7 @@ namespace BOTVaticano
 
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
+
             string[] cartas = listaCartas.Split('\n');
 
             int numJogador = 0;
@@ -740,7 +742,7 @@ namespace BOTVaticano
 
         private void btnIniciarPartida_Click(object sender, EventArgs e)
         {
-            DefinirJogadores(idJogador1);
+            //DefinirJogadores(idJogador1);
             AtualizarJogadores();
 
             string retorno = Jogo.IniciarPartida(idJogador1, senhaJogador);
@@ -786,6 +788,7 @@ namespace BOTVaticano
             timer1.Start();
         }
 
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private void btnJogar_Click(object sender, EventArgs e)
         {
             AtualizarVez();
@@ -804,6 +807,11 @@ namespace BOTVaticano
             }
 
             int cartaEscolhida = parentPanel.Controls.IndexOf(controleMarcado) + 1;
+
+            players[0].JogarCarta(cartaEscolhida);
+            AtualizarCartaDaMao(idJogador1);
+
+            /*
             string retornoJogar = Jogo.Jogar(idJogador1, senhaJogador, cartaEscolhida);
             if (retornoJogar.Substring(0, 1) == "E")
             {
@@ -815,10 +823,12 @@ namespace BOTVaticano
                 AtualizarCartaDaMao(idJogador1);
 
             }
+            */
 
             AtualizarVez();
         }
 
+        // IMPLEMENTAR CLASSE DE JOGADOR AQUI
         private void btnApostar_Click(object sender, EventArgs e)
         {
             AtualizarVez();
