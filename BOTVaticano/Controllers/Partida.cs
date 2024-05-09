@@ -4,6 +4,7 @@ using MagicTrickServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms.VisualStyles;
 
 class Partida
 { 
@@ -16,11 +17,15 @@ class Partida
     
     List<Carta> cartasRodada;
 
+    public int QtdJogadores { get { return qtdJogadores; } set { qtdJogadores = value; } }
+    public int QtdCartas { get { return qtdCartas; } set { qtdCartas = value; } }
+    public int Rodada { get { return rodada; } set { rodada = Int32.Parse((vez[0].Split(','))[2]); } }
+    public int JogadorDaVez { get { return jogadorDaVez; } set { jogadorDaVez = Int32.Parse((vez[0].Split(','))[1]); } }
 
-    public Partida(int idPartida) 
+    public Partida(int idPartida, List<Jogador> jogadores) 
     {
         this.idPartida = idPartida;
-        qtdJogadores = SepararJogadores().Length;
+        qtdJogadores = jogadores.Count;
 
         if (qtdJogadores == 2)
         {
@@ -37,59 +42,6 @@ class Partida
 
     }
 
-    public int QtdJogadores 
-    {
-        get 
-        { 
-            return qtdJogadores; 
-        }
-    }
-
-    public int QtdCartas
-    {
-        get
-        {
-            return qtdCartas;
-        }
-       
-    }
-    public int Rodada
-    {
-        get
-        {
-            return rodada;
-        }
-
-        set 
-        { 
-            rodada = Int32.Parse((vez[0].Split(','))[2]);
-        }
-
-    }
-
-    public int JogadorDaVez
-    {
-        get
-        {
-            return jogadorDaVez;
-        }
-
-        set
-        {
-            jogadorDaVez = Int32.Parse((vez[0].Split(','))[1]);
-        }
-
-    }
-    private string[] SepararJogadores()
-    {
-        int id = idPartida;
-        string listaJogadores = Jogo.ListarJogadores(id);
-        listaJogadores = listaJogadores.Replace("\r", "");
-        listaJogadores = listaJogadores.Substring(0, listaJogadores.Length - 1);
-        string[] jogadores = listaJogadores.Split('\n');
-        return jogadores;
-    }
-
     void AtualizarVez() 
     {
         string checarVez = Jogo.VerificarVez2(idPartida);
@@ -99,11 +51,54 @@ class Partida
         vez = informacaoVez;
     }
 
-    void cartaJogada() 
+    Carta[] CartasJogadas(List<Jogador> jogadores)
     {
+        Carta[] cartasJogadas = new Carta[4];
+        Carta carta = null;
+        foreach (string jogada in vez)
+        {
+            if (jogada[0] == 'C')
+            {
+                jogada.Remove(0, 2);
+                string[] infoCarta = jogada.Split(',');
+                carta = new Carta(Int32.Parse(infoCarta[0]), Char.Parse(infoCarta[1]), Int32.Parse(infoCarta[3]));
+                carta.Valor = Int32.Parse(infoCarta[2]);
+            }
 
-        //eseprando a mesaPartida
+            for (int i = 0; i < jogadores.Count; i++)
+            {
+                if (jogadores[i].IdJogador == carta.IdJogador)
+                {
+                    cartasJogadas[i] = carta;
+                }
+            }
+        }
+        return cartasJogadas;
+    }
 
+    Carta[] CartasApostadas(List<Jogador> jogadores)
+    {
+        Carta[] cartasApostadas = new Carta[4];
+        Carta carta = null;
+        foreach (string jogada in vez)
+        {
+            if (jogada[0] == 'A')
+            {
+                jogada.Remove(0, 2);
+                string[] infoCarta = jogada.Split(',');
+                carta = new Carta(Int32.Parse(infoCarta[0]), Char.Parse(infoCarta[1]), Int32.Parse(infoCarta[3]));
+                carta.Valor = Int32.Parse(infoCarta[2]);
+            }
+
+            for (int i = 0; i < jogadores.Count; i++)
+            {
+                if (jogadores[i].IdJogador == carta.IdJogador)
+                {
+                    cartasApostadas[i] = carta;
+                }
+            }
+        }
+        return cartasApostadas;
     }
 
 
