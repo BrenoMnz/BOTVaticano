@@ -92,7 +92,7 @@ namespace BOTVaticano
             {
                 listaJogadores.Add(jogador);
             }
-        }
+        }//OK
 
         private void DefinirJogadores() //OK
         {
