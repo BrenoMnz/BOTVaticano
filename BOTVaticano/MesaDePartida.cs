@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,12 +13,8 @@ namespace BOTVaticano
     {
         private int tempo;
         private int tempoSecreto;
-        
-        public string idPartida { set; get; }
-        public int idJogador1 { set; get; }
-        public string senhaJogador { set; get; }
 
-        private int idJogador2, idJogador3, idJogador4;
+        private int idJogador2, idJogador3, idJogador4; //VALA
 
         private int qtdJogadores = 0;
 
@@ -49,52 +46,92 @@ namespace BOTVaticano
         public bool[] cartasJogadas2 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
         public bool[] cartasJogadas3 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
         public bool[] cartasJogadas4 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-        private string[] SepararJogadores()
+
+        //NOVO CÓDIGO AQUI
+        private string idPartida;
+        private int idJogador1;
+        private string senhaJogador;
+        public string IdPartida { set; get; }
+        public int IdJogador1 { set; get; }
+        public string SenhaJogador { set; get; }
+
+        List<Jogador> listaJogadores;
+        Partida partida;
+
+        public MesaDePartida(string idPartida, int idJogador1, string senhaJogador)
         {
-            int id = Int32.Parse(idPartida);
-            string listaJogadores = Jogo.ListarJogadores(id);
+            IdPartida = idPartida;
+            IdJogador1 = idJogador1;
+            SenhaJogador = senhaJogador;
+            listaJogadores = new List<Jogador>();
+            partida = new Partida(Int32.Parse(IdPartida));
+            InitializeComponent();
+        }
+
+        private string[] SepararJogadores() //OK
+        {
+            string listaJogadores = Jogo.ListarJogadores(Int32.Parse(IdPartida));
             listaJogadores = listaJogadores.Replace("\r", "");
             listaJogadores = listaJogadores.Substring(0, listaJogadores.Length - 1);
             string[] jogadores = listaJogadores.Split('\n');
+            partida.QtdJogadores = jogadores.Length;
             return jogadores;
         }
 
-        private void DefinirJogadores(int jogador1Id)
+        private void checaJogadorExiste (List<Jogador> jogadores, Jogador jogador)
         {
-            qtdJogadores = SepararJogadores().Length;
+            bool existe = false;
+            foreach (Jogador j in listaJogadores)
+            {
+                if (j.IdJogador == jogador.IdJogador)
+                {
+                    existe = true;
+                }
+            }
+            if (!existe)
+            {
+                listaJogadores.Add(jogador);
+            }
+        }
+
+        private void DefinirJogadores() //OK
+        {
+            int indexJogador1 = -1;
             string[] jogadores = SepararJogadores();
 
-            List<int> ids = new List<int>();
-            for (int i = 0; i < jogadores.Length; i++)
+            for (int i = 0; i < partida.QtdJogadores; i++)
             {
-                ids.Add(Int32.Parse(jogadores[i].Split(',')[0]));
+                int id = Int32.Parse(jogadores[i].Split(',')[0]);
+                string nome = jogadores[i].Split(',')[1];
+                Jogador jogador = new Jogador(id, nome, SenhaJogador);
+                checaJogadorExiste(listaJogadores, jogador);
             }
 
-            int indexJogador1 = ids.IndexOf(jogador1Id);
-
-            for (int i = 1; i < ids.Count; i++)
+            foreach (Jogador jogador in listaJogadores)
             {
-                int index = (indexJogador1 + i) % ids.Count;
-
-                switch (i)
+                if (jogador.IdJogador == IdJogador1)
                 {
-                    case 1:
-                        idJogador2 = ids[index];
-                        break;
-                    case 2:
-                        idJogador3 = ids[index];
-                        break;
-                    case 3:
-                        idJogador4 = ids[index];
-                        break;
+                    indexJogador1 = jogador.IdJogador;
+                    jogador.PosicaoJogadorNaMesa = 0;
                 }
+            }
+
+            for (int i = 0; i < listaJogadores.Count; i++)
+            {
+                int index = (indexJogador1 + (i + 1)) % listaJogadores.Count();
+                Console.WriteLine($"Index: {index} I:{i} indexJogador1 + i:{indexJogador1 + i} listaJogadores.Count:{listaJogadores.Count()}");
+
+                listaJogadores[i].PosicaoJogadorNaMesa = index;
             }
 
         }
 
-        private void AtualizarJogadores()
+        private void AtualizarJogadores() //OK
         {
-            string[] jogadores = SepararJogadores();
+            foreach (Jogador jogador in listaJogadores)
+            {
+                Console.WriteLine($"{jogador.IdJogador} {jogador.NomeJogador} {jogador.PosicaoJogadorNaMesa} {jogador.PontosJogador}");
+            }
             List<Label> labelsJogadores = new List<Label> { lblJogador1, lblJogador2, lblJogador3, lblJogador4 };
             List<Label> labelsIDJogadores = new List<Label> { lblIDJogador1, lblIDJogador2, lblIDJogador3, lblIDJogador4 };
 
@@ -102,43 +139,27 @@ namespace BOTVaticano
 
             for (int i = 0; i < labelsJogadores.Count(); i++)
             {
-                if (i < jogadores.Length)
+                if (i < listaJogadores.Count())
                 {
-                    int idJogador = Int32.Parse(jogadores[i].Split(',')[0]);
-                    int numJogador = -1;
-                    string[] jogador;
-
-                    if (idJogador == idJogador1)
+                    if (i < listaJogadores.Count())
                     {
-                        numJogador = 1;
-                    }
-                    if (idJogador == idJogador2)
-                    {
-                        numJogador = 2;
-                    }
-                    if (idJogador == idJogador3)
-                    {
-                        numJogador = 3;
-                    }
-                    if (idJogador == idJogador4)
-                    {
-                        numJogador = 4;
-                    }
+                        labelsIDJogadores[listaJogadores[i].PosicaoJogadorNaMesa].Text = (listaJogadores[i].IdJogador).ToString();
+                        labelsIDJogadores[listaJogadores[i].PosicaoJogadorNaMesa].Visible = true;
 
-                    jogador = jogadores[i].Split(',');
+                        labelsJogadores[listaJogadores[i].PosicaoJogadorNaMesa].Text = listaJogadores[i].NomeJogador;
+                        labelsJogadores[listaJogadores[i].PosicaoJogadorNaMesa].Visible = true;
 
-                    labelsIDJogadores[numJogador-1].Text = jogador[0];
-                    labelsIDJogadores[numJogador - 1].Visible = true;
-                    labelsJogadores[numJogador - 1].Text = jogador[1];
-                    labelsJogadores[numJogador - 1].Visible = true;
+                        ListViewItem itemJogador = new ListViewItem(listaJogadores[i].NomeJogador);
+                        itemJogador.SubItems.Add(listaJogadores[i].PontosJogador);
 
-                    ListViewItem itemJogador = new ListViewItem(jogador[1]);
-                    itemJogador.SubItems.Add(jogador[2]);
-                    lvwJogadores.Items.Add(itemJogador);
+                        lvwJogadores.Items.Add(itemJogador);
+                    }
                 }
             }
 
         }
+
+        /*
 
         private void AtualizarVez()
         {
@@ -719,26 +740,19 @@ namespace BOTVaticano
                 }
             }
         }
-
-        public MesaDePartida()
-        {
-
-            InitializeComponent();
-
-
-        }
-
+        */
         private void MesaDePartida_Load(object sender, EventArgs e)
         {
-            DefinirJogadores(idJogador1);
+            DefinirJogadores();
             AtualizarJogadores();
-            lblIDPartida.Text = idPartida;
+            lblIDPartida.Text = IdPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
             tempo = 10;
             tempoSecreto = 3600;
+            timer1.Start();
 
-        }
-
+        }//OK
+        /*
         private void btnIniciarPartida_Click(object sender, EventArgs e)
         {
             DefinirJogadores(idJogador1);
@@ -866,101 +880,34 @@ namespace BOTVaticano
             AtualizarVez();
         }
 
+        */
+
         private async void timer1_Tick(object sender, EventArgs e)
         {
+            lblTimer.Text = tempoSecreto.ToString();
             tempoSecreto--;
 
-            if (ehVezJogador1)
+
+            if (ehDivisivelPor3())
             {
-                lblTimer.Text = tempo.ToString();
-                tempo--;
+                DefinirJogadores();
+                AtualizarJogadores();
             }
-
-            if (tempoSecreto % 3 == 0)
-            {
-                AtualizarCartaDaMao(idJogador1);
-                AtualizarCartaDaMao(idJogador2);
-                AtualizarCartaDaMao(idJogador3);
-                AtualizarCartaDaMao(idJogador4);
-                AtualizarVez();
-            }
-
-            if (Int32.Parse(lblTimer.Text) % 3 == 0)
-            {
-                int qtdCartas = 0;
-                Random rand = new Random();
-
-                if (ehVezJogador1)
-                {
-                    if (qtdJogadores == 2)
-                    {
-                        qtdCartas = 12;
-                    }
-                    if (qtdJogadores == 4)
-                    {
-                        qtdCartas = 14;
-                    }
-
-                    if (ehPrimeiroJogador)
-                    {
-                        do
-                        {
-                            cartaJogada = rand.Next(0, qtdCartas);
-                        } while (cartasJogadas1[cartaJogada] == true);
-                    }
-                    
-                    if (!ehPrimeiroJogador)
-                    {
-
-                        for (int i = 0; i < qtdCartas; i++)
-                        {
-                            if (cartasJogador1[i, 2] == naipeDaJogada)
-                            {
-                                temNaipe = true;
-                                cartaJogada = i;
-                                break;
-                            }
-                        }
-
-                        if (!temNaipe)
-                        {
-                            do
-                            {
-                                cartaJogada = rand.Next(0, qtdCartas);
-                            } while (cartasJogadas1[cartaJogada] == true);
-                        }
-                    }
-                    Button btnClicado = (Button)pnlJogador1.Controls[cartaJogada];
-                    SimularClique(btnClicado);
-                }
-            }
-
-            if (Int32.Parse(lblTimer.Text) == 0)
-            {
-                if (ehVezJogador1)
-                {
-                    btnJogar.PerformClick();
-                    btnPular.PerformClick();
-
-                    await Task.Delay(3000);
-
-                    SendKeys.Send("{ENTER}");
-
-                    isCliqueProgramado = false;
-
-                    temNaipe = false;
-                    ehPrimeiroJogador = false;
-                    ehVezJogador1 = false;
-                }
-                tempo = 10;
-                lblTimer.Text = tempo.ToString();
-            }
-
-            if (tempoSecreto == 0)
+            
+            if (ehIgualAZero())
             {
                 tempoSecreto = 3600;
             }
         }
 
+        private bool ehDivisivelPor3()
+        {
+            return (tempoSecreto % 3) == 0;
+        }//OK
+
+        private bool ehIgualAZero()
+        {
+            return tempoSecreto == 0;
+        }//OK
     }
 }

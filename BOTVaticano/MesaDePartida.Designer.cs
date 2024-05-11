@@ -140,7 +140,7 @@
             this.btnIniciarPartida.TabIndex = 9;
             this.btnIniciarPartida.Text = "Iniciar partida";
             this.btnIniciarPartida.UseVisualStyleBackColor = true;
-            this.btnIniciarPartida.Click += new System.EventHandler(this.btnIniciarPartida_Click);
+            //this.btnIniciarPartida.Click += new System.EventHandler(this.btnIniciarPartida_Click);
             // 
             // lvwJogadores
             // 
@@ -427,7 +427,7 @@
             this.btnApostar.TabIndex = 26;
             this.btnApostar.Text = "Apostar";
             this.btnApostar.UseVisualStyleBackColor = true;
-            this.btnApostar.Click += new System.EventHandler(this.btnApostar_Click);
+            //this.btnApostar.Click += new System.EventHandler(this.btnApostar_Click);
             // 
             // timer1
             // 
@@ -442,7 +442,7 @@
             this.btnJogar.TabIndex = 27;
             this.btnJogar.Text = "Jogar";
             this.btnJogar.UseVisualStyleBackColor = true;
-            this.btnJogar.Click += new System.EventHandler(this.btnJogar_Click);
+            //this.btnJogar.Click += new System.EventHandler(this.btnJogar_Click);
             // 
             // btnPular
             // 
@@ -452,7 +452,7 @@
             this.btnPular.TabIndex = 28;
             this.btnPular.Text = "Pular";
             this.btnPular.UseVisualStyleBackColor = true;
-            this.btnPular.Click += new System.EventHandler(this.btnPular_Click);
+            //this.btnPular.Click += new System.EventHandler(this.btnPular_Click);
             // 
             // MesaDePartida
             // 

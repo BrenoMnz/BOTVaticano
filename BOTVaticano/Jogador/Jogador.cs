@@ -21,7 +21,7 @@ namespace BOTVaticano
 
         public int IdJogador { get { return idJogador; } set { idJogador = value; } }
         public string NomeJogador { get { return nomeJogador; } set { nomeJogador = value; } }
-        public int PosicaoJogador { get { return posicaoJogadorNaMesa; } set { posicaoJogadorNaMesa = value; } }
+        public int PosicaoJogadorNaMesa { get { return posicaoJogadorNaMesa; } set { posicaoJogadorNaMesa = value; } }
         public string SenhaJogadorNaParida { get { return senhaJogadorNaParida; } set { senhaJogadorNaParida = value; } }
         public string PontosJogador { get { return pontosJogador; } set { pontosJogador = value; } }
         public List<Carta> Cartas { get { return cartas; } set { cartas = value; } }

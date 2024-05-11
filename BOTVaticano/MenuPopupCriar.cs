@@ -49,10 +49,7 @@ namespace BOTVaticano
                     }
                 }
 
-                MesaDePartida mesaPartida = new MesaDePartida();
-                mesaPartida.idJogador1 = Int32.Parse(jogador1[0]);
-                mesaPartida.senhaJogador = jogador1[1];
-                mesaPartida.idPartida = partida.ToString();
+                MesaDePartida mesaPartida = new MesaDePartida(partida.ToString(), Int32.Parse(jogador1[0]), jogador1[1]);
                 mesaPartida.Show();
 
                 DialogResult = DialogResult.No;

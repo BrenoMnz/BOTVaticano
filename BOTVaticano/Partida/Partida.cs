@@ -14,18 +14,16 @@ class Partida
     private int jogadorDaVez;
     private int rodada;
     private string[] vez;
-    
-    List<Carta> cartasRodada;
 
     public int QtdJogadores { get { return qtdJogadores; } set { qtdJogadores = value; } }
     public int QtdCartas { get { return qtdCartas; } set { qtdCartas = value; } }
     public int Rodada { get { return rodada; } set { rodada = Int32.Parse((vez[0].Split(','))[2]); } }
     public int JogadorDaVez { get { return jogadorDaVez; } set { jogadorDaVez = Int32.Parse((vez[0].Split(','))[1]); } }
 
-    public Partida(int idPartida, List<Jogador> jogadores) 
+    public Partida(int idPartida) 
     {
         this.idPartida = idPartida;
-        qtdJogadores = jogadores.Count;
+        qtdJogadores = 0;
 
         if (qtdJogadores == 2)
         {
@@ -38,11 +36,9 @@ class Partida
 
         jogadorDaVez = -1;
 
-        cartasRodada = new List<Carta>();
-
     }
 
-    void AtualizarVez() 
+    public void AtualizarVez() 
     {
         string checarVez = Jogo.VerificarVez2(idPartida);
         checarVez = checarVez.Replace("\r", "");
@@ -51,7 +47,7 @@ class Partida
         vez = informacaoVez;
     }
 
-    Carta[] CartasJogadas(List<Jogador> jogadores)
+    public Carta[] CartasJogadasRodada(List<Jogador> jogadores)
     {
         Carta[] cartasJogadas = new Carta[4];
         Carta carta = null;
@@ -69,14 +65,14 @@ class Partida
             {
                 if (jogadores[i].IdJogador == carta.IdJogador)
                 {
-                    cartasJogadas[i] = carta;
+                    cartasJogadas[jogadores[i].PosicaoJogadorNaMesa] = carta;
                 }
             }
         }
         return cartasJogadas;
     }
 
-    Carta[] CartasApostadas(List<Jogador> jogadores)
+    public Carta[] CartasApostadasRodada(List<Jogador> jogadores)
     {
         Carta[] cartasApostadas = new Carta[4];
         Carta carta = null;
@@ -94,14 +90,11 @@ class Partida
             {
                 if (jogadores[i].IdJogador == carta.IdJogador)
                 {
-                    cartasApostadas[i] = carta;
+                    cartasApostadas[jogadores[i].PosicaoJogadorNaMesa] = carta;
                 }
             }
         }
         return cartasApostadas;
     }
-
-
-
     
 }
