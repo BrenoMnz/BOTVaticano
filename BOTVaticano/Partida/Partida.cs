@@ -11,31 +11,43 @@ class Partida
     private int idPartida;
     private int qtdJogadores;
     private int qtdCartas;
-    private int jogadorDaVez;
+    private string status;
+    private int idJogadorDaVez;
     private int rodada;
+    private string acao;
+    private int idPrimeiraJogada;
+    private char naipePrimeiraJogada;
     private string[] vez;
 
     public int QtdJogadores { get { return qtdJogadores; } set { qtdJogadores = value; } }
     public int QtdCartas { get { return qtdCartas; } set { qtdCartas = value; } }
+    public string Status { get { return status; } set { status = value; } }
+    public int IdJogadorDaVez { get { return idJogadorDaVez; } set { idJogadorDaVez = Int32.Parse((vez[0].Split(','))[1]); } }
     public int Rodada { get { return rodada; } set { rodada = Int32.Parse((vez[0].Split(','))[2]); } }
-    public int JogadorDaVez { get { return jogadorDaVez; } set { jogadorDaVez = Int32.Parse((vez[0].Split(','))[1]); } }
+    public string Acao { get { return acao; } set { acao = value; } }
+    public int IdPrimeiraJogada { get { return idPrimeiraJogada; } set { idPrimeiraJogada = value; } }
+    public char NaipePrimeiraJogada { get { return naipePrimeiraJogada; } set { naipePrimeiraJogada = value; } }
+    public string[] Vez { get { return vez; } set { vez = value; } }
 
     public Partida(int idPartida) 
     {
         this.idPartida = idPartida;
-        qtdJogadores = 0;
 
-        if (qtdJogadores == 2)
+        QtdJogadores = 0;
+        if (QtdJogadores == 2)
         {
-            qtdCartas = 12;
+            QtdCartas = 12;
         }
-        if(qtdJogadores == 4) 
+        if(QtdJogadores == 4) 
         { 
-            qtdCartas = 14;
+            QtdCartas = 14;
         }
 
-        jogadorDaVez = -1;
+        Status = "Aberta";
+        IdJogadorDaVez = -1;
 
+        IdPrimeiraJogada = -1;
+        NaipePrimeiraJogada = ' ';
     }
 
     public void AtualizarVez() 
@@ -45,6 +57,45 @@ class Partida
         string[] informacaoVez = checarVez.Split('\n');
         informacaoVez = informacaoVez.Where(s => !string.IsNullOrEmpty(s)).ToArray();
         vez = informacaoVez;
+        AtualizarInfoRodada();
+    }
+
+    private void AtualizarInfoRodada()
+    {
+        string[] infos = vez[0].Split(',');
+        Status = infos[0];
+        IdJogadorDaVez = Int32.Parse(infos[1]);
+        Rodada = Int32.Parse(infos[2]);
+        if (infos[3] == "C")
+        {
+            Acao = "Jogar";
+        }
+        if (infos[3] == "A")
+        {
+            Acao = "Apostar";
+        }
+        if (infos[3] == "E")
+        {
+            Acao = "Encerrada";
+        }
+    }
+
+    public void AtualizarPrimeiraJogada()
+    {
+
+        foreach (string info in Vez)
+        {
+            string[] infoSeparada = info.Split(',');
+            if (info[0] == 'J')
+            {
+                infoSeparada[0].Remove(0, 2);
+                IdPrimeiraJogada = Int32.Parse(infoSeparada[0]);
+            }
+            if (info[0] == 'C')
+            {
+                NaipePrimeiraJogada = Char.Parse(infoSeparada[1]);
+            }
+        }
     }
 
     public Carta[] CartasJogadasRodada(List<Jogador> jogadores)

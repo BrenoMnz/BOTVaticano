@@ -21,9 +21,8 @@ namespace BOTVaticano
         private Control controleMarcado;
         private bool isCliqueProgramado = false;
 
-        private string naipeDaJogada = "";
-        private bool ehPrimeiroJogador = false;
-        private bool ehVezJogador1 = false;
+        private string naipeDaRodada = "";
+        private bool ehPrimeiroJogador = false;  
         private bool temNaipe = false;
         private int cartaJogada = -1;
 
@@ -51,20 +50,26 @@ namespace BOTVaticano
         private string idPartida;
         private int idJogador1;
         private string senhaJogador;
-        public string IdPartida { set; get; }
-        public int IdJogador1 { set; get; }
-        public string SenhaJogador { set; get; }
+
+        private bool ehVezJogador1;
 
         List<Jogador> listaJogadores;
         Partida partida;
+        public string IdPartida { set; get; }
+        public int IdJogador1 { set; get; }
+        public string SenhaJogador { set; get; }
 
         public MesaDePartida(string idPartida, int idJogador1, string senhaJogador)
         {
             IdPartida = idPartida;
             IdJogador1 = idJogador1;
             SenhaJogador = senhaJogador;
+
+            ehVezJogador1 = false;
+
             listaJogadores = new List<Jogador>();
             partida = new Partida(Int32.Parse(IdPartida));
+
             InitializeComponent();
         }
 
@@ -78,7 +83,7 @@ namespace BOTVaticano
             return jogadores;
         }
 
-        private void checaJogadorExiste (List<Jogador> jogadores, Jogador jogador)
+        private bool checaJogadorExiste (List<Jogador> jogadores, Jogador jogador)
         {
             bool existe = false;
             foreach (Jogador j in listaJogadores)
@@ -88,10 +93,7 @@ namespace BOTVaticano
                     existe = true;
                 }
             }
-            if (!existe)
-            {
-                listaJogadores.Add(jogador);
-            }
+            return existe;
         }//OK
 
         private void DefinirJogadores() //OK
@@ -104,7 +106,10 @@ namespace BOTVaticano
                 int id = Int32.Parse(jogadores[i].Split(',')[0]);
                 string nome = jogadores[i].Split(',')[1];
                 Jogador jogador = new Jogador(id, nome, SenhaJogador);
-                checaJogadorExiste(listaJogadores, jogador);
+                if (!checaJogadorExiste(listaJogadores, jogador))
+                {
+                    listaJogadores.Add(jogador);
+                }
             }
 
             foreach (Jogador jogador in listaJogadores)
@@ -159,61 +164,38 @@ namespace BOTVaticano
 
         }
 
-        /*
-
-        private void AtualizarVez()
+        private void AtualizarDadosDaMesa() //OK
         {
-            string[] jogadores = SepararJogadores();
+            ehVezJogador1 = false;
 
-            string checarVez = Jogo.VerificarVez(Int32.Parse(idPartida));
-            checarVez = checarVez.Replace("\r", "");
-            string[] informacaoVez = checarVez.Split('\n');
-            informacaoVez = informacaoVez.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-            string[] jogadorAtual = informacaoVez[0].Split(',');
+            partida.AtualizarVez();
 
-            if (jogadorAtual[3] == "C")
-            {
-                lblStatus.Text = "Jogar";
-            }
-            if (jogadorAtual[3] == "A")
-            {
-                lblStatus.Text = "Apostar";
-            }
+            lblStatus.Text = partida.Acao;
 
-            for (int i = 0; i < jogadores.Length; i++)
+            foreach (Jogador jogador in listaJogadores)
             {
-                string[] jogador = jogadores[i].Split(',');
-                if (jogador[0] == jogadorAtual[1])
+                if (partida.IdJogadorDaVez == jogador.IdJogador)
                 {
-                    lblVezJogador.Text = jogador[1];
-                }
-                if (Int32.Parse(jogadorAtual[1]) == idJogador1)
-                {
-                    ehVezJogador1 = true;
+                    lblVezJogador.Text = jogador.NomeJogador;
+                    
+                    if (jogador.PosicaoJogadorNaMesa == 0)
+                    {
+                        ehVezJogador1 = true;
+                    }
                 }
             }
 
             lstJogadas.Items.Clear();
-
-            int jogadas = 0;
-
-            foreach (string info in informacaoVez)
+            foreach (string info in partida.Vez)
             {
                 lstJogadas.Items.Add(info);
-                if (info[0] == 'C')
-                {
-                    jogadas += 1;
-                }
-                if (jogadas == 1)
-                {
-                    naipeDaJogada = info.Split(',')[1];
-                    jogadas += 1;
-                }
             }
 
-            if (jogadas == 0 && ehVezJogador1 == true)
+            const int PRIMEIRAJOGADA = 3;
+
+            if ((partida.Vez).Length <= PRIMEIRAJOGADA)
             {
-                ehPrimeiroJogador = true;
+                partida.AtualizarPrimeiraJogada();
             }
         }
 
@@ -740,20 +722,21 @@ namespace BOTVaticano
                 }
             }
         }
-        */
+
         private void MesaDePartida_Load(object sender, EventArgs e)
         {
             DefinirJogadores();
             AtualizarJogadores();
             lblIDPartida.Text = IdPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
+            lblStatus.Text = partida.Acao;
             tempo = 10;
             tempoSecreto = 3600;
             timer1.Start();
 
         }//OK
-        /*
-        private void btnIniciarPartida_Click(object sender, EventArgs e)
+
+        private void btnIniciarPartida_Click(object sender, EventArgs e)//COM ERRO
         {
             DefinirJogadores(idJogador1);
             AtualizarJogadores();
@@ -879,8 +862,6 @@ namespace BOTVaticano
             //MessageBox.Show("Pulou a aposta", "Aposta", MessageBoxButtons.OK, MessageBoxIcon.Information);
             AtualizarVez();
         }
-
-        */
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
