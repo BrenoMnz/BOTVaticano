@@ -203,371 +203,371 @@ namespace BOTVaticano
             }
         }
 
-        //private void SepararCartas(int idJogador)
-        //{
+        private void SepararCartas(int idJogador)
+        {
 
-        //    int qtdCartas = 0;
+            int qtdCartas = 0;
 
-        //    if (qtdJogadores == 2)
-        //    {
-        //        qtdCartas = 12;
-        //    }
-        //    if (qtdJogadores == 4)
-        //    {
-        //        qtdCartas = 14;
-        //    }
+            if (qtdJogadores == 2)
+            {
+                qtdCartas = 12;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas = 14;
+            }
 
-        //    string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
-        //    listaCartas = listaCartas.Replace("\r", "");
-        //    string[] cartas = listaCartas.Split('\n');
+            string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
+            listaCartas = listaCartas.Replace("\r", "");
+            string[] cartas = listaCartas.Split('\n');
 
-        //    int numJogador = 0;
-        //    if (idJogador == idJogador1)
-        //    {
-        //        numJogador = 1;
-        //    }
-        //    if (idJogador == idJogador2)
-        //    {
-        //        numJogador = 2;
-        //    }
-        //    if (idJogador == idJogador3)
-        //    {
-        //        numJogador = 3;
-        //    }
-        //    if (idJogador == idJogador4)
-        //    {
-        //        numJogador = 4;
-        //    }
+            int numJogador = 0;
+            if (idJogador == idJogador1)
+            {
+                numJogador = 1;
+            }
+            if (idJogador == idJogador2)
+            {
+                numJogador = 2;
+            }
+            if (idJogador == idJogador3)
+            {
+                numJogador = 3;
+            }
+            if (idJogador == idJogador4)
+            {
+                numJogador = 4;
+            }
 
-        //    for (int i = 0; i < qtdCartas * qtdJogadores; i++)
-        //    {
-        //        string[] carta = cartas[i].Split(',');
+            for (int i = 0; i < qtdCartas * qtdJogadores; i++)
+            {
+                string[] carta = cartas[i].Split(',');
 
-        //        if (carta[0] == idJogador.ToString())
-        //        {
-        //            switch (numJogador)
-        //            {
-        //                case 1:
-        //                    cartasJogador1[i % qtdCartas, 0] = carta[0];
-        //                    cartasJogador1[i % qtdCartas, 1] = carta[1];
-        //                    cartasJogador1[i % qtdCartas, 2] = carta[2];
-        //                    break;
-        //                case 2:
-        //                    cartasJogador2[i % qtdCartas, 0] = carta[0];
-        //                    cartasJogador2[i % qtdCartas, 1] = carta[1];
-        //                    cartasJogador2[i % qtdCartas, 2] = carta[2];
-        //                    break;
-        //                case 3:
-        //                    cartasJogador3[i % qtdCartas, 0] = carta[0];
-        //                    cartasJogador3[i % qtdCartas, 1] = carta[1];
-        //                    cartasJogador3[i % qtdCartas, 2] = carta[2];
-        //                    break;
-        //                case 4:
-        //                    cartasJogador4[i % qtdCartas, 0] = carta[0];
-        //                    cartasJogador4[i % qtdCartas, 1] = carta[1];
-        //                    cartasJogador4[i % qtdCartas, 2] = carta[2];
-        //                    break;
-        //            }
-        //        }
+                if (carta[0] == idJogador.ToString())
+                {
+                    switch (numJogador)
+                    {
+                        case 1:
+                            cartasJogador1[i % qtdCartas, 0] = carta[0];
+                            cartasJogador1[i % qtdCartas, 1] = carta[1];
+                            cartasJogador1[i % qtdCartas, 2] = carta[2];
+                            break;
+                        case 2:
+                            cartasJogador2[i % qtdCartas, 0] = carta[0];
+                            cartasJogador2[i % qtdCartas, 1] = carta[1];
+                            cartasJogador2[i % qtdCartas, 2] = carta[2];
+                            break;
+                        case 3:
+                            cartasJogador3[i % qtdCartas, 0] = carta[0];
+                            cartasJogador3[i % qtdCartas, 1] = carta[1];
+                            cartasJogador3[i % qtdCartas, 2] = carta[2];
+                            break;
+                        case 4:
+                            cartasJogador4[i % qtdCartas, 0] = carta[0];
+                            cartasJogador4[i % qtdCartas, 1] = carta[1];
+                            cartasJogador4[i % qtdCartas, 2] = carta[2];
+                            break;
+                    }
+                }
 
-        //    }
+            }
 
-        //}
+        }
 
-        //private void CriarBotoes(int numJogador, int startX, int startY, int sizeX, int sizeY, string[,] cartasJogador)
-        //{
-        //    //Essa função existe pq provavelmente vai ser substituída por outra depois que começarmos a usar imagens
-        //    int switchPosX = 0, switchPosY = 0;
+        private void CriarBotoes(int numJogador, int startX, int startY, int sizeX, int sizeY, string[,] cartasJogador)
+        {
+            //Essa função existe pq provavelmente vai ser substituída por outra depois que começarmos a usar imagens
+            int switchPosX = 0, switchPosY = 0;
 
-        //    List<Panel> paineis = new List<Panel> { pnlJogador1, pnlJogador2, pnlJogador3, pnlJogador4 };
-        //    paineis[0].Visible = true;
-        //    Panel painelJogador = null;
+            List<Panel> paineis = new List<Panel> { pnlJogador1, pnlJogador2, pnlJogador3, pnlJogador4 };
+            paineis[0].Visible = true;
+            Panel painelJogador = null;
 
-        //    int aux;
-        //    switch (numJogador)
-        //    {
+            int aux;
+            switch (numJogador)
+            {
 
-        //        case 1:
-        //            switchPosX = 61;
-        //            switchPosY = 80;
-        //            painelJogador = paineis[0];
-        //            break;
-        //        case 2:
-        //            switchPosX = -61;
-        //            switchPosY = -80;
-        //            painelJogador = paineis[1];
-        //            break;
-        //        case 3:
-        //            switchPosX = -80;
-        //            switchPosY = 61;
-        //            aux = sizeX;
-        //            sizeX = sizeY;
-        //            sizeY = aux;
-        //            painelJogador = paineis[2];
-        //            break;
-        //        case 4:
-        //            switchPosX = 80;
-        //            switchPosY = -61;
-        //            aux = sizeX;
-        //            sizeX = sizeY;
-        //            sizeY = aux;
-        //            painelJogador = paineis[3];
-        //            break;
-        //    }
+                case 1:
+                    switchPosX = 61;
+                    switchPosY = 80;
+                    painelJogador = paineis[0];
+                    break;
+                case 2:
+                    switchPosX = -61;
+                    switchPosY = -80;
+                    painelJogador = paineis[1];
+                    break;
+                case 3:
+                    switchPosX = -80;
+                    switchPosY = 61;
+                    aux = sizeX;
+                    sizeX = sizeY;
+                    sizeY = aux;
+                    painelJogador = paineis[2];
+                    break;
+                case 4:
+                    switchPosX = 80;
+                    switchPosY = -61;
+                    aux = sizeX;
+                    sizeX = sizeY;
+                    sizeY = aux;
+                    painelJogador = paineis[3];
+                    break;
+            }
 
-        //    painelJogador.Visible = true;
+            painelJogador.Visible = true;
 
-        //    int qtdCartas = 0;
+            int qtdCartas = 0;
 
-        //    if (qtdJogadores == 2)
-        //    {
-        //        qtdCartas = 12;
-        //    }
-        //    if (qtdJogadores == 4)
-        //    {
-        //        qtdCartas = 14;
-        //    }
+            if (qtdJogadores == 2)
+            {
+                qtdCartas = 12;
+            }
+            if (qtdJogadores == 4)
+            {
+                qtdCartas = 14;
+            }
 
-        //    for (int i = 0; i < (qtdCartas / 2); i++)
-        //    {
+            for (int i = 0; i < (qtdCartas / 2); i++)
+            {
 
-        //        Button btn = new Button();
-        //        btn.Text = "";
-        //        btn.Size = new Size(sizeX, sizeY);
-        //        btn.Location = new Point(startX, startY);
-        //        if (numJogador != 1)
-        //        {
-        //            btn.Enabled = false;
-        //        }
+                Button btn = new Button();
+                btn.Text = "";
+                btn.Size = new Size(sizeX, sizeY);
+                btn.Location = new Point(startX, startY);
+                if (numJogador != 1)
+                {
+                    btn.Enabled = false;
+                }
 
-        //        Image imagem = null;
-        //        string caminho = null;
-        //        if (cartasJogador[i, 2] == "C")
-        //        {
-        //            caminho = "Cartas/Copas1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "O")
-        //        {
-        //            caminho = "Cartas/Ouros1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "S")
-        //        {
-        //            caminho = "Cartas/Estrela1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "E")
-        //        {
-        //            caminho = "Cartas/Espadas1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "L")
-        //        {
-        //            caminho = "Cartas/Lua1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "P")
-        //        {
-        //            caminho = "Cartas/Paus1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "T")
-        //        {
-        //            caminho = "Cartas/Triangulo1.png";
-        //        }
+                Image imagem = null;
+                string caminho = null;
+                if (cartasJogador[i, 2] == "C")
+                {
+                    caminho = "Cartas/Copas1.png";
+                }
+                if (cartasJogador[i, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros1.png";
+                }
+                if (cartasJogador[i, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela1.png";
+                }
+                if (cartasJogador[i, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas1.png";
+                }
+                if (cartasJogador[i, 2] == "L")
+                {
+                    caminho = "Cartas/Lua1.png";
+                }
+                if (cartasJogador[i, 2] == "P")
+                {
+                    caminho = "Cartas/Paus1.png";
+                }
+                if (cartasJogador[i, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo1.png";
+                }
 
-        //        if (numJogador == 1)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
+                if (numJogador == 1)
+                {
+                    imagem = Image.FromFile(caminho);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-        //            btn.Click += new EventHandler(BotaoSelecionado);
-        //            btn.Enter += new EventHandler(MarcarImagem);
-        //            btn.Leave += new EventHandler(DesmarcarImagem);
+                    btn.Click += new EventHandler(BotaoSelecionado);
+                    btn.Enter += new EventHandler(MarcarImagem);
+                    btn.Leave += new EventHandler(DesmarcarImagem);
 
-        //        }
-        //        if (numJogador == 2)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
-        //        if (numJogador == 3)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
-        //        if (numJogador == 4)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
+                }
+                if (numJogador == 2)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 3)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 4)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
 
-        //        painelJogador.Controls.Add(btn);
+                painelJogador.Controls.Add(btn);
 
-        //        if (numJogador == 1 || numJogador == 2)
-        //        {
-        //            startX += switchPosX;
-        //        }
-        //        if (numJogador == 3 || numJogador == 4)
-        //        {
-        //            startY += switchPosY;
-        //        }
-        //    }
-        //    if (numJogador == 1 || numJogador == 2)
-        //    {
-        //        startX -= switchPosX * qtdCartas / 2;
-        //        startY += switchPosY;
-        //    }
-        //    if (numJogador == 3 || numJogador == 4)
-        //    {
-        //        startY -= switchPosY * qtdCartas / 2;
-        //        startX += switchPosX;
-        //    }
-        //    for (int i = (qtdCartas / 2); i < qtdCartas; i++)
-        //    {
-        //        Button btn = new Button();
-        //        btn.Text = "";
-        //        btn.Size = new Size(sizeX, sizeY);
-        //        btn.Location = new Point(startX, startY);
-        //        if (numJogador != 1)
-        //        {
-        //            btn.Enabled = false;
-        //        }
+                if (numJogador == 1 || numJogador == 2)
+                {
+                    startX += switchPosX;
+                }
+                if (numJogador == 3 || numJogador == 4)
+                {
+                    startY += switchPosY;
+                }
+            }
+            if (numJogador == 1 || numJogador == 2)
+            {
+                startX -= switchPosX * qtdCartas / 2;
+                startY += switchPosY;
+            }
+            if (numJogador == 3 || numJogador == 4)
+            {
+                startY -= switchPosY * qtdCartas / 2;
+                startX += switchPosX;
+            }
+            for (int i = (qtdCartas / 2); i < qtdCartas; i++)
+            {
+                Button btn = new Button();
+                btn.Text = "";
+                btn.Size = new Size(sizeX, sizeY);
+                btn.Location = new Point(startX, startY);
+                if (numJogador != 1)
+                {
+                    btn.Enabled = false;
+                }
 
-        //        Image imagem = null;
-        //        string caminho = null;
+                Image imagem = null;
+                string caminho = null;
 
-        //        if (cartasJogador[i, 2] == "C")
-        //        {
-        //            caminho = "Cartas/Copas1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "O")
-        //        {
-        //            caminho = "Cartas/Ouros1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "S")
-        //        {
-        //            caminho = "Cartas/Estrela1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "E")
-        //        {
-        //            caminho = "Cartas/Espadas1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "L")
-        //        {
-        //            caminho = "Cartas/Lua1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "P")
-        //        {
-        //            caminho = "Cartas/Paus1.png";
-        //        }
-        //        if (cartasJogador[i, 2] == "T")
-        //        {
-        //            caminho = "Cartas/Triangulo1.png";
-        //        }
+                if (cartasJogador[i, 2] == "C")
+                {
+                    caminho = "Cartas/Copas1.png";
+                }
+                if (cartasJogador[i, 2] == "O")
+                {
+                    caminho = "Cartas/Ouros1.png";
+                }
+                if (cartasJogador[i, 2] == "S")
+                {
+                    caminho = "Cartas/Estrela1.png";
+                }
+                if (cartasJogador[i, 2] == "E")
+                {
+                    caminho = "Cartas/Espadas1.png";
+                }
+                if (cartasJogador[i, 2] == "L")
+                {
+                    caminho = "Cartas/Lua1.png";
+                }
+                if (cartasJogador[i, 2] == "P")
+                {
+                    caminho = "Cartas/Paus1.png";
+                }
+                if (cartasJogador[i, 2] == "T")
+                {
+                    caminho = "Cartas/Triangulo1.png";
+                }
 
-        //        if (numJogador == 1)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
+                if (numJogador == 1)
+                {
+                    imagem = Image.FromFile(caminho);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-        //            btn.Click += new EventHandler(BotaoSelecionado);
-        //            btn.Enter += new EventHandler(MarcarImagem);
-        //            btn.Leave += new EventHandler(DesmarcarImagem);
+                    btn.Click += new EventHandler(BotaoSelecionado);
+                    btn.Enter += new EventHandler(MarcarImagem);
+                    btn.Leave += new EventHandler(DesmarcarImagem);
 
-        //        }
-        //        if (numJogador == 2)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
-        //        if (numJogador == 3)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
-        //        if (numJogador == 4)
-        //        {
-        //            imagem = Image.FromFile(caminho);
-        //            imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
-        //            btn.BackgroundImage = imagem;
-        //            btn.BackgroundImageLayout = ImageLayout.Stretch;
-        //        }
+                }
+                if (numJogador == 2)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 3)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                if (numJogador == 4)
+                {
+                    imagem = Image.FromFile(caminho);
+                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imagem;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                }
 
-        //        painelJogador.Controls.Add(btn);
+                painelJogador.Controls.Add(btn);
 
-        //        if (numJogador == 1 || numJogador == 2)
-        //        {
-        //            startX += switchPosX;
-        //        }
-        //        if (numJogador == 3 || numJogador == 4)
-        //        {
-        //            startY += switchPosY;
-        //        }
-        //    }
+                if (numJogador == 1 || numJogador == 2)
+                {
+                    startX += switchPosX;
+                }
+                if (numJogador == 3 || numJogador == 4)
+                {
+                    startY += switchPosY;
+                }
+            }
 
-        //}
+        }
 
-        //private void DesenharCartas(int idJogador)
-        //{
+        private void DesenharCartas(int idJogador)
+        {
 
-        //    int startX, startY;
-        //    int sizeX = 60, sizeY = 80;
-        //    int numJogador = -1;
+            int startX, startY;
+            int sizeX = 60, sizeY = 80;
+            int numJogador = -1;
 
-        //    if (idJogador == idJogador1)
-        //    {
-        //        numJogador = 1;
-        //    }
-        //    if (idJogador == idJogador2)
-        //    {
-        //        numJogador = 2;
-        //    }
-        //    if (idJogador == idJogador3)
-        //    {
-        //        numJogador = 3;
-        //    }
-        //    if (idJogador == idJogador4)
-        //    {
-        //        numJogador = 4;
-        //    }
+            if (idJogador == idJogador1)
+            {
+                numJogador = 1;
+            }
+            if (idJogador == idJogador2)
+            {
+                numJogador = 2;
+            }
+            if (idJogador == idJogador3)
+            {
+                numJogador = 3;
+            }
+            if (idJogador == idJogador4)
+            {
+                numJogador = 4;
+            }
 
-        //    switch (numJogador)
-        //    {
-        //        case 1:
-        //            pnlJogador1.Controls.Clear();
-        //            startX = 2;
-        //            startY = 0;
-        //            CriarBotoes(1, startX, startY, sizeX, sizeY, cartasJogador1);
-        //            break;
-        //        case 2:
-        //            pnlJogador2.Controls.Clear();
-        //            startX = 368;
-        //            startY = 80;
-        //            CriarBotoes(2, startX, startY, sizeX, sizeY, cartasJogador2);
-        //            break;
-        //        case 3:
-        //            pnlJogador3.Controls.Clear();
-        //            startX = 80;
-        //            startY = 2;
-        //            CriarBotoes(3, startX, startY, sizeX, sizeY, cartasJogador3);
-        //            break;
-        //        case 4:
-        //            pnlJogador4.Controls.Clear();
-        //            startX = 0;
-        //            startY = 368;
-        //            CriarBotoes(4, startX, startY, sizeX, sizeY, cartasJogador4);
-        //            break;
-        //    }
+            switch (numJogador)
+            {
+                case 1:
+                    pnlJogador1.Controls.Clear();
+                    startX = 2;
+                    startY = 0;
+                    CriarBotoes(1, startX, startY, sizeX, sizeY, cartasJogador1);
+                    break;
+                case 2:
+                    pnlJogador2.Controls.Clear();
+                    startX = 368;
+                    startY = 80;
+                    CriarBotoes(2, startX, startY, sizeX, sizeY, cartasJogador2);
+                    break;
+                case 3:
+                    pnlJogador3.Controls.Clear();
+                    startX = 80;
+                    startY = 2;
+                    CriarBotoes(3, startX, startY, sizeX, sizeY, cartasJogador3);
+                    break;
+                case 4:
+                    pnlJogador4.Controls.Clear();
+                    startX = 0;
+                    startY = 368;
+                    CriarBotoes(4, startX, startY, sizeX, sizeY, cartasJogador4);
+                    break;
+            }
 
-        //}
+        }
 
         //private void BotaoSelecionado(object sender, EventArgs e)
         //{
