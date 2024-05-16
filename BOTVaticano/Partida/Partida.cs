@@ -22,8 +22,8 @@ class Partida
     public int QtdJogadores { get { return qtdJogadores; } set { qtdJogadores = value; } }
     public int QtdCartas { get { return qtdCartas; } set { qtdCartas = value; } }
     public string Status { get { return status; } set { status = value; } }
-    public int IdJogadorDaVez { get { return idJogadorDaVez; } set { idJogadorDaVez = Int32.Parse((vez[0].Split(','))[1]); } }
-    public int Rodada { get { return rodada; } set { rodada = Int32.Parse((vez[0].Split(','))[2]); } }
+    public int IdJogadorDaVez { get { return idJogadorDaVez; } set { idJogadorDaVez = value; } }
+    public int Rodada { get { return rodada; } set { rodada = value; } }
     public string Acao { get { return acao; } set { acao = value; } }
     public int IdPrimeiraJogada { get { return idPrimeiraJogada; } set { idPrimeiraJogada = value; } }
     public char NaipePrimeiraJogada { get { return naipePrimeiraJogada; } set { naipePrimeiraJogada = value; } }
