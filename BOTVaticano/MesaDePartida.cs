@@ -7,14 +7,13 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace BOTVaticano
 {
     public partial class MesaDePartida : Form
     {
         private int tempo;
         private int tempoSecreto;
-
-        private int idJogador2, idJogador3, idJogador4; //VALA
 
         private int qtdJogadores = 0;
 
@@ -30,16 +29,6 @@ namespace BOTVaticano
         private IDictionary<int, Button> btnsJogador2 = new Dictionary<int, Button>();
         private IDictionary<int, Button> btnsJogador3 = new Dictionary<int, Button>();
         private IDictionary<int, Button> btnsJogador4 = new Dictionary<int, Button>();
-
-        /* Matriz bidimensional 14x3.
-         * Cada linha representa uma carta do baralho
-         * Cada coluna representa, respectivamente:
-         * id do jogador, id da carta (sua posição), naipe
-        */
-        public string[,] cartasJogador1 = new string[14, 3];
-        public string[,] cartasJogador2 = new string[14, 3];
-        public string[,] cartasJogador3 = new string[14, 3];
-        public string[,] cartasJogador4 = new string[14, 3];
 
         public bool[] cartasJogadas1 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
         public bool[] cartasJogadas2 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
@@ -203,70 +192,29 @@ namespace BOTVaticano
             }
         }
 
-        private void SepararCartas(int idJogador)
+        private void SepararCartas()
         {
 
-            int qtdCartas = 0;
-
-            if (qtdJogadores == 2)
-            {
-                qtdCartas = 12;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas = 14;
-            }
+            int qtdCartas = partida.QtdCartas;
 
             string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n');
 
-            int numJogador = 0;
-            if (idJogador == idJogador1)
-            {
-                numJogador = 1;
-            }
-            if (idJogador == idJogador2)
-            {
-                numJogador = 2;
-            }
-            if (idJogador == idJogador3)
-            {
-                numJogador = 3;
-            }
-            if (idJogador == idJogador4)
-            {
-                numJogador = 4;
-            }
-
             for (int i = 0; i < qtdCartas * qtdJogadores; i++)
             {
                 string[] carta = cartas[i].Split(',');
 
-                if (carta[0] == idJogador.ToString())
+                foreach (Jogador jogador in listaJogadores)
                 {
-                    switch (numJogador)
+                    if (carta[0] == jogador.IdJogador.ToString())
                     {
-                        case 1:
-                            cartasJogador1[i % qtdCartas, 0] = carta[0];
-                            cartasJogador1[i % qtdCartas, 1] = carta[1];
-                            cartasJogador1[i % qtdCartas, 2] = carta[2];
-                            break;
-                        case 2:
-                            cartasJogador2[i % qtdCartas, 0] = carta[0];
-                            cartasJogador2[i % qtdCartas, 1] = carta[1];
-                            cartasJogador2[i % qtdCartas, 2] = carta[2];
-                            break;
-                        case 3:
-                            cartasJogador3[i % qtdCartas, 0] = carta[0];
-                            cartasJogador3[i % qtdCartas, 1] = carta[1];
-                            cartasJogador3[i % qtdCartas, 2] = carta[2];
-                            break;
-                        case 4:
-                            cartasJogador4[i % qtdCartas, 0] = carta[0];
-                            cartasJogador4[i % qtdCartas, 1] = carta[1];
-                            cartasJogador4[i % qtdCartas, 2] = carta[2];
-                            break;
+                        Carta cartaJogador = new Carta(
+                            idJogador: Int32.Parse(carta[0]), 
+                            naipe: Char.Parse(carta[1]), 
+                            idCarta: Int32.Parse(carta[2]));
+
+                        jogador.Cartas[i % qtdCartas] = cartaJogador;
                     }
                 }
 
@@ -274,7 +222,7 @@ namespace BOTVaticano
 
         }
 
-        private void CriarBotoes(int numJogador, int startX, int startY, int sizeX, int sizeY, string[,] cartasJogador)
+        private void CriarBotoes(Jogador jogador, int startX, int startY, int sizeX, int sizeY)
         {
             //Essa função existe pq provavelmente vai ser substituída por outra depois que começarmos a usar imagens
             int switchPosX = 0, switchPosY = 0;
@@ -284,6 +232,9 @@ namespace BOTVaticano
             Panel painelJogador = null;
 
             int aux;
+            int numJogador = jogador.PosicaoJogadorNaMesa + 1;
+            int qtdCartas = partida.QtdCartas;
+
             switch (numJogador)
             {
 
@@ -317,17 +268,6 @@ namespace BOTVaticano
 
             painelJogador.Visible = true;
 
-            int qtdCartas = 0;
-
-            if (qtdJogadores == 2)
-            {
-                qtdCartas = 12;
-            }
-            if (qtdJogadores == 4)
-            {
-                qtdCartas = 14;
-            }
-
             for (int i = 0; i < (qtdCartas / 2); i++)
             {
 
@@ -340,67 +280,36 @@ namespace BOTVaticano
                     btn.Enabled = false;
                 }
 
-                Image imagem = null;
-                string caminho = null;
-                if (cartasJogador[i, 2] == "C")
-                {
-                    caminho = "Cartas/Copas1.png";
-                }
-                if (cartasJogador[i, 2] == "O")
-                {
-                    caminho = "Cartas/Ouros1.png";
-                }
-                if (cartasJogador[i, 2] == "S")
-                {
-                    caminho = "Cartas/Estrela1.png";
-                }
-                if (cartasJogador[i, 2] == "E")
-                {
-                    caminho = "Cartas/Espadas1.png";
-                }
-                if (cartasJogador[i, 2] == "L")
-                {
-                    caminho = "Cartas/Lua1.png";
-                }
-                if (cartasJogador[i, 2] == "P")
-                {
-                    caminho = "Cartas/Paus1.png";
-                }
-                if (cartasJogador[i, 2] == "T")
-                {
-                    caminho = "Cartas/Triangulo1.png";
-                }
+                ImgCarta newImgCarta = new ImgCarta(jogador.Cartas[i]);
+                Image imgCarta = newImgCarta.GraphCarta();
 
                 if (numJogador == 1)
                 {
-                    imagem = Image.FromFile(caminho);
-                    btn.BackgroundImage = imagem;
+                    
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-                    btn.Click += new EventHandler(BotaoSelecionado);
-                    btn.Enter += new EventHandler(MarcarImagem);
-                    btn.Leave += new EventHandler(DesmarcarImagem);
+                    //btn.Click += new EventHandler(BotaoSelecionado);
+                    //btn.Enter += new EventHandler(MarcarImagem);
+                    //btn.Leave += new EventHandler(DesmarcarImagem);
 
                 }
                 if (numJogador == 2)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
                 if (numJogador == 3)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
                 if (numJogador == 4)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
 
@@ -415,6 +324,7 @@ namespace BOTVaticano
                     startY += switchPosY;
                 }
             }
+            
             if (numJogador == 1 || numJogador == 2)
             {
                 startX -= switchPosX * qtdCartas / 2;
@@ -425,6 +335,7 @@ namespace BOTVaticano
                 startY -= switchPosY * qtdCartas / 2;
                 startX += switchPosX;
             }
+
             for (int i = (qtdCartas / 2); i < qtdCartas; i++)
             {
                 Button btn = new Button();
@@ -436,68 +347,36 @@ namespace BOTVaticano
                     btn.Enabled = false;
                 }
 
-                Image imagem = null;
-                string caminho = null;
-
-                if (cartasJogador[i, 2] == "C")
-                {
-                    caminho = "Cartas/Copas1.png";
-                }
-                if (cartasJogador[i, 2] == "O")
-                {
-                    caminho = "Cartas/Ouros1.png";
-                }
-                if (cartasJogador[i, 2] == "S")
-                {
-                    caminho = "Cartas/Estrela1.png";
-                }
-                if (cartasJogador[i, 2] == "E")
-                {
-                    caminho = "Cartas/Espadas1.png";
-                }
-                if (cartasJogador[i, 2] == "L")
-                {
-                    caminho = "Cartas/Lua1.png";
-                }
-                if (cartasJogador[i, 2] == "P")
-                {
-                    caminho = "Cartas/Paus1.png";
-                }
-                if (cartasJogador[i, 2] == "T")
-                {
-                    caminho = "Cartas/Triangulo1.png";
-                }
+                ImgCarta newImgCarta = new ImgCarta(jogador.Cartas[i]);
+                Image imgCarta = newImgCarta.GraphCarta();
 
                 if (numJogador == 1)
                 {
-                    imagem = Image.FromFile(caminho);
-                    btn.BackgroundImage = imagem;
+
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-                    btn.Click += new EventHandler(BotaoSelecionado);
-                    btn.Enter += new EventHandler(MarcarImagem);
-                    btn.Leave += new EventHandler(DesmarcarImagem);
+                    //btn.Click += new EventHandler(BotaoSelecionado);
+                    //btn.Enter += new EventHandler(MarcarImagem);
+                    //btn.Leave += new EventHandler(DesmarcarImagem);
 
                 }
                 if (numJogador == 2)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
                 if (numJogador == 3)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
                 if (numJogador == 4)
                 {
-                    imagem = Image.FromFile(caminho);
-                    imagem.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    btn.BackgroundImage = imagem;
+                    imgCarta.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    btn.BackgroundImage = imgCarta;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
                 }
 
@@ -513,61 +392,61 @@ namespace BOTVaticano
                 }
             }
 
-        }
+        }//OK
 
-        private void DesenharCartas(int idJogador)
-        {
+        //private void DesenharCartas(int idJogador)
+        //{
 
-            int startX, startY;
-            int sizeX = 60, sizeY = 80;
-            int numJogador = -1;
+        //    int startX, startY;
+        //    int sizeX = 60, sizeY = 80;
+        //    int numJogador = -1;
 
-            if (idJogador == idJogador1)
-            {
-                numJogador = 1;
-            }
-            if (idJogador == idJogador2)
-            {
-                numJogador = 2;
-            }
-            if (idJogador == idJogador3)
-            {
-                numJogador = 3;
-            }
-            if (idJogador == idJogador4)
-            {
-                numJogador = 4;
-            }
+        //    if (idJogador == idJogador1)
+        //    {
+        //        numJogador = 1;
+        //    }
+        //    if (idJogador == idJogador2)
+        //    {
+        //        numJogador = 2;
+        //    }
+        //    if (idJogador == idJogador3)
+        //    {
+        //        numJogador = 3;
+        //    }
+        //    if (idJogador == idJogador4)
+        //    {
+        //        numJogador = 4;
+        //    }
 
-            switch (numJogador)
-            {
-                case 1:
-                    pnlJogador1.Controls.Clear();
-                    startX = 2;
-                    startY = 0;
-                    CriarBotoes(1, startX, startY, sizeX, sizeY, cartasJogador1);
-                    break;
-                case 2:
-                    pnlJogador2.Controls.Clear();
-                    startX = 368;
-                    startY = 80;
-                    CriarBotoes(2, startX, startY, sizeX, sizeY, cartasJogador2);
-                    break;
-                case 3:
-                    pnlJogador3.Controls.Clear();
-                    startX = 80;
-                    startY = 2;
-                    CriarBotoes(3, startX, startY, sizeX, sizeY, cartasJogador3);
-                    break;
-                case 4:
-                    pnlJogador4.Controls.Clear();
-                    startX = 0;
-                    startY = 368;
-                    CriarBotoes(4, startX, startY, sizeX, sizeY, cartasJogador4);
-                    break;
-            }
+        //    switch (numJogador)
+        //    {
+        //        case 1:
+        //            pnlJogador1.Controls.Clear();
+        //            startX = 2;
+        //            startY = 0;
+        //            CriarBotoes(1, startX, startY, sizeX, sizeY, cartasJogador1);
+        //            break;
+        //        case 2:
+        //            pnlJogador2.Controls.Clear();
+        //            startX = 368;
+        //            startY = 80;
+        //            CriarBotoes(2, startX, startY, sizeX, sizeY, cartasJogador2);
+        //            break;
+        //        case 3:
+        //            pnlJogador3.Controls.Clear();
+        //            startX = 80;
+        //            startY = 2;
+        //            CriarBotoes(3, startX, startY, sizeX, sizeY, cartasJogador3);
+        //            break;
+        //        case 4:
+        //            pnlJogador4.Controls.Clear();
+        //            startX = 0;
+        //            startY = 368;
+        //            CriarBotoes(4, startX, startY, sizeX, sizeY, cartasJogador4);
+        //            break;
+        //    }
 
-        }
+        //}
 
         //private void BotaoSelecionado(object sender, EventArgs e)
         //{
