@@ -50,7 +50,7 @@ namespace BOTVaticano
             string resp;
             try
             {
-                resp = Jogo.Jogar(IdJogador, SenhaJogadorNaPartida, Cartas[posCard].IdCarta);
+                resp = Jogo.Jogar(IdJogador, SenhaJogadorNaPartida, posCard);
                 if (resp.Substring(0, 1) == "E")
                 {
                     MessageBox.Show(resp, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -74,7 +74,7 @@ namespace BOTVaticano
             string resp;
             try
             {
-                resp = Jogo.Apostar(IdJogador, SenhaJogadorNaPartida, Cartas[posCard].IdCarta);
+                resp = Jogo.Apostar(IdJogador, SenhaJogadorNaPartida, posCard);
                 if (resp.Substring(0, 1) == "E")
                 {
                     MessageBox.Show(resp, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
