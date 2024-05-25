@@ -15,32 +15,15 @@ namespace BOTVaticano
         private int tempo;
         private int tempoSecreto;
 
-        private int qtdJogadores = 0;
-
-        private Control controleMarcado;
-        private bool isCliqueProgramado = false;
-
-        private string naipeDaRodada = "";
-        private bool ehPrimeiroJogador = false;  
-        private bool temNaipe = false;
-        private int cartaJogada = -1;
-
-        private IDictionary<int, Button> btnsJogador1 = new Dictionary<int, Button>();
-        private IDictionary<int, Button> btnsJogador2 = new Dictionary<int, Button>();
-        private IDictionary<int, Button> btnsJogador3 = new Dictionary<int, Button>();
-        private IDictionary<int, Button> btnsJogador4 = new Dictionary<int, Button>();
-
-        public bool[] cartasJogadas1 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-        public bool[] cartasJogadas2 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-        public bool[] cartasJogadas3 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-        public bool[] cartasJogadas4 = { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-
-        //NOVO CÓDIGO AQUI
         private string idPartida;
         private int idJogador1;
         private string senhaJogador;
 
-        private bool ehVezJogador1;
+        private bool ehPrimeiroJogador;
+
+        private bool partidaComecou;
+
+        Carta cartaSelecionada;
 
         List<Jogador> listaJogadores;
         Partida partida;
@@ -54,7 +37,9 @@ namespace BOTVaticano
             IdJogador1 = idJogador1;
             SenhaJogador = senhaJogador;
 
-            ehVezJogador1 = false;
+            ehPrimeiroJogador = false;
+
+            partidaComecou = false;
 
             listaJogadores = new List<Jogador>();
             partida = new Partida(Int32.Parse(IdPartida));
@@ -69,10 +54,21 @@ namespace BOTVaticano
             listaJogadores = listaJogadores.Substring(0, listaJogadores.Length - 1);
             string[] jogadores = listaJogadores.Split('\n');
             partida.QtdJogadores = jogadores.Length;
+
+            if (partida.QtdJogadores == 2)
+            {
+                partida.QtdCartas = 12;
+            }
+
+            if (partida.QtdJogadores == 4)
+            {
+                partida.QtdCartas = 14;
+            }
+
             return jogadores;
         }
 
-        private bool checaJogadorExiste (List<Jogador> jogadores, Jogador jogador)
+        private bool checaJogadorExiste (List<Jogador> jogadores, Jogador jogador) //OK
         {
             bool existe = false;
             foreach (Jogador j in listaJogadores)
@@ -83,7 +79,7 @@ namespace BOTVaticano
                 }
             }
             return existe;
-        }//OK
+        }
 
         private void DefinirJogadores() //OK
         {
@@ -95,7 +91,17 @@ namespace BOTVaticano
             {
                 int id = Int32.Parse(jogadores[i].Split(',')[0]);
                 string nome = jogadores[i].Split(',')[1];
-                Jogador jogador = new Jogador(id, nome, SenhaJogador);
+
+                Jogador jogador;
+                if (id == IdJogador1)
+                {
+                    jogador = new Bot(id, nome, SenhaJogador);
+                }
+                else
+                {
+                    jogador = new Jogador(id, nome, SenhaJogador);
+                }
+
                 if (!checaJogadorExiste(listaJogadores, jogador))
                 {
                     listaJogadores.Add(jogador);
@@ -129,9 +135,23 @@ namespace BOTVaticano
 
         private void AtualizarJogadores() //OK
         {
+            string jogadores = Jogo.ListarJogadores2(Int32.Parse(IdPartida));
+            jogadores = jogadores.Replace("\r", "");
+            jogadores = jogadores.Substring(0, jogadores.Length - 1);
+            string[] pontosJogadores = jogadores.Split('\n');
+
             foreach (Jogador jogador in listaJogadores)
             {
                 Console.WriteLine($"{jogador.IdJogador} {jogador.NomeJogador} {jogador.PosicaoJogadorNaMesa} {jogador.PontosJogador}");
+
+                foreach (string info in pontosJogadores)
+                {
+                    string[] infoSeparada = info.Split(',');
+                    if (jogador.IdJogador == Int32.Parse(infoSeparada[0]))
+                    {
+                        jogador.PontosJogador = infoSeparada[2];
+                    }
+                }
             }
             List<Label> labelsJogadores = new List<Label> { lblJogador1, lblJogador2, lblJogador3, lblJogador4 };
             List<Label> labelsIDJogadores = new List<Label> { lblIDJogador1, lblIDJogador2, lblIDJogador3, lblIDJogador4 };
@@ -159,7 +179,6 @@ namespace BOTVaticano
 
         private void AtualizarDadosDaMesa() //OK
         {
-            ehVezJogador1 = false;
 
             partida.AtualizarVez();
 
@@ -171,10 +190,6 @@ namespace BOTVaticano
                 {
                     lblVezJogador.Text = jogador.NomeJogador;
                     
-                    if (jogador.PosicaoJogadorNaMesa == 0)
-                    {
-                        ehVezJogador1 = true;
-                    }
                 }
             }
 
@@ -192,16 +207,16 @@ namespace BOTVaticano
             }
         }
 
-        private void SepararCartas()
+        private void SepararCartas()//OK
         {
 
             int qtdCartas = partida.QtdCartas;
 
-            string listaCartas = Jogo.ConsultarMao(Int32.Parse(idPartida));
+            string listaCartas = Jogo.ConsultarMao(Int32.Parse(IdPartida));
             listaCartas = listaCartas.Replace("\r", "");
-            string[] cartas = listaCartas.Split('\n');
+            string[] cartas = listaCartas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
 
-            for (int i = 0; i < qtdCartas * qtdJogadores; i++)
+            for (int i = 0; i < qtdCartas * partida.QtdJogadores; i++)
             {
                 string[] carta = cartas[i].Split(',');
 
@@ -211,10 +226,10 @@ namespace BOTVaticano
                     {
                         Carta cartaJogador = new Carta(
                             idJogador: Int32.Parse(carta[0]), 
-                            naipe: Char.Parse(carta[1]), 
-                            idCarta: Int32.Parse(carta[2]));
+                            idCarta: Int32.Parse(carta[1]),
+                            naipe: Char.Parse(carta[2]));
 
-                        jogador.Cartas[i % qtdCartas] = cartaJogador;
+                        jogador.Cartas.Add(cartaJogador);
                     }
                 }
 
@@ -222,9 +237,9 @@ namespace BOTVaticano
 
         }
 
-        private void CriarBotoes(Jogador jogador, int startX, int startY, int sizeX, int sizeY)
+        private void CriarBotoes(Jogador jogador, int startX, int startY, int sizeX, int sizeY)//OK SEM EVENTOS NOS BOTOES
         {
-            //Essa função existe pq provavelmente vai ser substituída por outra depois que começarmos a usar imagens
+
             int switchPosX = 0, switchPosY = 0;
 
             List<Panel> paineis = new List<Panel> { pnlJogador1, pnlJogador2, pnlJogador3, pnlJogador4 };
@@ -392,61 +407,43 @@ namespace BOTVaticano
                 }
             }
 
-        }//OK
+        }
 
-        //private void DesenharCartas(int idJogador)
-        //{
+        private void DesenharBotoes(Jogador jogador) //OK
+        {
 
-        //    int startX, startY;
-        //    int sizeX = 60, sizeY = 80;
-        //    int numJogador = -1;
+            int startX, startY;
+            int sizeX = 60, sizeY = 80;
 
-        //    if (idJogador == idJogador1)
-        //    {
-        //        numJogador = 1;
-        //    }
-        //    if (idJogador == idJogador2)
-        //    {
-        //        numJogador = 2;
-        //    }
-        //    if (idJogador == idJogador3)
-        //    {
-        //        numJogador = 3;
-        //    }
-        //    if (idJogador == idJogador4)
-        //    {
-        //        numJogador = 4;
-        //    }
+            switch (jogador.PosicaoJogadorNaMesa + 1)
+            {
+                case 1:
+                    pnlJogador1.Controls.Clear();
+                    startX = 2;
+                    startY = 0;
+                    CriarBotoes(listaJogadores[0], startX, startY, sizeX, sizeY);
+                    break;
+                case 2:
+                    pnlJogador2.Controls.Clear();
+                    startX = 368;
+                    startY = 80;
+                    CriarBotoes(listaJogadores[1], startX, startY, sizeX, sizeY);
+                    break;
+                case 3:
+                    pnlJogador3.Controls.Clear();
+                    startX = 80;
+                    startY = 2;
+                    CriarBotoes(listaJogadores[2], startX, startY, sizeX, sizeY);
+                    break;
+                case 4:
+                    pnlJogador4.Controls.Clear();
+                    startX = 0;
+                    startY = 368;
+                    CriarBotoes(listaJogadores[3], startX, startY, sizeX, sizeY);
+                    break;
+            }
 
-        //    switch (numJogador)
-        //    {
-        //        case 1:
-        //            pnlJogador1.Controls.Clear();
-        //            startX = 2;
-        //            startY = 0;
-        //            CriarBotoes(1, startX, startY, sizeX, sizeY, cartasJogador1);
-        //            break;
-        //        case 2:
-        //            pnlJogador2.Controls.Clear();
-        //            startX = 368;
-        //            startY = 80;
-        //            CriarBotoes(2, startX, startY, sizeX, sizeY, cartasJogador2);
-        //            break;
-        //        case 3:
-        //            pnlJogador3.Controls.Clear();
-        //            startX = 80;
-        //            startY = 2;
-        //            CriarBotoes(3, startX, startY, sizeX, sizeY, cartasJogador3);
-        //            break;
-        //        case 4:
-        //            pnlJogador4.Controls.Clear();
-        //            startX = 0;
-        //            startY = 368;
-        //            CriarBotoes(4, startX, startY, sizeX, sizeY, cartasJogador4);
-        //            break;
-        //    }
-
-        //}
+        }
 
         //private void BotaoSelecionado(object sender, EventArgs e)
         //{
@@ -551,121 +548,157 @@ namespace BOTVaticano
         //    }
         //}
 
-        //private void AtualizarCartaDaMao(int idJogador)
-        //{
+        private void AtualizarCartaDaMao()//OK
+        {
+            List<Panel> paineis = new List<Panel> { pnlJogador1, pnlJogador2, pnlJogador3, pnlJogador4 };
 
-        //    string retornoConsultarmao = Jogo.ConsultarMao(Int32.Parse(idPartida));
-        //    retornoConsultarmao = retornoConsultarmao.Replace("\r", "");
+            string listaRodadas = Jogo.ExibirJogadas2(Int32.Parse(IdPartida), partida.Round);
+            listaRodadas = listaRodadas.Replace("\r", "");
+            string[] informacaoRodadas = listaRodadas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
 
-        //    string[] cartas = retornoConsultarmao.Split('\n');
+            if (informacaoRodadas.Length != 0)
+            {
+                foreach (Jogador jogador in listaJogadores)
+                {
+                    foreach (string info in informacaoRodadas)
+                    {
+                        string[] infoSeparada = info.Split(',');
+                        if (Int32.Parse(infoSeparada[0]) == partida.Rodada)
+                        {
+                            if (Int32.Parse(infoSeparada[1]) == jogador.IdJogador)
+                            {
+                                jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta = -1;
 
-        //    List<bool[]> listaJogadas = new List<bool[]>{ cartasJogadas1, cartasJogadas2, cartasJogadas3, cartasJogadas4 };
-        //    Panel painel = null;
-        //    int numJogador = -1;
+                                Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+                                painel.Controls[Int32.Parse(infoSeparada[4]) - 1].Visible = false;
+                            }
+                        }
+                    }
 
-        //    if (idJogador == idJogador1)
-        //    {
-        //        painel = pnlJogador1;
-        //        numJogador = 1;
-        //    }
-        //    if (idJogador == idJogador2)
-        //    {
-        //        painel = pnlJogador2;
-        //        numJogador = 2;
-        //    }
-        //    if (idJogador == idJogador3)
-        //    {
-        //        painel = pnlJogador3;
-        //        numJogador = 3;
-        //    }
-        //    if (idJogador == idJogador4)
-        //    {
-        //        painel = pnlJogador4;
-        //        numJogador = 4;
-        //    }
+                    foreach (string info in partida.Vez)
+                    {
+                        if (info[0] == 'A')
+                        {
+                            string aux = info;
+                            aux = aux.Remove(0, 2);
+                            string[] infoSeparadas = aux.Split(',');
 
-        //    for (int i = 0; i < 14; i++)
-        //    {
-        //        listaJogadas[numJogador - 1][i] = true;
-        //    }
+                            if (Int32.Parse(infoSeparadas[0]) == jogador.IdJogador)
+                            {
+                                jogador.Cartas[Int32.Parse(infoSeparadas[4]) - 1].IdCarta = -2;
 
-        //    for (int i = 0; i < cartas.Length; i++)
-        //    {
-        //        if (cartas[i].Split(',')[0] == idJogador.ToString())
-        //        {
-        //            listaJogadas[numJogador - 1][Int32.Parse(cartas[i].Split(',')[1]) - 1] = false;
-        //        }
-        //    }
+                                Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+                                painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Visible = false;
+                            }
+                        }
+                    }
+                }
+            }
 
-        //    for (int i = 0; i < painel.Controls.Count; i++)
-        //    {
-        //        if (listaJogadas[numJogador - 1][i] == true)
-        //        {
-        //            painel.Controls[i].Visible = false;
-        //        }
-        //    }
-        //}
 
-        private void MesaDePartida_Load(object sender, EventArgs e)
+            //string retornoConsultarmao = Jogo.ConsultarMao(Int32.Parse(idPartida));
+            //retornoConsultarmao = retornoConsultarmao.Replace("\r", "");
+
+            //string[] cartas = retornoConsultarmao.Split('\n');
+
+            //List<bool[]> listaJogadas = new List<bool[]> { cartasJogadas1, cartasJogadas2, cartasJogadas3, cartasJogadas4 };
+            //Panel painel = null;
+            //int numJogador = -1;
+
+            //if (idJogador == idJogador1)
+            //{
+            //    painel = pnlJogador1;
+            //    numJogador = 1;
+            //}
+            //if (idJogador == idJogador2)
+            //{
+            //    painel = pnlJogador2;
+            //    numJogador = 2;
+            //}
+            //if (idJogador == idJogador3)
+            //{
+            //    painel = pnlJogador3;
+            //    numJogador = 3;
+            //}
+            //if (idJogador == idJogador4)
+            //{
+            //    painel = pnlJogador4;
+            //    numJogador = 4;
+            //}
+
+            //for (int i = 0; i < 14; i++)
+            //{
+            //    listaJogadas[numJogador - 1][i] = true;
+            //}
+
+            //for (int i = 0; i < cartas.Length; i++)
+            //{
+            //    if (cartas[i].Split(',')[0] == idJogador.ToString())
+            //    {
+            //        listaJogadas[numJogador - 1][Int32.Parse(cartas[i].Split(',')[1]) - 1] = false;
+            //    }
+            //}
+
+            //for (int i = 0; i < painel.Controls.Count; i++)
+            //{
+            //    if (listaJogadas[numJogador - 1][i] == true)
+            //    {
+            //        painel.Controls[i].Visible = false;
+            //    }
+            //}
+        }
+
+        private void AtualizarCartaDaMesa()
+        {
+
+        }
+
+        private void MesaDePartida_Load(object sender, EventArgs e)//OK
         {
             DefinirJogadores();
             AtualizarJogadores();
             lblIDPartida.Text = IdPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
             lblStatus.Text = partida.Acao;
-            tempo = 10;
+            tempo = 5;
             tempoSecreto = 3600;
             timer1.Start();
 
-        }//OK
+        }
 
-        //private void btnIniciarPartida_Click(object sender, EventArgs e)//COM ERRO
-        //{
-        //    DefinirJogadores(idJogador1);
-        //    AtualizarJogadores();
+        private void btnIniciarPartida_Click(object sender, EventArgs e)//OK
+        {
+            partidaComecou = true;
 
-        //    string retorno = Jogo.IniciarPartida(idJogador1, senhaJogador);
+            DefinirJogadores();
+            AtualizarJogadores();
 
-        //    if (retorno.Substring(0, 1) == "E")
-        //    {
-        //        MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Partida iniciada com sucesso", "Partida Inicada", MessageBoxButtons.OK);
-        //    }
+            string retorno = Jogo.IniciarPartida(IdJogador1, SenhaJogador);
 
-        //    AtualizarVez();
+            if (retorno.Substring(0, 1) == "E")
+            {
+                MessageBox.Show(retorno, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Partida iniciada com sucesso", "Partida Inicada", MessageBoxButtons.OK);
+            }
 
-        //    if (qtdJogadores == 2)
-        //    {
-        //        SepararCartas(idJogador1);
-        //        SepararCartas(idJogador2);
+            AtualizarDadosDaMesa();
 
-        //        DesenharCartas(idJogador1);
-        //        DesenharCartas(idJogador2);
-        //    }
-        //    if (qtdJogadores == 4)
-        //    {
-        //        SepararCartas(idJogador1);
-        //        SepararCartas(idJogador2);
-        //        SepararCartas(idJogador3);
-        //        SepararCartas(idJogador4);
+            SepararCartas();
+            
+            foreach (Jogador jogador in listaJogadores)
+            {
+               DesenharBotoes(jogador);
+            }
 
-        //        DesenharCartas(idJogador1);
-        //        DesenharCartas(idJogador2);
-        //        DesenharCartas(idJogador3);
-        //        DesenharCartas(idJogador4);
-        //    }
+            btnIniciarPartida.Visible = false;
 
-        //    btnIniciarPartida.Visible = false;
-
-        //    lblJogadas.Visible = true;
-        //    lstJogadas.Visible = true;
-
-        //    timer1.Start();
-        //}
+            lblJogadas.Visible = true;
+            lstJogadas.Visible = true;
+        }
 
         //private void btnJogar_Click(object sender, EventArgs e)
         //{
@@ -748,30 +781,88 @@ namespace BOTVaticano
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            lblTimer.Text = tempoSecreto.ToString();
             tempoSecreto--;
 
+            lblTimer.Text = tempo.ToString();
 
-            if (ehDivisivelPor3())
+            if (partidaComecou)
             {
-                DefinirJogadores();
+
+                if (ehDivisivelPor2())
+                {
+                    AtualizarDadosDaMesa();
+                    partida.AtualizarRound();
+                    AtualizarCartaDaMao();
+
+                    Bot bot = ((Bot)listaJogadores[0]);
+
+                    if (bot.EhVezJogador1(partida))
+                    {
+                        tempo--;
+
+                        if (partida.Acao == "Jogar")
+                        {
+                            cartaSelecionada = (bot.SelecionarCartaAleatoria(partida));
+                            bot.JogarCarta(cartaSelecionada.IdCarta);
+                        }
+
+                        if (partida.Acao == "Apostar")
+                        {
+                            cartaSelecionada = (bot.SelecionaCartaDeAposta(partida));
+
+                            if (cartaSelecionada == null)
+                            {
+                                Jogo.Apostar(IdJogador1, SenhaJogador, 0);
+                            }
+                            else
+                            {
+                                bot.Apostar(cartaSelecionada.IdCarta);
+                            }
+                        }
+
+                        tempo = 5;
+                    }
+                }
+            }
+
+            if (ehDivisivelPor2())
+            {
+                if (!partidaComecou)
+                    DefinirJogadores();
+
                 AtualizarJogadores();
             }
             
-            if (ehIgualAZero())
+            if (ehIgualAZeroSecreto())
             {
                 tempoSecreto = 3600;
             }
+
+            if (ehIgualAZero())
+            {
+
+                if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
+                {
+                    Jogo.Jogar(IdJogador1, SenhaJogador, cartaSelecionada.IdCarta);
+                }
+                    tempo = 5;
+            }
         }
 
-        private bool ehDivisivelPor3()
+        private bool ehDivisivelPor2()//OK
         {
-            return (tempoSecreto % 3) == 0;
-        }//OK
+            return (tempoSecreto % 2) == 0;
+        }
 
-        private bool ehIgualAZero()
+        private bool ehIgualAZeroSecreto()//OK
         {
             return tempoSecreto == 0;
-        }//OK
+        }
+
+        private bool ehIgualAZero()//OK
+        {
+            return tempo == 0;
+        }
+
     }
 }

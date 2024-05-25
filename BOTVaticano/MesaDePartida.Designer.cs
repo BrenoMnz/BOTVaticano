@@ -140,7 +140,7 @@
             this.btnIniciarPartida.TabIndex = 9;
             this.btnIniciarPartida.Text = "Iniciar partida";
             this.btnIniciarPartida.UseVisualStyleBackColor = true;
-            //this.btnIniciarPartida.Click += new System.EventHandler(this.btnIniciarPartida_Click);
+            this.btnIniciarPartida.Click += new System.EventHandler(this.btnIniciarPartida_Click);
             // 
             // lvwJogadores
             // 

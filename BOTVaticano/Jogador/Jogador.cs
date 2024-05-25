@@ -13,7 +13,7 @@ namespace BOTVaticano
         protected int idJogador;
         protected string nomeJogador;
         protected int posicaoJogadorNaMesa;
-        protected string senhaJogadorNaParida;
+        protected string senhaJogadorNaPartida;
         protected string pontosJogador;
         // pontos - final round
         // vitoria - final da rodada
@@ -22,7 +22,7 @@ namespace BOTVaticano
         public int IdJogador { get { return idJogador; } set { idJogador = value; } }
         public string NomeJogador { get { return nomeJogador; } set { nomeJogador = value; } }
         public int PosicaoJogadorNaMesa { get { return posicaoJogadorNaMesa; } set { posicaoJogadorNaMesa = value; } }
-        public string SenhaJogadorNaParida { get { return senhaJogadorNaParida; } set { senhaJogadorNaParida = value; } }
+        public string SenhaJogadorNaPartida { get { return senhaJogadorNaPartida; } set { senhaJogadorNaPartida = value; } }
         public string PontosJogador { get { return pontosJogador; } set { pontosJogador = value; } }
         public List<Carta> Cartas { get { return cartas; } set { cartas = value; } }
 
@@ -30,7 +30,7 @@ namespace BOTVaticano
         {
             this.idJogador = idJogador;
             this.nomeJogador = nomeJogador;
-            this.senhaJogadorNaParida = senhaNaPartida;
+            this.senhaJogadorNaPartida = senhaNaPartida;
         }
 
         public void AtribuiCartas(List<Carta> cartas)
@@ -50,7 +50,7 @@ namespace BOTVaticano
             string resp;
             try
             {
-                resp = Jogo.Jogar(IdJogador, SenhaJogadorNaParida, Cartas[posCard].IdCarta);
+                resp = Jogo.Jogar(IdJogador, SenhaJogadorNaPartida, Cartas[posCard].IdCarta);
                 if (resp.Substring(0, 1) == "E")
                 {
                     MessageBox.Show(resp, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -74,7 +74,7 @@ namespace BOTVaticano
             string resp;
             try
             {
-                resp = Jogo.Apostar(IdJogador, SenhaJogadorNaParida, Cartas[posCard].IdCarta);
+                resp = Jogo.Apostar(IdJogador, SenhaJogadorNaPartida, Cartas[posCard].IdCarta);
                 if (resp.Substring(0, 1) == "E")
                 {
                     MessageBox.Show(resp, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);

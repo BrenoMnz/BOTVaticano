@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Carta\Carta.cs" />
+    <Compile Include="ImgCarta\ImgCarta.cs" />
+    <Compile Include="Jogador\Bot.cs" />
     <Compile Include="Jogador\Jogador.cs" />
     <Compile Include="Partida\Partida.cs" />
     <Compile Include="Menu.cs">
