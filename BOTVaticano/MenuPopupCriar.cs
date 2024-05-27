@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using MagicTrickServer;
+using System.Collections.Generic;
 
 namespace BOTVaticano
 {

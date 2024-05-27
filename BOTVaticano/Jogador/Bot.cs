@@ -9,14 +9,15 @@ namespace BOTVaticano
     internal class Bot : Jogador
     {
         bool apostou;
+        Random random;
         public Bot(int idJogador, string nomeJogador, string senhaNaPartida) : base(idJogador, nomeJogador, senhaNaPartida)
         {
             apostou = false;
+            random = new Random();
         }
         
         public Carta SelecionarCartaAleatoria(Partida partida)
         {
-            Random random = new Random();
             List<Carta> cartasJogaveis = new List<Carta>();
             Carta cartaJogavel = null;
 
@@ -53,7 +54,6 @@ namespace BOTVaticano
 
         public Carta SelecionaCartaDeAposta(Partida partida)
         {
-            Random random = new Random();
             List<Carta> cartasApostaveis= new List<Carta>();
             Carta cartaApostavel = null;
 

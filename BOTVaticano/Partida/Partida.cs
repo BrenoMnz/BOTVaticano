@@ -79,22 +79,24 @@ class Partida
     {
         string[] infos = vez[0].Split(',');
         Status = infos[0];
-        IdJogadorDaVez = Int32.Parse(infos[1]);
-        Rodada = Int32.Parse(infos[2]);
-        if (infos[3] == "C")
-        {
-            Acao = "Jogar";
-        }
-        if (infos[3] == "A")
-        {
-            Acao = "Apostar";
-        }
-        if (infos[3] == "E")
-        {
-            Acao = "Encerrada";
-        }
 
-        
+        if (Status.Length == 1)
+        {
+            IdJogadorDaVez = Int32.Parse(infos[1]);
+            Rodada = Int32.Parse(infos[2]);
+            if (infos[3] == "C")
+            {
+                Acao = "Jogar";
+            }
+            if (infos[3] == "A")
+            {
+                Acao = "Apostar";
+            }
+            if (infos[3] == "E")
+            {
+                Acao = "Encerrada";
+            }
+        }
     }
 
     public void AtualizarRound()
@@ -122,6 +124,9 @@ class Partida
         {
             NaipePrimeiraJogada = ' ';
         }
+
+        bool ehPrimeiroC = false;
+
         foreach (string info in Vez)
         {
             string[] infoSeparada = info.Split(',');
@@ -129,8 +134,9 @@ class Partida
             {
                 IdPrimeiraJogada = Int32.Parse(infoSeparada[1]);
             }
-            if (info[0] == 'C')
+            if (info[0] == 'C' && ehPrimeiroC == false)
             {
+                ehPrimeiroC = true;
                 infoSeparada[0].Remove(0, 2);
                 NaipePrimeiraJogada = Char.Parse(infoSeparada[1]);
             }
