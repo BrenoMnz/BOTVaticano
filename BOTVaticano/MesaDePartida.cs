@@ -920,9 +920,9 @@ namespace BOTVaticano
             }
         }
 
-        private bool ehDivisivelPor2()//OK
+        private bool ehDivisivelPor3()//OK
         {
-            return (tempoSecreto % 2) == 0;
+            return (tempoSecreto % 3) == 0;
         }
 
         private bool ehIgualAZeroSecreto()//OK
