@@ -807,7 +807,7 @@ namespace BOTVaticano
 
             lblTimer.Text = tempo.ToString();
 
-            if (ehDivisivelPor2())
+            if (ehDivisivelPor3())
             {
                 if (!partidaComecou)
                 {
