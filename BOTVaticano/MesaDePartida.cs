@@ -677,7 +677,7 @@ namespace BOTVaticano
             lblIDPartida.Text = IdPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
             lblStatus.Text = partida.Acao;
-            tempo = 5;
+            tempo = 3;
             tempoSecreto = 3600;
             timer1.Start();
 
@@ -916,7 +916,7 @@ namespace BOTVaticano
                 }
                 AtualizarDadosDaMesa();
                 AtualizarCartaDaMao();
-                tempo = 5;
+                tempo = 3;
             }
         }
 
