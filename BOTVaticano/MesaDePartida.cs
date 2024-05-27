@@ -892,6 +892,9 @@ namespace BOTVaticano
                     }
                 }
 
+                AtualizarDadosDaMesa();
+                AtualizarCartaDaMao();
+
                 if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
                 {
                     if (partida.Acao == "Jogar")
@@ -914,8 +917,6 @@ namespace BOTVaticano
                         }
                     }
                 }
-                AtualizarDadosDaMesa();
-                AtualizarCartaDaMao();
                 tempo = 3;
             }
         }
