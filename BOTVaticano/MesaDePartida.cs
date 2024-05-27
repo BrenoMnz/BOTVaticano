@@ -690,7 +690,7 @@ namespace BOTVaticano
             DefinirJogadores();
             AtualizarJogadores();
 
-            if (partida.Status == "A")
+            if (partida.Status.Length > 1)
             {
                 string retorno = Jogo.IniciarPartida(IdJogador1, SenhaJogador);
 
