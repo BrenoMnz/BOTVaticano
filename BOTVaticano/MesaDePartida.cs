@@ -229,6 +229,7 @@ namespace BOTVaticano
 
                 foreach (Jogador jogador in listaJogadores)
                 {
+                    jogador.Cartas.Clear();
                     if (carta[0] == jogador.IdJogador.ToString())
                     {
                         Carta cartaJogador = new Carta(
