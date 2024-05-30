@@ -619,57 +619,6 @@ namespace BOTVaticano
                 }
             }
 
-
-            //string retornoConsultarmao = Jogo.ConsultarMao(Int32.Parse(idPartida));
-            //retornoConsultarmao = retornoConsultarmao.Replace("\r", "");
-
-            //string[] cartas = retornoConsultarmao.Split('\n');
-
-            //List<bool[]> listaJogadas = new List<bool[]> { cartasJogadas1, cartasJogadas2, cartasJogadas3, cartasJogadas4 };
-            //Panel painel = null;
-            //int numJogador = -1;
-
-            //if (idJogador == idJogador1)
-            //{
-            //    painel = pnlJogador1;
-            //    numJogador = 1;
-            //}
-            //if (idJogador == idJogador2)
-            //{
-            //    painel = pnlJogador2;
-            //    numJogador = 2;
-            //}
-            //if (idJogador == idJogador3)
-            //{
-            //    painel = pnlJogador3;
-            //    numJogador = 3;
-            //}
-            //if (idJogador == idJogador4)
-            //{
-            //    painel = pnlJogador4;
-            //    numJogador = 4;
-            //}
-
-            //for (int i = 0; i < 14; i++)
-            //{
-            //    listaJogadas[numJogador - 1][i] = true;
-            //}
-
-            //for (int i = 0; i < cartas.Length; i++)
-            //{
-            //    if (cartas[i].Split(',')[0] == idJogador.ToString())
-            //    {
-            //        listaJogadas[numJogador - 1][Int32.Parse(cartas[i].Split(',')[1]) - 1] = false;
-            //    }
-            //}
-
-            //for (int i = 0; i < painel.Controls.Count; i++)
-            //{
-            //    if (listaJogadas[numJogador - 1][i] == true)
-            //    {
-            //        painel.Controls[i].Visible = false;
-            //    }
-            //}
         }
 
         private void AtualizarCartaDaMesa() //MOSTRAR NA MESA

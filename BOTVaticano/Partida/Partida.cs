@@ -127,7 +127,7 @@ class Partida
         foreach (string info in Vez)
         {
             string[] infoSeparada = info.Split(',');
-            if (info[0] == 'J')
+            if (info[0] == 'J' && EhPrimeiraJogada())
             {
                 IdPrimeiraJogada = Int32.Parse(infoSeparada[1]);
             }
@@ -142,7 +142,17 @@ class Partida
 
     public bool EhPrimeiraJogada()
     {
-        if (Vez.Length == 1)
+        int cont = 0;
+
+        foreach (string info in Vez)
+        {
+            if (info[0] == 'A')
+            {
+                cont += 1;
+            }
+        }
+
+        if (Vez.Length - cont == 1)
         {
             return true;
         }
