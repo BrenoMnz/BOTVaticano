@@ -684,7 +684,7 @@ namespace BOTVaticano
             lblIDPartida.Text = IdPartida;
             lblDll.Text = "DLL: " + Jogo.Versao;
             lblStatus.Text = partida.Acao;
-            tempo = 3;
+            tempo = 3600;
             tempoSecreto = 3600;
             timer1.Start();
 
@@ -692,6 +692,8 @@ namespace BOTVaticano
 
         private void btnIniciarPartida_Click(object sender, EventArgs e)//OK
         {
+            tempoSecreto = 3601;
+
             partidaComecou = true;
 
             DefinirJogadores();
