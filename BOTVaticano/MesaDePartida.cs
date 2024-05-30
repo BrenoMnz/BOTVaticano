@@ -570,11 +570,13 @@ namespace BOTVaticano
                     foreach (string info in informacaoRodadas)
                     {
                         string[] infoSeparada = info.Split(',');
-                        if (Int32.Parse(infoSeparada[0]) == partida.Rodada)
+                        if (Int32.Parse(infoSeparada[1]) == jogador.IdJogador)
                         {
-                            if (Int32.Parse(infoSeparada[1]) == jogador.IdJogador)
+                            int idCartaDoJogador = jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta;
+
+                            if (idCartaDoJogador != -1 || idCartaDoJogador != -2)
                             {
-                                jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta = -1;
+                                idCartaDoJogador = -1;
                                 jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].Valor = Int32.Parse(infoSeparada[3]);
 
                                 Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
