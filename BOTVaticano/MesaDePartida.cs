@@ -574,9 +574,9 @@ namespace BOTVaticano
                         {
                             int idCartaDoJogador = jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta;
 
-                            if (idCartaDoJogador != -1 && idCartaDoJogador != -2)
+                            if (idCartaDoJogador != -1 || idCartaDoJogador != -2)
                             {
-                                idCartaDoJogador = -1;
+                                jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta = -1;
                                 jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].Valor = Int32.Parse(infoSeparada[3]);
 
                                 Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
