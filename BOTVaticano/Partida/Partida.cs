@@ -120,10 +120,7 @@ class Partida
 
     public void AtualizarPrimeiraJogada()
     {
-        if (Vez.Length == 1)
-        {
-            NaipePrimeiraJogada = ' ';
-        }
+        NaipePrimeiraJogada = ' ';
 
         bool ehPrimeiroC = false;
 
