@@ -765,13 +765,17 @@ namespace BOTVaticano
 
             lblTimer.Text = tempo.ToString();
 
-            if (ehDivisivelPor5())
+            if (ehDivisivelPor1())
             {
                 if (!partidaComecou)
                 {
                     DefinirJogadores();
                     AtualizarDadosDaMesa();
                 }
+            }
+
+            if (ehDivisivelPor5())
+            {
 
                 if (partida.Status.Length == 1)
                 {
@@ -858,51 +862,6 @@ namespace BOTVaticano
             {
                 tempoSecreto = 3600;
             }
-
-            //if (ehIgualAZero())
-            //{
-
-            //    if (roundAtual < partida.Round)
-            //    {
-            //        cartaSelecionada = null;
-            //        contAposta = 0;
-            //        roundAtual = partida.Round;
-
-            //        SepararCartas();
-
-            //        foreach (Jogador jogador in listaJogadores)
-            //        {
-            //            DesenharBotoes(jogador);
-            //        }
-            //    }
-
-            //    AtualizarDadosDaMesa();
-            //    AtualizarCartaDaMao();
-
-            //    if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
-            //    {
-            //        if (partida.Acao == "Jogar")
-            //        {
-            //            bot.JogarCarta(cartaSelecionada.IdCarta);
-            //            cartaSelecionada = null;
-            //        }
-
-            //        if (partida.Acao == "Apostar")
-            //        {
-            //            if (cartaSelecionada.IdCarta == 0)
-            //            {
-            //                Jogo.Apostar(IdJogador1, SenhaJogador, 0);
-            //                cartaSelecionada = null;
-            //            }
-            //            else
-            //            {
-            //                bot.Apostar(cartaSelecionada.IdCarta);
-            //                cartaSelecionada = null;
-            //            }
-            //        }
-            //    }
-            //    tempo = 5;
-            //}
         }
 
         private bool ehDivisivelPor5()//OK
@@ -920,5 +879,9 @@ namespace BOTVaticano
             return tempo == 0;
         }
 
+        private bool ehDivisivelPor1()
+        {
+            return (tempoSecreto % 1) == 0;
+        }
     }
 }
