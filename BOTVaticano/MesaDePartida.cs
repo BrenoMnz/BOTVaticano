@@ -223,13 +223,17 @@ namespace BOTVaticano
             listaCartas = listaCartas.Replace("\r", "");
             string[] cartas = listaCartas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
 
+            foreach (Jogador jogador in listaJogadores)
+            {
+                jogador.Cartas.Clear();
+            }
+
             for (int i = 0; i < qtdCartas * partida.QtdJogadores; i++)
             {
                 string[] carta = cartas[i].Split(',');
 
                 foreach (Jogador jogador in listaJogadores)
                 {
-                    jogador.Cartas.Clear();
                     if (carta[0] == jogador.IdJogador.ToString())
                     {
                         Carta cartaJogador = new Carta(
