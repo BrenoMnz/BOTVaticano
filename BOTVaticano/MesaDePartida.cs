@@ -807,7 +807,7 @@ namespace BOTVaticano
 
             lblTimer.Text = tempo.ToString();
 
-            if (ehDivisivelPor3())
+            if (ehDivisivelPor5())
             {
                 if (!partidaComecou)
                 {
@@ -921,9 +921,9 @@ namespace BOTVaticano
             }
         }
 
-        private bool ehDivisivelPor3()//OK
+        private bool ehDivisivelPor5()//OK
         {
-            return (tempoSecreto % 3) == 0;
+            return (tempoSecreto % 5) == 0;
         }
 
         private bool ehIgualAZeroSecreto()//OK
