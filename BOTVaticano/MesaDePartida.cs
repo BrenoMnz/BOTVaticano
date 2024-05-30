@@ -641,7 +641,7 @@ namespace BOTVaticano
 
         private void btnIniciarPartida_Click(object sender, EventArgs e)//OK
         {
-            tempoSecreto = 3601;
+            tempoSecreto = 3603;
 
             partidaComecou = true;
 
