@@ -867,6 +867,32 @@ namespace BOTVaticano
                             DesenharBotoes(jogador);
                         }
                     }
+
+                    if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
+                    {
+                        if (cartaSelecionada != null)
+                        {
+                            if (partida.Acao == "Jogar")
+                            {
+                                bot.JogarCarta(cartaSelecionada.IdCarta);
+                                cartaSelecionada = null;
+                            }
+
+                            if (partida.Acao == "Apostar")
+                            {
+                                if (cartaSelecionada.IdCarta == 0)
+                                {
+                                    Jogo.Apostar(IdJogador1, SenhaJogador, 0);
+                                    cartaSelecionada = null;
+                                }
+                                else
+                                {
+                                    bot.Apostar(cartaSelecionada.IdCarta);
+                                    cartaSelecionada = null;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             
@@ -875,50 +901,50 @@ namespace BOTVaticano
                 tempoSecreto = 3600;
             }
 
-            if (ehIgualAZero())
-            {
+            //if (ehIgualAZero())
+            //{
 
-                if (roundAtual < partida.Round)
-                {
-                    cartaSelecionada = null;
-                    contAposta = 0;
-                    roundAtual = partida.Round;
+            //    if (roundAtual < partida.Round)
+            //    {
+            //        cartaSelecionada = null;
+            //        contAposta = 0;
+            //        roundAtual = partida.Round;
 
-                    SepararCartas();
+            //        SepararCartas();
 
-                    foreach (Jogador jogador in listaJogadores)
-                    {
-                        DesenharBotoes(jogador);
-                    }
-                }
+            //        foreach (Jogador jogador in listaJogadores)
+            //        {
+            //            DesenharBotoes(jogador);
+            //        }
+            //    }
 
-                AtualizarDadosDaMesa();
-                AtualizarCartaDaMao();
+            //    AtualizarDadosDaMesa();
+            //    AtualizarCartaDaMao();
 
-                if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
-                {
-                    if (partida.Acao == "Jogar")
-                    {
-                        bot.JogarCarta(cartaSelecionada.IdCarta);
-                        cartaSelecionada = null;
-                    }
+            //    if (((Bot)listaJogadores[0]).EhVezJogador1(partida))
+            //    {
+            //        if (partida.Acao == "Jogar")
+            //        {
+            //            bot.JogarCarta(cartaSelecionada.IdCarta);
+            //            cartaSelecionada = null;
+            //        }
 
-                    if (partida.Acao == "Apostar")
-                    {
-                        if (cartaSelecionada.IdCarta == 0)
-                        {
-                            Jogo.Apostar(IdJogador1, SenhaJogador, 0);
-                            cartaSelecionada = null;
-                        }
-                        else
-                        {
-                            bot.Apostar(cartaSelecionada.IdCarta);
-                            cartaSelecionada = null;
-                        }
-                    }
-                }
-                tempo = 3;
-            }
+            //        if (partida.Acao == "Apostar")
+            //        {
+            //            if (cartaSelecionada.IdCarta == 0)
+            //            {
+            //                Jogo.Apostar(IdJogador1, SenhaJogador, 0);
+            //                cartaSelecionada = null;
+            //            }
+            //            else
+            //            {
+            //                bot.Apostar(cartaSelecionada.IdCarta);
+            //                cartaSelecionada = null;
+            //            }
+            //        }
+            //    }
+            //    tempo = 5;
+            //}
         }
 
         private bool ehDivisivelPor5()//OK
