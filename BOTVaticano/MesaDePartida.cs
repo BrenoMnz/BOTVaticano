@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -583,9 +584,45 @@ namespace BOTVaticano
                             {
                                 jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].IdCarta = -1;
                                 jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1].Valor = Int32.Parse(infoSeparada[3]);
+                                string[] info2 = informacaoRodadas[informacaoRodadas.Length-1].Split(','); 
+                                
 
-                                Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+
+                                if (panelJogadas.Controls.Count == partida.QtdJogadores && informacaoRodadas.Length-1 % 2  != 0 )
+                                {
+
+                                    panelJogadas.Controls.Clear();
+                                }
+
+
+                                int sizeX = 60, sizeY = 80;
+                                    Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+                                    Button btn = new Button();
+                                    ImgCarta img = new ImgCarta(jogador.Cartas[Int32.Parse(infoSeparada[4]) - 1]);
+                                    Image imgCarta = img.GraphCarta();
+                                    btn.Size = new Size(sizeX, sizeY);
+                                    btn.BackgroundImage = imgCarta;
+                                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+                                    btn.Font = new Font("Arial", 12, FontStyle.Bold);
+                                    btn.ForeColor = Color.Black;
+                                    btn.Name = infoSeparada[1] + infoSeparada[4];
+                                    btn.Text = infoSeparada[3];
+                                    if (panelJogadas.Controls.Count == 0 )
+                                    {
+                                        panelJogadas.Controls.Add(btn);
+                                    }
+
+                                    if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && partida.QtdJogadores != panelJogadas.Controls.Count)
+                                    {
+                                        int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
+                                        int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
+                                        posicaoX += sizeX;
+                                        //posicaoY +=2* sizeY;
+                                        panelJogadas.Controls.Add(btn);
+                                        btn.Location = new Point(posicaoX, posicaoY);
+                                    }
                                 painel.Controls[Int32.Parse(infoSeparada[4]) - 1].Visible = false;
+                               
                             }
                         }
                     }
@@ -604,7 +641,9 @@ namespace BOTVaticano
                                 {
                                     jogador.Cartas[Int32.Parse(infoSeparadas[4]) - 1].IdCarta = -2;
 
+
                                     Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+                                    //painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Location = new Point(painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Location.Y - painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Size.Height);
                                     painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Visible = false;
                                 }
 
@@ -666,10 +705,10 @@ namespace BOTVaticano
             AtualizarDadosDaMesa();
 
             SepararCartas();
-            
+
             foreach (Jogador jogador in listaJogadores)
             {
-               DesenharBotoes(jogador);
+                DesenharBotoes(jogador);
             }
 
             btnIniciarPartida.Visible = false;
@@ -838,6 +877,7 @@ namespace BOTVaticano
                             {
                                 bot.JogarCarta(cartaSelecionada.IdCarta);
                                 cartaSelecionada = null;
+                                
                             }
 
                             if (partida.Acao == "Apostar")
