@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -154,10 +154,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.lvwJogadores.Location = new System.Drawing.Point(16, 158);
             this.lvwJogadores.Margin = new System.Windows.Forms.Padding(4);
             this.lvwJogadores.Name = "lvwJogadores";
@@ -266,10 +266,10 @@
             // 
             // panelJogadas
             // 
-            this.panelJogadas.Location = new System.Drawing.Point(556, 319);
+            this.panelJogadas.Location = new System.Drawing.Point(545, 352);
             this.panelJogadas.Margin = new System.Windows.Forms.Padding(4);
             this.panelJogadas.Name = "panelJogadas";
-            this.panelJogadas.Size = new System.Drawing.Size(216, 199);
+            this.panelJogadas.Size = new System.Drawing.Size(240, 100);
             this.panelJogadas.TabIndex = 4;
             // 
             // lblJogador3
