@@ -149,8 +149,7 @@ namespace BOTVaticano
 
             foreach (Jogador jogador in listaJogadores)
             {
-                Console.WriteLine($"{jogador.IdJogador} {jogador.NomeJogador} {jogador.PosicaoJogadorNaMesa} {jogador.PontosJogador}");
-                Console.WriteLine($"Round: " + partida.Round);
+
 
                 foreach (string info in pontosJogadores)
                 {
@@ -207,7 +206,7 @@ namespace BOTVaticano
                 lstJogadas.Items.Add(info);
             }
 
-            const int PRIMEIRAJOGADA = 6;
+            const int PRIMEIRAJOGADA = 7;
 
             if ((partida.Vez).Length <= PRIMEIRAJOGADA)
             {
@@ -533,19 +532,11 @@ namespace BOTVaticano
                     {
                         if (contAposta != partida.QtdJogadores)
                         {
-                            Console.WriteLine("Informação do vez: " + info);
                             if (info[0] == 'A')
                             {
                                 string aux = info;
                                 aux = aux.Remove(0, 2);
                                 string[] infoSeparadas = aux.Split(',');
-
-                                int contadorLog = 0;
-                                foreach (string infor in infoSeparadas)
-                                {
-                                    Console.WriteLine("Informação separada " + contadorLog + ": " + infor);
-                                    contadorLog++;
-                                }
 
                                 if (Int32.Parse(infoSeparadas[0]) == jogador.IdJogador)
                                 {
