@@ -266,7 +266,19 @@ namespace BOTVaticano
                                     naipe: Char.Parse(cartaJogadaSeparada[2]));
                                 cartaJogador.Valor = Int32.Parse(cartaJogadaSeparada[3]);
 
-                                jogador.Cartas[Int32.Parse(cartaJogadaSeparada[4]) - 1] = cartaJogador;
+                                jogador.Cartas.Add(cartaJogador);
+
+                                if (cartaJogador.IdCarta != jogador.Cartas.IndexOf(cartaJogador) + 1)
+                                {
+                                    Carta aux = null;
+
+                                    for (int i = cartaJogador.IdCarta - 1; i < jogador.Cartas.Count; i++)
+                                    {
+                                        aux = jogador.Cartas[i];
+                                        jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
+                                        jogador.Cartas[partida.QtdCartas - 1] = aux;
+                                    }
+                                }
                             }
                         }
                     }
@@ -653,7 +665,7 @@ namespace BOTVaticano
 
             lblTimer.Text = tempo.ToString();
 
-            if (ehDivisivelPor1())
+            if (ehDivisivelPor2())
             {
                 if (!partidaComecou)
                 {
@@ -768,9 +780,9 @@ namespace BOTVaticano
             return tempo == 0;
         }
 
-        private bool ehDivisivelPor1()
+        private bool ehDivisivelPor2()
         {
-            return (tempoSecreto % 1) == 0;
+            return (tempoSecreto % 2) == 0;
         }
     }
 }
