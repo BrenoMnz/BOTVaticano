@@ -682,7 +682,7 @@ namespace BOTVaticano
                 }
             }
 
-            if (ehDivisivelPor4())
+            if (ehDivisivelPor2())
             {
 
                 if (partida.Status.Length == 1)
