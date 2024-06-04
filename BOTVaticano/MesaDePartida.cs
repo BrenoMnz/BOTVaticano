@@ -633,7 +633,7 @@ namespace BOTVaticano
                                         naipe: Char.Parse(infoSeparadas[1]));
                                     cartaJogada.Valor = Int32.Parse(infoSeparadas[2]);
 
-                                    AtualizarCartasDaMesa(cartaJogada, contAposta);
+                                    AtualizarCartasDaMesa(cartaJogada, contJogadas);
                                 }
 
                                 contJogadas++;
