@@ -92,7 +92,7 @@
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(99, 62);
+            this.lblStatus.Location = new System.Drawing.Point(96, 267);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblStatus.MaximumSize = new System.Drawing.Size(75, 16);
             this.lblStatus.MinimumSize = new System.Drawing.Size(75, 16);
@@ -145,7 +145,7 @@
             listViewItem2,
             listViewItem3,
             listViewItem4});
-            this.lvwJogadores.Location = new System.Drawing.Point(12, 121);
+            this.lvwJogadores.Location = new System.Drawing.Point(12, 326);
             this.lvwJogadores.Margin = new System.Windows.Forms.Padding(2);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
@@ -169,7 +169,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 93);
+            this.label15.Location = new System.Drawing.Point(8, 298);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(84, 20);
             this.label15.TabIndex = 4;
@@ -179,7 +179,7 @@
             // 
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(63, 38);
+            this.lblVezJogador.Location = new System.Drawing.Point(61, 243);
             this.lblVezJogador.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVezJogador.MaximumSize = new System.Drawing.Size(150, 16);
             this.lblVezJogador.MinimumSize = new System.Drawing.Size(150, 16);
@@ -193,7 +193,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(83, 13);
+            this.label11.Location = new System.Drawing.Point(80, 218);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(116, 20);
@@ -377,7 +377,7 @@
             // 
             this.lblPartidaFim.AutoSize = true;
             this.lblPartidaFim.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPartidaFim.Location = new System.Drawing.Point(397, 215);
+            this.lblPartidaFim.Location = new System.Drawing.Point(406, 223);
             this.lblPartidaFim.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPartidaFim.Name = "lblPartidaFim";
             this.lblPartidaFim.Size = new System.Drawing.Size(439, 55);
@@ -389,7 +389,7 @@
             // 
             this.txtVencedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtVencedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVencedores.Location = new System.Drawing.Point(425, 275);
+            this.txtVencedores.Location = new System.Drawing.Point(434, 283);
             this.txtVencedores.Margin = new System.Windows.Forms.Padding(2);
             this.txtVencedores.Multiline = true;
             this.txtVencedores.Name = "txtVencedores";

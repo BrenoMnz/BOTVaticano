@@ -107,7 +107,6 @@ class Partida
 
         if (informacaoRodadas.Length != 0)
         {
-            Rodada = Int32.Parse(informacaoRodadas[informacaoRodadas.Length - 1].Split(',')[0]);
 
             bool terminouORound = informacaoRodadas.Length == (QtdCartas - 1) * QtdJogadores;
 
