@@ -627,13 +627,13 @@ namespace BOTVaticano
 
                                 if (panelJogadas.Controls.Count < contJogadas + 1)
                                 {
-                                    Carta cartaApostada = new Carta(
+                                    Carta cartaJogada = new Carta(
                                         idJogador: Int32.Parse(infoSeparadas[0]),
-                                        idCarta: Int32.Parse(infoSeparadas[4]),
+                                        idCarta: Int32.Parse(infoSeparadas[3]),
                                         naipe: Char.Parse(infoSeparadas[1]));
-                                    cartaApostada.Valor = Int32.Parse(infoSeparadas[2]);
+                                    cartaJogada.Valor = Int32.Parse(infoSeparadas[2]);
 
-                                    AtualizarCartasDaMesa(cartaApostada, contAposta);
+                                    AtualizarCartasDaMesa(cartaJogada, contAposta);
                                 }
 
                                 contJogadas++;
