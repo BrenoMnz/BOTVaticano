@@ -528,33 +528,7 @@ namespace BOTVaticano
             btn.Location = new Point(60 * contador, 0);
 
             panelJogadas.Controls.Add(btn);
-            //string[] info2 = informacaoRodadas[informacaoRodadas.Length - 1].Split(',');
-            //int sizeX = 60, sizeY = 80;
-            //Button btn = new Button();
-            //Carta cartaaux = new Carta(Int32.Parse(info2[1]), Char.Parse(info2[2]), Int32.Parse(info2[4]));
-            //ImgCarta img = new ImgCarta(cartaaux);
-            //Image imgCarta = img.GraphCarta();
-            //btn.Size = new Size(sizeX, sizeY);
-            //btn.BackgroundImage = imgCarta;
-            //btn.BackgroundImageLayout = ImageLayout.Stretch;
-            //btn.Font = new Font("Arial", 12, FontStyle.Bold);
-            //btn.ForeColor = Color.Black;
-            //btn.Name = info2[1] + info2[4];
-            //btn.Text = info2[3];
 
-            //if (panelJogadas.Controls.Count == 0)
-            //{
-            //    panelJogadas.Controls.Add(btn);
-            //}
-            //if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && panelJogadas.Controls.Count < partida.QtdJogadores)
-            //{
-            //    int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
-            //    int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
-            //    posicaoX += sizeX;
-            //    //posicaoY +=2* sizeY;
-            //    panelJogadas.Controls.Add(btn);
-            //    btn.Location = new Point(posicaoX, posicaoY);
-            //}
         }
         private void AtualizarCartaDaMao()//OK
         {
@@ -609,6 +583,7 @@ namespace BOTVaticano
 
 
                                     Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
+                                    painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Font = new Font("Arial", 12, FontStyle.Bold);
                                     painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Text = infoSeparadas[2];
                                 }
                                 contAposta++;
