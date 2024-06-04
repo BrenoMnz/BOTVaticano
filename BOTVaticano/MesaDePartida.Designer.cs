@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,8 +52,6 @@
             this.lstJogadas = new System.Windows.Forms.ListBox();
             this.lblJogadas = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.lblTimer = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.lblVezJogador = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.panelJogadas = new System.Windows.Forms.Panel();
@@ -71,10 +69,9 @@
             this.lblIDPartida = new System.Windows.Forms.Label();
             this.pnlJogador2 = new System.Windows.Forms.Panel();
             this.pnlJogador3 = new System.Windows.Forms.Panel();
-            this.btnApostar = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnJogar = new System.Windows.Forms.Button();
-            this.btnPular = new System.Windows.Forms.Button();
+            this.lblPartidaFim = new System.Windows.Forms.Label();
+            this.txtVencedores = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,8 +85,6 @@
             this.panel1.Controls.Add(this.lstJogadas);
             this.panel1.Controls.Add(this.lblJogadas);
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.lblTimer);
-            this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.lblVezJogador);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Location = new System.Drawing.Point(1335, -5);
@@ -102,10 +97,9 @@
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(188, 84);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblStatus.MaximumSize = new System.Drawing.Size(133, 25);
-            this.lblStatus.MinimumSize = new System.Drawing.Size(133, 25);
+            this.lblStatus.Location = new System.Drawing.Point(89, 67);
+            this.lblStatus.MaximumSize = new System.Drawing.Size(100, 20);
+            this.lblStatus.MinimumSize = new System.Drawing.Size(100, 20);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(133, 25);
             this.lblStatus.TabIndex = 12;
@@ -154,12 +148,11 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
-            this.lvwJogadores.Location = new System.Drawing.Point(16, 158);
-            this.lvwJogadores.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            listViewItem9,
+            listViewItem10,
+            listViewItem11,
+            listViewItem12});
+            this.lvwJogadores.Location = new System.Drawing.Point(12, 128);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
             this.lvwJogadores.Size = new System.Drawing.Size(320, 122);
@@ -213,40 +206,13 @@
             this.label15.TabIndex = 4;
             this.label15.Text = "Jogadores";
             // 
-            // lblTimer
-            // 
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimer.ForeColor = System.Drawing.Color.Red;
-            this.lblTimer.Location = new System.Drawing.Point(77, 66);
-            this.lblTimer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTimer.MaximumSize = new System.Drawing.Size(0, 25);
-            this.lblTimer.MinimumSize = new System.Drawing.Size(0, 25);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(27, 25);
-            this.lblTimer.TabIndex = 3;
-            this.lblTimer.Text = "10";
-            this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(59, 16);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(62, 25);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Timer";
-            // 
             // lblVezJogador
             // 
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(189, 50);
-            this.lblVezJogador.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblVezJogador.MaximumSize = new System.Drawing.Size(133, 25);
-            this.lblVezJogador.MinimumSize = new System.Drawing.Size(133, 25);
+            this.lblVezJogador.Location = new System.Drawing.Point(90, 40);
+            this.lblVezJogador.MaximumSize = new System.Drawing.Size(100, 20);
+            this.lblVezJogador.MinimumSize = new System.Drawing.Size(100, 20);
             this.lblVezJogador.Name = "lblVezJogador";
             this.lblVezJogador.Size = new System.Drawing.Size(133, 25);
             this.lblVezJogador.TabIndex = 1;
@@ -257,8 +223,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(180, 16);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(83, 12);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(144, 25);
             this.label11.TabIndex = 0;
@@ -447,49 +412,42 @@
             this.pnlJogador3.TabIndex = 25;
             this.pnlJogador3.Visible = false;
             // 
-            // btnApostar
-            // 
-            this.btnApostar.Location = new System.Drawing.Point(1103, 748);
-            this.btnApostar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnApostar.Name = "btnApostar";
-            this.btnApostar.Size = new System.Drawing.Size(129, 44);
-            this.btnApostar.TabIndex = 26;
-            this.btnApostar.Text = "Apostar";
-            this.btnApostar.UseVisualStyleBackColor = true;
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnJogar
+            // lblPartidaFim
             // 
-            this.btnJogar.Location = new System.Drawing.Point(967, 748);
-            this.btnJogar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnJogar.Name = "btnJogar";
-            this.btnJogar.Size = new System.Drawing.Size(129, 44);
-            this.btnJogar.TabIndex = 27;
-            this.btnJogar.Text = "Jogar";
-            this.btnJogar.UseVisualStyleBackColor = true;
+            this.lblPartidaFim.AutoSize = true;
+            this.lblPartidaFim.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPartidaFim.Location = new System.Drawing.Point(420, 230);
+            this.lblPartidaFim.Name = "lblPartidaFim";
+            this.lblPartidaFim.Size = new System.Drawing.Size(439, 55);
+            this.lblPartidaFim.TabIndex = 26;
+            this.lblPartidaFim.Text = "Partida Finalizada!";
+            this.lblPartidaFim.Visible = false;
             // 
-            // btnPular
+            // txtVencedores
             // 
-            this.btnPular.Location = new System.Drawing.Point(1048, 800);
-            this.btnPular.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnPular.Name = "btnPular";
-            this.btnPular.Size = new System.Drawing.Size(100, 28);
-            this.btnPular.TabIndex = 28;
-            this.btnPular.Text = "Pular";
-            this.btnPular.UseVisualStyleBackColor = true;
+            this.txtVencedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVencedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVencedores.Location = new System.Drawing.Point(371, 293);
+            this.txtVencedores.Multiline = true;
+            this.txtVencedores.Name = "txtVencedores";
+            this.txtVencedores.ReadOnly = true;
+            this.txtVencedores.Size = new System.Drawing.Size(513, 196);
+            this.txtVencedores.TabIndex = 27;
+            this.txtVencedores.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVencedores.Visible = false;
             // 
             // MesaDePartida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1685, 838);
-            this.Controls.Add(this.btnPular);
-            this.Controls.Add(this.btnJogar);
-            this.Controls.Add(this.btnApostar);
+            this.ClientSize = new System.Drawing.Size(1263, 681);
+            this.Controls.Add(this.txtVencedores);
+            this.Controls.Add(this.lblPartidaFim);
             this.Controls.Add(this.pnlJogador3);
             this.Controls.Add(this.pnlJogador2);
             this.Controls.Add(this.lblIDPartida);
@@ -506,7 +464,7 @@
             this.Controls.Add(this.lblJogador3);
             this.Controls.Add(this.panelJogadas);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MesaDePartida";
             this.Text = "MesaDePartida";
             this.Load += new System.EventHandler(this.MesaDePartida_Load);
@@ -536,8 +494,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblIDPartida;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label lblTimer;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ListView lvwJogadores;
         private System.Windows.Forms.ColumnHeader clhJogador;
         private System.Windows.Forms.ColumnHeader clhPontos;
@@ -546,12 +502,11 @@
         private System.Windows.Forms.Button btnIniciarPartida;
         private System.Windows.Forms.Panel pnlJogador2;
         private System.Windows.Forms.Panel pnlJogador3;
-        private System.Windows.Forms.Button btnApostar;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnJogar;
-        private System.Windows.Forms.Button btnPular;
         private System.Windows.Forms.Label lblDll;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblPartidaFim;
+        private System.Windows.Forms.TextBox txtVencedores;
     }
 }
