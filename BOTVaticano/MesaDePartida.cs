@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -682,7 +683,7 @@ namespace BOTVaticano
                 }
             }
 
-            if (ehDivisivelPor2())
+            if (ehDivisivelPor1())
             {
 
                 if (partida.Status.Length == 1)
@@ -871,9 +872,9 @@ namespace BOTVaticano
             }
         }
 
-        private bool ehDivisivelPor4()//OK
+        private bool ehDivisivelPor1()//OK
         {
-            return (tempoSecreto % 4) == 0;
+            return (tempoSecreto % 1) == 0;
         }
 
         private bool ehIgualAZeroSecreto()//OK

@@ -126,7 +126,7 @@
             // btnIniciarPartida
             // 
             this.btnIniciarPartida.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciarPartida.Location = new System.Drawing.Point(61, 415);
+            this.btnIniciarPartida.Location = new System.Drawing.Point(64, 500);
             this.btnIniciarPartida.Name = "btnIniciarPartida";
             this.btnIniciarPartida.Size = new System.Drawing.Size(146, 50);
             this.btnIniciarPartida.TabIndex = 9;
@@ -370,7 +370,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // lblPartidaFim
