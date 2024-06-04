@@ -202,7 +202,7 @@
             // 
             // panelJogadas
             // 
-            this.panelJogadas.Location = new System.Drawing.Point(349, 285);
+            this.panelJogadas.Location = new System.Drawing.Point(357, 286);
             this.panelJogadas.Name = "panelJogadas";
             this.panelJogadas.Size = new System.Drawing.Size(304, 100);
             this.panelJogadas.TabIndex = 4;

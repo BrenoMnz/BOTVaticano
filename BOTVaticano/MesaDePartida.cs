@@ -584,6 +584,7 @@ namespace BOTVaticano
 
                                     Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
                                     painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Font = new Font("Arial", 12, FontStyle.Bold);
+                                    painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].ForeColor = Color.Black;
                                     painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Text = infoSeparadas[2];
                                 }
                                 contAposta++;
