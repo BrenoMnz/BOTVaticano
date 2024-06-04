@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -145,12 +145,12 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 121);
-            this.lvwJogadores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvwJogadores.Margin = new System.Windows.Forms.Padding(2);
             this.lvwJogadores.Name = "lvwJogadores";
             this.lvwJogadores.Scrollable = false;
             this.lvwJogadores.Size = new System.Drawing.Size(241, 100);
@@ -402,7 +402,7 @@
             // 
             this.lblPartidaFim.AutoSize = true;
             this.lblPartidaFim.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPartidaFim.Location = new System.Drawing.Point(368, 203);
+            this.lblPartidaFim.Location = new System.Drawing.Point(397, 215);
             this.lblPartidaFim.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPartidaFim.Name = "lblPartidaFim";
             this.lblPartidaFim.Size = new System.Drawing.Size(439, 55);
@@ -414,8 +414,8 @@
             // 
             this.txtVencedores.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtVencedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVencedores.Location = new System.Drawing.Point(388, 259);
-            this.txtVencedores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtVencedores.Location = new System.Drawing.Point(425, 275);
+            this.txtVencedores.Margin = new System.Windows.Forms.Padding(2);
             this.txtVencedores.Multiline = true;
             this.txtVencedores.Name = "txtVencedores";
             this.txtVencedores.ReadOnly = true;

@@ -518,6 +518,50 @@ namespace BOTVaticano
             }
 
         }
+
+        private void AtualizarCartasDaMesa(Carta carta, int contador)
+        {
+
+            Button btn = new Button();
+            ImgCarta imgCarta = new ImgCarta(carta);
+            Image img = imgCarta.GraphCarta();
+            btn.Size = new Size(60, 80);
+            btn.BackgroundImage = img;
+            btn.BackgroundImageLayout = ImageLayout.Stretch;
+            btn.Font = new Font("Arial", 12, FontStyle.Bold);
+            btn.ForeColor = Color.Black;
+            btn.Text = carta.Valor.ToString();
+            btn.Location = new Point(60 * contador, 0);
+
+            panelJogadas.Controls.Add(btn);
+            //string[] info2 = informacaoRodadas[informacaoRodadas.Length - 1].Split(',');
+            //int sizeX = 60, sizeY = 80;
+            //Button btn = new Button();
+            //Carta cartaaux = new Carta(Int32.Parse(info2[1]), Char.Parse(info2[2]), Int32.Parse(info2[4]));
+            //ImgCarta img = new ImgCarta(cartaaux);
+            //Image imgCarta = img.GraphCarta();
+            //btn.Size = new Size(sizeX, sizeY);
+            //btn.BackgroundImage = imgCarta;
+            //btn.BackgroundImageLayout = ImageLayout.Stretch;
+            //btn.Font = new Font("Arial", 12, FontStyle.Bold);
+            //btn.ForeColor = Color.Black;
+            //btn.Name = info2[1] + info2[4];
+            //btn.Text = info2[3];
+
+            //if (panelJogadas.Controls.Count == 0)
+            //{
+            //    panelJogadas.Controls.Add(btn);
+            //}
+            //if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && panelJogadas.Controls.Count < partida.QtdJogadores)
+            //{
+            //    int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
+            //    int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
+            //    posicaoX += sizeX;
+            //    //posicaoY +=2* sizeY;
+            //    panelJogadas.Controls.Add(btn);
+            //    btn.Location = new Point(posicaoX, posicaoY);
+            //}
+        }
         private void AtualizarCartaDaMao()//OK
         {
             List<Panel> paineis = new List<Panel> { pnlJogador1, pnlJogador2, pnlJogador3, pnlJogador4 };
@@ -533,9 +577,6 @@ namespace BOTVaticano
 
             if (informacaoRodadas.Length != 0)
             {
-
-                
-
                 foreach (Jogador jogador in listaJogadores)
                 {
                     foreach (string info in informacaoRodadas)
@@ -558,8 +599,10 @@ namespace BOTVaticano
 
                     foreach (string info in partida.Vez)
                     {
+                        int contJogadas = 0;
                         if (contAposta != partida.QtdJogadores)
                         {
+
                             if (info[0] == 'A')
                             {
                                 string aux = info;
@@ -574,8 +617,26 @@ namespace BOTVaticano
                                     Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
                                     painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Visible = false;
                                 }
-
                                 contAposta++;
+                            }
+                            if (info[0] == 'C')
+                            {
+                                string aux = info;
+                                aux = aux.Remove(0, 2);
+                                string[] infoSeparadas = aux.Split(',');
+
+                                if (panelJogadas.Controls.Count < contJogadas + 1)
+                                {
+                                    Carta cartaApostada = new Carta(
+                                        idJogador: Int32.Parse(infoSeparadas[0]),
+                                        idCarta: Int32.Parse(infoSeparadas[4]),
+                                        naipe: Char.Parse(infoSeparadas[1]));
+                                    cartaApostada.Valor = Int32.Parse(infoSeparadas[2]);
+
+                                    AtualizarCartasDaMesa(cartaApostada, contAposta);
+                                }
+
+                                contJogadas++;
                             }
 
                         }
@@ -584,36 +645,6 @@ namespace BOTVaticano
                     {
                         contAposta = 0;
                     }
-                }
-
-
-
-                string[] info2 = informacaoRodadas[informacaoRodadas.Length - 1].Split(',');
-                int sizeX = 60, sizeY = 80;
-                Button btn = new Button();
-                Carta cartaaux = new Carta(Int32.Parse(info2[1]), Char.Parse(info2[2]), Int32.Parse(info2[4]));
-                ImgCarta img = new ImgCarta(cartaaux);
-                Image imgCarta = img.GraphCarta();
-                btn.Size = new Size(sizeX, sizeY);
-                btn.BackgroundImage = imgCarta;
-                btn.BackgroundImageLayout = ImageLayout.Stretch;
-                btn.Font = new Font("Arial", 12, FontStyle.Bold);
-                btn.ForeColor = Color.Black;
-                btn.Name = info2[1] + info2[4];
-                btn.Text = info2[3];
-
-                if (panelJogadas.Controls.Count == 0)
-                {
-                    panelJogadas.Controls.Add(btn);
-                }
-                if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && panelJogadas.Controls.Count < partida.QtdJogadores)
-                {
-                    int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
-                    int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
-                    posicaoX += sizeX;
-                    //posicaoY +=2* sizeY;
-                    panelJogadas.Controls.Add(btn);
-                    btn.Location = new Point(posicaoX, posicaoY);
                 }
             }
 
