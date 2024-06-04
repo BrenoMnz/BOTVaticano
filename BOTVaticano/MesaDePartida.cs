@@ -492,15 +492,15 @@ namespace BOTVaticano
             listaRodadas = listaRodadas.Replace("\r", "");
             string[] informacaoRodadas = listaRodadas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
 
-            //if (informacaoRodadas.Length == 0) 
-            //{
-            //    panelJogadas.Controls.Clear();
-            //}
-            //if (panelJogadas.Controls.Count == partida.QtdJogadores && partida.Acao == "Jogar")
-            //{
+            if (informacaoRodadas.Length == 0)
+            {
+                panelJogadas.Controls.Clear();
+            }
+            if (panelJogadas.Controls.Count == partida.QtdJogadores && partida.Acao == "Jogar")
+            {
 
-            //    panelJogadas.Controls.Clear();
-            //}
+                panelJogadas.Controls.Clear();
+            }
 
 
             if (informacaoRodadas.Length != 0)
@@ -559,35 +559,36 @@ namespace BOTVaticano
                 }
 
 
-                //string[] info2 = informacaoRodadas[informacaoRodadas.Length - 1].Split(',');
-                //int sizeX = 60, sizeY = 80;
-                //Button btn = new Button();
-                //Carta cartaaux = new Carta(Int32.Parse( info2[1]),Char.Parse( info2[2]),Int32.Parse( info2[4]));
-                //ImgCarta img = new ImgCarta(cartaaux);
-                //Image imgCarta = img.GraphCarta();
-                //btn.Size = new Size(sizeX, sizeY);
-                //btn.BackgroundImage = imgCarta;
-                //btn.BackgroundImageLayout = ImageLayout.Stretch;
-                //btn.Font = new Font("Arial", 12, FontStyle.Bold);
-                //btn.ForeColor = Color.Black;
-                //btn.Name = info2[1] + info2[4];
-                //btn.Text = info2[3];
-                //partida.AtualizarVez();
-                
 
-                //if (panelJogadas.Controls.Count == 0 && Int32.Parse(info2[0]) == partida.Rodada)
-                //{
-                //    panelJogadas.Controls.Add(btn);
-                //}
-                //if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && panelJogadas.Controls.Count < partida.QtdJogadores)
-                //{
-                //    int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
-                //    int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
-                //    posicaoX += sizeX;
-                //    //posicaoY +=2* sizeY;
-                //    panelJogadas.Controls.Add(btn);
-                //    btn.Location = new Point(posicaoX, posicaoY);
-                //}
+                string[] info2 = informacaoRodadas[informacaoRodadas.Length - 1].Split(',');
+                int sizeX = 60, sizeY = 80;
+                Button btn = new Button();
+                Carta cartaaux = new Carta(Int32.Parse(info2[1]), Char.Parse(info2[2]), Int32.Parse(info2[4]));
+                ImgCarta img = new ImgCarta(cartaaux);
+                Image imgCarta = img.GraphCarta();
+                btn.Size = new Size(sizeX, sizeY);
+                btn.BackgroundImage = imgCarta;
+                btn.BackgroundImageLayout = ImageLayout.Stretch;
+                btn.Font = new Font("Arial", 12, FontStyle.Bold);
+                btn.ForeColor = Color.Black;
+                btn.Name = info2[1] + info2[4];
+                btn.Text = info2[3];
+                partida.AtualizarVez();
+
+
+                if (panelJogadas.Controls.Count == 0 && Int32.Parse(info2[0]) == partida.Rodada)
+                {
+                    panelJogadas.Controls.Add(btn);
+                }
+                if (panelJogadas.Controls.Count > 0 && panelJogadas.Controls[panelJogadas.Controls.Count - 1].Name != btn.Name && panelJogadas.Controls.Count < partida.QtdJogadores)
+                {
+                    int posicaoX = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.X;
+                    int posicaoY = panelJogadas.Controls[panelJogadas.Controls.Count - 1].Location.Y;
+                    posicaoX += sizeX;
+                    //posicaoY +=2* sizeY;
+                    panelJogadas.Controls.Add(btn);
+                    btn.Location = new Point(posicaoX, posicaoY);
+                }
             }
 
         }
@@ -665,7 +666,7 @@ namespace BOTVaticano
                 }
             }
 
-            if (ehDivisivelPor5())
+            if (ehDivisivelPor4())
             {
 
                 if (partida.Status.Length == 1)
@@ -756,9 +757,9 @@ namespace BOTVaticano
             }
         }
 
-        private bool ehDivisivelPor5()//OK
+        private bool ehDivisivelPor4()//OK
         {
-            return (tempoSecreto % 5) == 0;
+            return (tempoSecreto % 4) == 0;
         }
 
         private bool ehIgualAZeroSecreto()//OK
