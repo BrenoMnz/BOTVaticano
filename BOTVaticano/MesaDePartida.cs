@@ -619,26 +619,25 @@ namespace BOTVaticano
                                 }
                                 contAposta++;
                             }
-                            if (info[0] == 'C')
+                        }
+                        if (info[0] == 'C')
+                        {
+                            string aux = info;
+                            aux = aux.Remove(0, 2);
+                            string[] infoSeparadas = aux.Split(',');
+
+                            if (panelJogadas.Controls.Count < contJogadas + 1)
                             {
-                                string aux = info;
-                                aux = aux.Remove(0, 2);
-                                string[] infoSeparadas = aux.Split(',');
+                                Carta cartaJogada = new Carta(
+                                    idJogador: Int32.Parse(infoSeparadas[0]),
+                                    idCarta: Int32.Parse(infoSeparadas[3]),
+                                    naipe: Char.Parse(infoSeparadas[1]));
+                                cartaJogada.Valor = Int32.Parse(infoSeparadas[2]);
 
-                                if (panelJogadas.Controls.Count < contJogadas + 1)
-                                {
-                                    Carta cartaJogada = new Carta(
-                                        idJogador: Int32.Parse(infoSeparadas[0]),
-                                        idCarta: Int32.Parse(infoSeparadas[3]),
-                                        naipe: Char.Parse(infoSeparadas[1]));
-                                    cartaJogada.Valor = Int32.Parse(infoSeparadas[2]);
-
-                                    AtualizarCartasDaMesa(cartaJogada, contJogadas);
-                                }
-
-                                contJogadas++;
+                                AtualizarCartasDaMesa(cartaJogada, contJogadas);
                             }
 
+                            contJogadas++;
                         }
                     }
                     if (contAposta <= partida.QtdJogadores)
