@@ -262,7 +262,42 @@ namespace BOTVaticano
                                 naipe: Char.Parse(cartaJogadaSeparada[2]));
                             cartaJogador.Valor = Int32.Parse(cartaJogadaSeparada[3]);
 
+                            Carta cartaApostada = null;
+
                             jogador.Cartas.Add(cartaJogador);
+
+                            foreach (string info in partida.Vez) {
+
+                                if (info[0] == 'A')
+                                {
+                                    string aux = info;
+                                    aux = aux.Remove(0, 2);
+                                    string[] infoSeparadas = aux.Split(',');
+
+                                    if (Int32.Parse(infoSeparadas[0]) == jogador.IdJogador)
+                                    {
+                                        cartaApostada = new Carta(
+                                            idJogador: Int32.Parse(infoSeparadas[0]),
+                                            idCarta: Int32.Parse(infoSeparadas[4]),
+                                            naipe: Char.Parse(infoSeparadas[1]));
+                                        cartaApostada.Valor = Int32.Parse(infoSeparadas[2]);
+                                    }
+
+                                    jogador.Cartas.Add(cartaApostada);
+                                }
+                            }
+
+                            if (cartaApostada.IdCarta != jogador.Cartas.IndexOf(cartaApostada) + 1)
+                            {
+                                Carta aux = null;
+
+                                for (int i = cartaApostada.IdCarta - 1; i < jogador.Cartas.Count; i++)
+                                {
+                                    aux = jogador.Cartas[i];
+                                    jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
+                                    jogador.Cartas[partida.QtdCartas - 1] = aux;
+                                }
+                            }
 
                             if (cartaJogador.IdCarta != jogador.Cartas.IndexOf(cartaJogador) + 1)
                             {
