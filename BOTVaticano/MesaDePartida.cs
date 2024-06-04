@@ -287,15 +287,18 @@ namespace BOTVaticano
                                 }
                             }
 
-                            if (cartaApostada.IdCarta != jogador.Cartas.IndexOf(cartaApostada) + 1)
+                            if (cartaApostada != null)
                             {
-                                Carta aux = null;
-
-                                for (int i = cartaApostada.IdCarta - 1; i < jogador.Cartas.Count; i++)
+                                if (cartaApostada.IdCarta != jogador.Cartas.IndexOf(cartaApostada) + 1)
                                 {
-                                    aux = jogador.Cartas[i];
-                                    jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
-                                    jogador.Cartas[partida.QtdCartas - 1] = aux;
+                                    Carta aux = null;
+
+                                    for (int i = cartaApostada.IdCarta - 1; i < jogador.Cartas.Count; i++)
+                                    {
+                                        aux = jogador.Cartas[i];
+                                        jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
+                                        jogador.Cartas[partida.QtdCartas - 1] = aux;
+                                    }
                                 }
                             }
 
