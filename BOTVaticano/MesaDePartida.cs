@@ -615,7 +615,7 @@ namespace BOTVaticano
 
 
                                     Panel painel = paineis[jogador.PosicaoJogadorNaMesa];
-                                    painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Visible = false;
+                                    painel.Controls[Int32.Parse(infoSeparadas[4]) - 1].Text = infoSeparadas[2];
                                 }
                                 contAposta++;
                             }

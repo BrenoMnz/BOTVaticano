@@ -49,8 +49,6 @@
             this.lvwJogadores = new System.Windows.Forms.ListView();
             this.clhJogador = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clhPontos = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lstJogadas = new System.Windows.Forms.ListBox();
-            this.lblJogadas = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblVezJogador = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -82,8 +80,6 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnIniciarPartida);
             this.panel1.Controls.Add(this.lvwJogadores);
-            this.panel1.Controls.Add(this.lstJogadas);
-            this.panel1.Controls.Add(this.lblJogadas);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.lblVezJogador);
             this.panel1.Controls.Add(this.label11);
@@ -168,27 +164,6 @@
             // 
             this.clhPontos.Text = "Pontuação";
             this.clhPontos.Width = 81;
-            // 
-            // lstJogadas
-            // 
-            this.lstJogadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstJogadas.FormattingEnabled = true;
-            this.lstJogadas.Location = new System.Drawing.Point(12, 271);
-            this.lstJogadas.Name = "lstJogadas";
-            this.lstJogadas.Size = new System.Drawing.Size(241, 342);
-            this.lstJogadas.TabIndex = 7;
-            this.lstJogadas.Visible = false;
-            // 
-            // lblJogadas
-            // 
-            this.lblJogadas.AutoSize = true;
-            this.lblJogadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJogadas.Location = new System.Drawing.Point(8, 242);
-            this.lblJogadas.Name = "lblJogadas";
-            this.lblJogadas.Size = new System.Drawing.Size(70, 20);
-            this.lblJogadas.TabIndex = 6;
-            this.lblJogadas.Text = "Jogadas";
-            this.lblJogadas.Visible = false;
             // 
             // label15
             // 
@@ -480,8 +455,6 @@
         private System.Windows.Forms.ListView lvwJogadores;
         private System.Windows.Forms.ColumnHeader clhJogador;
         private System.Windows.Forms.ColumnHeader clhPontos;
-        private System.Windows.Forms.ListBox lstJogadas;
-        private System.Windows.Forms.Label lblJogadas;
         private System.Windows.Forms.Button btnIniciarPartida;
         private System.Windows.Forms.Panel pnlJogador2;
         private System.Windows.Forms.Panel pnlJogador3;
