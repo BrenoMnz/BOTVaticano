@@ -597,9 +597,9 @@ namespace BOTVaticano
                         }
                     }
 
+                    int contJogadas = 0;
                     foreach (string info in partida.Vez)
                     {
-                        int contJogadas = 0;
                         if (contAposta != partida.QtdJogadores)
                         {
 
@@ -640,6 +640,7 @@ namespace BOTVaticano
                             contJogadas++;
                         }
                     }
+                    contJogadas = 0;
                     if (contAposta <= partida.QtdJogadores)
                     {
                         contAposta = 0;
