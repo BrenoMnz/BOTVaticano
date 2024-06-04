@@ -200,12 +200,6 @@ namespace BOTVaticano
                     
                 }
             }
-
-            lstJogadas.Items.Clear();
-            foreach (string info in partida.Vez)
-            {
-                lstJogadas.Items.Add(info);
-            }
             
             partida.AtualizarPrimeiraJogada();
         }
@@ -696,9 +690,6 @@ namespace BOTVaticano
             }
 
             btnIniciarPartida.Visible = false;
-
-            lblJogadas.Visible = true;
-            lstJogadas.Visible = true;
         }
         private async void timer1_Tick(object sender, EventArgs e)
         {
