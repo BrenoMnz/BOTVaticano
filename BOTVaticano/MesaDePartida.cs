@@ -204,13 +204,8 @@ namespace BOTVaticano
             {
                 lstJogadas.Items.Add(info);
             }
-
-            const int PRIMEIRAJOGADA = 7;
-
-            if ((partida.Vez).Length <= PRIMEIRAJOGADA)
-            {
-                partida.AtualizarPrimeiraJogada();
-            }
+            
+            partida.AtualizarPrimeiraJogada();
         }
 
         private void SepararCartas()//OK

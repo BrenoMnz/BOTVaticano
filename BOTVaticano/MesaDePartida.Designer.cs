@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -145,10 +145,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 121);
             this.lvwJogadores.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lvwJogadores.Name = "lvwJogadores";
@@ -204,12 +204,12 @@
             // 
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(98, 39);
+            this.lblVezJogador.Location = new System.Drawing.Point(63, 38);
             this.lblVezJogador.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblVezJogador.MaximumSize = new System.Drawing.Size(75, 16);
-            this.lblVezJogador.MinimumSize = new System.Drawing.Size(75, 16);
+            this.lblVezJogador.MaximumSize = new System.Drawing.Size(150, 16);
+            this.lblVezJogador.MinimumSize = new System.Drawing.Size(150, 16);
             this.lblVezJogador.Name = "lblVezJogador";
-            this.lblVezJogador.Size = new System.Drawing.Size(75, 16);
+            this.lblVezJogador.Size = new System.Drawing.Size(150, 16);
             this.lblVezJogador.TabIndex = 1;
             this.lblVezJogador.Text = "Jogador";
             this.lblVezJogador.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -227,9 +227,9 @@
             // 
             // panelJogadas
             // 
-            this.panelJogadas.Location = new System.Drawing.Point(329, 288);
+            this.panelJogadas.Location = new System.Drawing.Point(349, 285);
             this.panelJogadas.Name = "panelJogadas";
-            this.panelJogadas.Size = new System.Drawing.Size(350, 100);
+            this.panelJogadas.Size = new System.Drawing.Size(304, 100);
             this.panelJogadas.TabIndex = 4;
             // 
             // lblJogador3
