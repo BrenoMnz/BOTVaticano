@@ -238,39 +238,39 @@ namespace BOTVaticano
                         jogador.Cartas.Add(cartaJogador);
                     }
                 }
+            }
 
-                if (cartas.Length < partida.QtdCartas * partida.QtdJogadores)
+            if (cartas.Length < partida.QtdCartas * partida.QtdJogadores)
+            {
+                string cartasJogadas = Jogo.ExibirJogadas2(Int32.Parse(IdPartida), partida.Round);
+                cartasJogadas = cartasJogadas.Replace("\r", "");
+                string[] cartasJogadasSeparadas = cartasJogadas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
+
+                foreach (string cartaJogada in cartasJogadasSeparadas)
                 {
-                    string cartasJogadas = Jogo.ExibirJogadas2(Int32.Parse(IdPartida) , partida.Round);
-                    cartasJogadas = cartasJogadas.Replace("\r", "");
-                    string[] cartasJogadasSeparadas = cartasJogadas.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
+                    string[] cartaJogadaSeparada = cartaJogada.Split(',');
 
-                    foreach (string cartaJogada in cartasJogadasSeparadas)
+                    foreach (Jogador jogador in listaJogadores)
                     {
-                        string[] cartaJogadaSeparada = cartaJogada.Split(',');
-
-                        foreach (Jogador jogador in listaJogadores)
+                        if (Int32.Parse(cartaJogadaSeparada[1]) == jogador.IdJogador)
                         {
-                            if (Int32.Parse(cartaJogadaSeparada[1]) == jogador.IdJogador)
+                            Carta cartaJogador = new Carta(
+                                idJogador: Int32.Parse(cartaJogadaSeparada[1]),
+                                idCarta: Int32.Parse(cartaJogadaSeparada[4]),
+                                naipe: Char.Parse(cartaJogadaSeparada[2]));
+                            cartaJogador.Valor = Int32.Parse(cartaJogadaSeparada[3]);
+
+                            jogador.Cartas.Add(cartaJogador);
+
+                            if (cartaJogador.IdCarta != jogador.Cartas.IndexOf(cartaJogador) + 1)
                             {
-                                Carta cartaJogador = new Carta(
-                                    idJogador: Int32.Parse(cartaJogadaSeparada[1]),
-                                    idCarta: Int32.Parse(cartaJogadaSeparada[4]),
-                                    naipe: Char.Parse(cartaJogadaSeparada[2]));
-                                cartaJogador.Valor = Int32.Parse(cartaJogadaSeparada[3]);
+                                Carta aux = null;
 
-                                jogador.Cartas.Add(cartaJogador);
-
-                                if (cartaJogador.IdCarta != jogador.Cartas.IndexOf(cartaJogador) + 1)
+                                for (int i = cartaJogador.IdCarta - 1; i < jogador.Cartas.Count; i++)
                                 {
-                                    Carta aux = null;
-
-                                    for (int i = cartaJogador.IdCarta - 1; i < jogador.Cartas.Count; i++)
-                                    {
-                                        aux = jogador.Cartas[i];
-                                        jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
-                                        jogador.Cartas[partida.QtdCartas - 1] = aux;
-                                    }
+                                    aux = jogador.Cartas[i];
+                                    jogador.Cartas[i] = jogador.Cartas[partida.QtdCartas - 1];
+                                    jogador.Cartas[partida.QtdCartas - 1] = aux;
                                 }
                             }
                         }
