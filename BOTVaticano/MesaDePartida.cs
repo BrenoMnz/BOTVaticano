@@ -22,6 +22,7 @@ namespace BOTVaticano
         private bool ehPrimeiroJogador;
 
         private bool partidaComecou;
+        private int rodadaAtual;
         private int roundAtual;
 
         private int contAposta;
@@ -43,6 +44,7 @@ namespace BOTVaticano
             ehPrimeiroJogador = false;
 
             partidaComecou = false;
+            rodadaAtual = 1;
             roundAtual = 1;
 
             contAposta = 0;
@@ -490,12 +492,6 @@ namespace BOTVaticano
             {
                 panelJogadas.Controls.Clear();
             }
-            if (panelJogadas.Controls.Count == partida.QtdJogadores && partida.Acao == "Jogar")
-            {
-
-                panelJogadas.Controls.Clear();
-            }
-
 
             if (informacaoRodadas.Length != 0)
             {
@@ -567,10 +563,8 @@ namespace BOTVaticano
                 btn.ForeColor = Color.Black;
                 btn.Name = info2[1] + info2[4];
                 btn.Text = info2[3];
-                partida.AtualizarVez();
 
-
-                if (panelJogadas.Controls.Count == 0 && Int32.Parse(info2[0]) == partida.Rodada)
+                if (panelJogadas.Controls.Count == 0)
                 {
                     panelJogadas.Controls.Add(btn);
                 }
@@ -694,8 +688,10 @@ namespace BOTVaticano
                         txtVencedores.Visible = true;
 
                         List<string> listaVencedores = new List<string>();
+                        string palavra = "";
                         if (partida.Status == "F")
                         {
+                            palavra = "é o vencedor!";
                             string idVencedor = partida.Vez[0].Split(',')[1]; 
                             foreach (Jogador jogador in listaJogadores)
                             {
@@ -707,6 +703,7 @@ namespace BOTVaticano
                         }
                         if (partida.Status == "E")
                         {
+                            palavra = "empataram!";
                             string listaPontuacao = Jogo.ListarJogadores2(Int32.Parse(IdPartida));
                             listaPontuacao = listaPontuacao.Replace("\r", "");
                             string[] jogadores = listaPontuacao.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
@@ -748,7 +745,7 @@ namespace BOTVaticano
                             txtVencedores.Text += jogador + "\r\n";
                         }
 
-                        txtVencedores.Text += "teste";
+                        txtVencedores.Text += palavra;
 
                     } else
                     {
@@ -778,11 +775,18 @@ namespace BOTVaticano
                             }
 
                         }
+                        
+                        if (rodadaAtual < partida.Rodada)
+                        {
+                            panelJogadas.Controls.Clear();
+                            rodadaAtual = partida.Rodada;
+                        }
 
                         if (roundAtual < partida.Round)
                         {
                             cartaSelecionada = null;
                             contAposta = 0;
+                            rodadaAtual = 1;
                             roundAtual = partida.Round;
 
                             SepararCartas();
