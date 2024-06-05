@@ -705,8 +705,8 @@ namespace BOTVaticano
                     {
                         timer1.Stop();
 
-                        lblRound.Visible = true;
-                        lblNumRound.Visible = true;
+                        lblRound.Visible = false;
+                        lblNumRound.Visible = false;
 
                         lblIDJogador1.Visible = false;
                         lblIDJogador2.Visible = false;
