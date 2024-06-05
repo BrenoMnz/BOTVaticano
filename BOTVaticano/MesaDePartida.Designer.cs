@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 1",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 2",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 3",
             "42"}, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "Jogador 4",
             "42"}, -1);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -70,11 +70,15 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblPartidaFim = new System.Windows.Forms.Label();
             this.txtVencedores = new System.Windows.Forms.TextBox();
+            this.lblRound = new System.Windows.Forms.Label();
+            this.lblNumRound = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblNumRound);
+            this.panel1.Controls.Add(this.lblRound);
             this.panel1.Controls.Add(this.lblStatus);
             this.panel1.Controls.Add(this.lblDll);
             this.panel1.Controls.Add(this.label1);
@@ -92,7 +96,7 @@
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(96, 267);
+            this.lblStatus.Location = new System.Drawing.Point(96, 231);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblStatus.MaximumSize = new System.Drawing.Size(75, 16);
             this.lblStatus.MinimumSize = new System.Drawing.Size(75, 16);
@@ -141,10 +145,10 @@
             this.clhPontos});
             this.lvwJogadores.HideSelection = false;
             this.lvwJogadores.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4});
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8});
             this.lvwJogadores.Location = new System.Drawing.Point(12, 326);
             this.lvwJogadores.Margin = new System.Windows.Forms.Padding(2);
             this.lvwJogadores.Name = "lvwJogadores";
@@ -179,7 +183,7 @@
             // 
             this.lblVezJogador.AutoSize = true;
             this.lblVezJogador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVezJogador.Location = new System.Drawing.Point(61, 243);
+            this.lblVezJogador.Location = new System.Drawing.Point(58, 207);
             this.lblVezJogador.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVezJogador.MaximumSize = new System.Drawing.Size(150, 16);
             this.lblVezJogador.MinimumSize = new System.Drawing.Size(150, 16);
@@ -193,7 +197,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(80, 218);
+            this.label11.Location = new System.Drawing.Point(80, 178);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(116, 20);
@@ -399,6 +403,27 @@
             this.txtVencedores.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtVencedores.Visible = false;
             // 
+            // lblRound
+            // 
+            this.lblRound.AutoSize = true;
+            this.lblRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblRound.Location = new System.Drawing.Point(106, 67);
+            this.lblRound.Name = "lblRound";
+            this.lblRound.Size = new System.Drawing.Size(57, 20);
+            this.lblRound.TabIndex = 13;
+            this.lblRound.Text = "Round";
+            // 
+            // lblNumRound
+            // 
+            this.lblNumRound.AutoSize = true;
+            this.lblNumRound.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.lblNumRound.Location = new System.Drawing.Point(126, 99);
+            this.lblNumRound.Name = "lblNumRound";
+            this.lblNumRound.Size = new System.Drawing.Size(14, 16);
+            this.lblNumRound.TabIndex = 14;
+            this.lblNumRound.Text = "1";
+            this.lblNumRound.Visible = false;
+            // 
             // MesaDePartida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,5 +489,7 @@
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblPartidaFim;
         private System.Windows.Forms.TextBox txtVencedores;
+        private System.Windows.Forms.Label lblNumRound;
+        private System.Windows.Forms.Label lblRound;
     }
 }

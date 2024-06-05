@@ -639,6 +639,9 @@ namespace BOTVaticano
 
             partidaComecou = true;
 
+            lblRound.Visible = true;
+            lblNumRound.Visible = true;
+
             DefinirJogadores();
             AtualizarJogadores();
 
@@ -683,7 +686,7 @@ namespace BOTVaticano
                 }
             }
 
-            if (ehDivisivelPor1())
+            if (ehDivisivelPor3())
             {
 
                 if (partida.Status.Length == 1)
@@ -701,6 +704,9 @@ namespace BOTVaticano
                     if (partida.Status == "F" || partida.Status == "E")
                     {
                         timer1.Stop();
+
+                        lblRound.Visible = true;
+                        lblNumRound.Visible = true;
 
                         lblIDJogador1.Visible = false;
                         lblIDJogador2.Visible = false;
@@ -787,6 +793,7 @@ namespace BOTVaticano
                     } else
                     {
                         partida.AtualizarRound();
+                        lblNumRound.Text = partida.Round.ToString();
                         AtualizarCartaDaMao();
 
                         bot = ((Bot)listaJogadores[0]);
@@ -872,9 +879,9 @@ namespace BOTVaticano
             }
         }
 
-        private bool ehDivisivelPor1()//OK
+        private bool ehDivisivelPor3()//OK
         {
-            return (tempoSecreto % 1) == 0;
+            return (tempoSecreto % 3) == 0;
         }
 
         private bool ehIgualAZeroSecreto()//OK
