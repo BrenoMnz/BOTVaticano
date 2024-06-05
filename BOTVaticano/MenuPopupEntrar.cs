@@ -50,11 +50,8 @@ namespace BOTVaticano
             string senhaJogador = jogador[1];
 
 
-            MesaDePartida mesaPartida = new MesaDePartida();
+            MesaDePartida mesaPartida = new MesaDePartida(idPartida, idJogador, senhaJogador);
             mesaPartida.StartPosition = FormStartPosition.CenterParent;
-            mesaPartida.idJogador1 = idJogador; 
-            mesaPartida.senhaJogador = senhaJogador;
-            mesaPartida.idPartida = this.idPartida;
             mesaPartida.Show();
             Close();
             
