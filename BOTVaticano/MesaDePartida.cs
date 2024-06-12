@@ -26,6 +26,8 @@ namespace BOTVaticano
         private int rodadaAtual;
         private int roundAtual;
 
+        private bool telaFinal;
+
         private int contAposta;
         Carta cartaSelecionada;
 
@@ -47,6 +49,8 @@ namespace BOTVaticano
             partidaComecou = false;
             rodadaAtual = 1;
             roundAtual = 1;
+
+            telaFinal = false;
 
             contAposta = 0;
 
@@ -676,119 +680,127 @@ namespace BOTVaticano
             Bot bot = null;
 
             tempoSecreto--;
-
             if (ehDivisivelPor2())
             {
+                timer1.Stop();
                 if (!partidaComecou)
                 {
                     DefinirJogadores();
                     AtualizarDadosDaMesa();
                 }
+                timer1.Start();
             }
 
             if (ehDivisivelPor3())
             {
-
+                timer1.Stop();
                 if (partida.Status.Length == 1)
                 {
                     btnIniciarPartida.PerformClick();
                 }
-
-                AtualizarJogadores();
+                if (telaFinal == false)
+                {
+                    AtualizarJogadores();
+                }
 
                 if (partidaComecou)
                 {
 
                     AtualizarDadosDaMesa();
 
-                    if (partida.Status == "F" || partida.Status == "E")
+                    if ((partida.Status == "F" || partida.Status == "E"))
                     {
-                        timer1.Stop();
-
-                        lblRound.Visible = false;
-                        lblNumRound.Visible = false;
-
-                        lblIDJogador1.Visible = false;
-                        lblIDJogador2.Visible = false;
-                        lblIDJogador3.Visible = false;
-                        lblIDJogador4.Visible = false;
-
-                        lblJogador1.Visible = false;
                         lblJogador2.Visible = false;
-                        lblJogador3.Visible = false;
-                        lblJogador4.Visible = false;
-
-                        panelJogadas.Visible = false;
-
-                        pnlJogador1.Visible = false;
-                        pnlJogador2.Visible = false;
-                        pnlJogador3.Visible = false;
-                        pnlJogador4.Visible = false;
-
-                        panel1.Visible = false;
-
-                        lblPartidaFim.Visible = true;
-                        txtVencedores.Visible = true;
-
-                        List<string> listaVencedores = new List<string>();
-                        string palavra = "";
-                        if (partida.Status == "F")
+                        if (telaFinal == false)
                         {
-                            palavra = "é o vencedor!";
-                            string idVencedor = partida.Vez[0].Split(',')[1]; 
-                            foreach (Jogador jogador in listaJogadores)
+                            telaFinal = true;
+
+
+                            lblRound.Visible = false;
+                            lblNumRound.Visible = false;
+
+                            lblIDJogador1.Visible = false;
+                            lblIDJogador2.Visible = false;
+                            lblIDJogador3.Visible = false;
+                            lblIDJogador4.Visible = false;
+
+                            lblJogador1.Visible = false;
+                            lblJogador2.Visible = false;
+                            lblJogador3.Visible = false;
+                            lblJogador4.Visible = false;
+
+                            panelJogadas.Visible = false;
+
+                            pnlJogador1.Visible = false;
+                            pnlJogador2.Visible = false;
+                            pnlJogador3.Visible = false;
+                            pnlJogador4.Visible = false;
+
+                            panel1.Visible = false;
+
+                            lblPartidaFim.Visible = true;
+                            txtVencedores.Visible = true;
+
+                            List<string> listaVencedores = new List<string>();
+                            string palavra = "";
+                            if (partida.Status == "F")
                             {
-                                if (idVencedor == jogador.IdJogador.ToString())
+                                palavra = "é o vencedor!";
+                                string idVencedor = partida.Vez[0].Split(',')[1];
+                                foreach (Jogador jogador in listaJogadores)
                                 {
-                                    listaVencedores.Add(jogador.NomeJogador);
+                                    if (idVencedor == jogador.IdJogador.ToString())
+                                    {
+                                        listaVencedores.Add(jogador.NomeJogador);
+                                    }
                                 }
                             }
-                        }
-                        if (partida.Status == "E")
-                        {
-                            palavra = "empataram!";
-                            string listaPontuacao = Jogo.ListarJogadores2(Int32.Parse(IdPartida));
-                            listaPontuacao = listaPontuacao.Replace("\r", "");
-                            string[] jogadores = listaPontuacao.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
-
-                            int maiorPontuacao = -100;
-
-                            foreach (string jogador in jogadores)
+                            if (partida.Status == "E")
                             {
-                               string[] info = jogador.Split(',');
-                                if (Int32.Parse(info[2]) > maiorPontuacao)
+                                palavra = "empataram!";
+                                string listaPontuacao = Jogo.ListarJogadores2(Int32.Parse(IdPartida));
+                                listaPontuacao = listaPontuacao.Replace("\r", "");
+                                string[] jogadores = listaPontuacao.Split('\n').Where(c => !string.IsNullOrEmpty(c)).ToArray();
+
+                                int maiorPontuacao = -100;
+
+                                foreach (string jogador in jogadores)
                                 {
-                                    maiorPontuacao = Int32.Parse(info[2]);
+                                    string[] info = jogador.Split(',');
+                                    if (Int32.Parse(info[2]) > maiorPontuacao)
+                                    {
+                                        maiorPontuacao = Int32.Parse(info[2]);
+                                    }
+                                }
+
+                                foreach (string jogador in jogadores)
+                                {
+                                    string[] info = jogador.Split(',');
+                                    if (Int32.Parse(info[2]) == maiorPontuacao)
+                                    {
+                                        listaVencedores.Add(info[1]);
+                                    }
                                 }
                             }
 
-                            foreach (string jogador in jogadores)
+                            foreach (string jogador in listaVencedores)
                             {
-                                string[] info = jogador.Split(',');
-                                if (Int32.Parse(info[2]) == maiorPontuacao)
+                                foreach (Jogador j in listaJogadores)
                                 {
-                                    listaVencedores.Add(info[1]);
+                                    if (j.IdJogador.ToString() == jogador)
+                                    {
+                                        listaVencedores[listaVencedores.IndexOf(jogador)] = j.IdJogador.ToString();
+                                    }
                                 }
                             }
-                        }
 
-                        foreach (string jogador in listaVencedores)
-                        {
-                            foreach (Jogador j in listaJogadores)
+                            foreach (string jogador in listaVencedores)
                             {
-                                if (j.IdJogador.ToString() == jogador)
-                                {
-                                    listaVencedores[listaVencedores.IndexOf(jogador)] = j.IdJogador.ToString();
-                                }
+                                txtVencedores.Text += jogador + "\r\n";
                             }
-                        }
 
-                        foreach (string jogador in listaVencedores)
-                        {
-                            txtVencedores.Text += jogador + "\r\n";
+                            txtVencedores.Text += palavra;
                         }
-
-                        txtVencedores.Text += palavra;
 
                     } else
                     {
@@ -871,12 +883,14 @@ namespace BOTVaticano
 
                     
                 }
+                timer1.Start();
             }
             
             if (ehIgualAZeroSecreto())
             {
                 tempoSecreto = 3600;
             }
+
         }
 
         private bool ehDivisivelPor3()//OK
